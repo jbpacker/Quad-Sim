@@ -21,4 +21,4 @@ load('./Simulation Files/Path Command Files/Path_Triangle.mat');
 load('./Simulation Files/Quadcopter Structure Files/quadModel_+.mat');
 
 % open my current simulink model
-open_system('./Simulation Files/Block Library/humanMovementTest.slx');
+open_system('./Simulation Files/Block Library/kalmanTest.slx');
