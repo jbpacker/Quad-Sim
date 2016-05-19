@@ -482,7 +482,22 @@ if strcmp(mode,'Start')
     baseHuman.vertices(:,1) = baseHuman.vertices(:,1) + .5;
     baseHuman.vertices(:,2) = baseHuman.vertices(:,2) + .8;
     
-
+    %% human estimate
+    xEstimate = A(:,34);
+    yEstimate = A(:,35);
+    zEstimate = A(:,36);
+%     vxEstimate = A(:,37);
+%     vyEstimate = A(:,38);
+%     vzEstimate = A(:,39);
+    
+    xEstimateEKF = A(:,40);
+    yEstimateEKF = A(:,41);
+    zEstimateEKF = A(:,42);
+%     vxEstimateEKF = A(:,43);
+%     vyEstimateEKF = A(:,44);
+%     vzEstimateEKF = A(:,45);
+    
+    %% original plotting functions
     r = .5; d = 1.25; h = .25; %inches: rotor dia., quad motor distance from 
     % cm, and rotor height above arms (entirely cosmetic)
     a = 1; b = 1; c = 0.2;
@@ -695,7 +710,8 @@ if strcmp(mode,'Start')
         % Plot the three dimensional trajectory of the box
         if (j==1)
             cla(handles.axes2)
-        else if (handles.skipFlag==1)
+        else
+            if (handles.skipFlag==1)
                 cla(handles.axes2)
                 X = A(1:frameSkipVal:j,10)*3.28; 
                 Y = A(1:frameSkipVal:j,11)*3.28; 
@@ -712,6 +728,7 @@ if strcmp(mode,'Start')
         hold on
         scatter3(X,Y,Z,36,colors(j,:));
         
+        %% human
         rotateY = [cos(human_psi(j)) sin(human_psi(j)) 0;
                -sin(human_psi(j)) cos(human_psi(j)) 0; 
                0 0 1];
@@ -719,6 +736,12 @@ if strcmp(mode,'Start')
         human.vertices(:,1) = human.vertices(:,1) + human_x(j);
         human.vertices(:,2) = human.vertices(:,2) + human_y(j);
         human.vertices(:,3) = human.vertices(:,3) + human_z(j);
+        
+        %% human estimate
+        scatter3(X - xEstimate(j), Y - yEstimate(j), Z - zEstimate(j), 'r');
+        scatter3(X - xEstimateEKF(j), Y - yEstimateEKF(j), Z - zEstimateEKF(j), 'k');
+        
+        %% back to other stuff
         if exist('hu', 'var')
             delete(hu)
         end
