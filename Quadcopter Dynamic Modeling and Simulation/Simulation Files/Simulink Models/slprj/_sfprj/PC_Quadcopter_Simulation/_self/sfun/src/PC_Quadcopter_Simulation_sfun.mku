@@ -1,0 +1,86 @@
+#--------------------------- Tool Specifications -------------------------
+#
+# Modify the following macros to reflect the tools you wish to use for
+# compiling and linking your code.
+#
+CC = /home/matthew/Documents/ProgramInstallFiles/MatlabInstalled/bin/mex
+LD = $(CC)
+ 
+MACHINE     = PC_Quadcopter_Simulation
+TARGET      = sfun
+CHART_SRCS   = c2_PC_Quadcopter_Simulation.c
+MACHINE_SRC  = PC_Quadcopter_Simulation_sfun.c
+MACHINE_REG = PC_Quadcopter_Simulation_sfun_registry.c
+MAKEFILE    = PC_Quadcopter_Simulation_sfun.mku
+MATLAB_ROOT  = /home/matthew/Documents/ProgramInstallFiles/MatlabInstalled
+BUILDARGS   = 
+#------------------------------ Include/Lib Path ------------------------------
+ 
+USER_INCLUDES = 
+AUX_INCLUDES = 
+MLSLSF_INCLUDES  = \
+    -I"/home/matthew/Documents/ProgramInstallFiles/MatlabInstalled/extern/include" \
+    -I"/home/matthew/Documents/ProgramInstallFiles/MatlabInstalled/simulink/include" \
+    -I"/home/matthew/Documents/ProgramInstallFiles/MatlabInstalled/stateflow/c/mex/include" \
+    -I"/home/matthew/Documents/ProgramInstallFiles/MatlabInstalled/rtw/c/src" \
+    -I"/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Simulation Files/Simulink Models/slprj/_sfprj/PC_Quadcopter_Simulation/_self/sfun/src" 
+
+THIRD_PARTY_INCLUDES = 
+
+INCLUDE_PATH = $(USER_INCLUDES) $(AUX_INCLUDES) $(MLSLSF_INCLUDES) $(COMPILER_INCLUDES) $(THIRD_PARTY_INCLUDES)
+ 
+#----------------- Compiler and Linker Options --------------------------------
+ 
+# Optimization Options
+ 
+CC_OPTS = -O 
+CPP_REQ_DEFINES = -DMATLAB_MEX_FILE
+ 
+# Uncomment this line to move warning level to W4
+# cflags = $(cflags:W3=W4)
+CFLAGS = $(CC_OPTS) $(CPP_REQ_DEFINES) $(INCLUDE_PATH)
+ 
+LDFLAGS =  
+ 
+AUXLDFLAGS = 
+#----------------------------- Source Files -----------------------------------
+ 
+REQ_SRCS  = $(MACHINE_SRC) $(MACHINE_REG) $(CHART_SRCS)
+
+USER_ABS_OBJS =
+
+AUX_ABS_OBJS =
+THIRD_PARTY_OBJS =
+
+REQ_OBJS = $(REQ_SRCS:.cpp=.o)
+REQ_OBJS2 = $(REQ_OBJS:.c=.o)
+OBJS = $(REQ_OBJS2) $(USER_ABS_OBJS) $(AUX_ABS_OBJS) $(THIRD_PARTY_OBJS)
+OBJLIST_FILE = PC_Quadcopter_Simulation_sfun.mol
+SFCLIB = 
+AUX_LNK_OBJS = 
+USER_LIBS = 
+LINK_MACHINE_LIBS = 
+TMWLIB = -L/home/matthew/Documents/ProgramInstallFiles/MatlabInstalled/bin/glnxa64 -lmwsf_runtime -L/home/matthew/Documents/ProgramInstallFiles/MatlabInstalled/bin/glnxa64 -lfixedpoint -L/home/matthew/Documents/ProgramInstallFiles/MatlabInstalled/bin/glnxa64 -lut -L/home/matthew/Documents/ProgramInstallFiles/MatlabInstalled/bin/glnxa64 -lemlrt -L/home/matthew/Documents/ProgramInstallFiles/MatlabInstalled/bin/glnxa64 -lmwmathutil -L/home/matthew/Documents/ProgramInstallFiles/MatlabInstalled/bin/glnxa64 -lmwblas -L/home/matthew/Documents/ProgramInstallFiles/MatlabInstalled/bin/glnxa64 -lmwsl_log_load_blocks -L/home/matthew/Documents/ProgramInstallFiles/MatlabInstalled/bin/glnxa64 -lippmwipt 
+PARLIB = 
+  MAPCSF = /home/matthew/Documents/ProgramInstallFiles/MatlabInstalled/tools/glnxa64/mapcsf
+   # RUN_MAPCSF_ON_UNIX is defined only if MAPCSF exists on this platform.
+   ifneq ($(wildcard $(MAPCSF)),) # run MAPCSF if it exists on this platform
+      RUN_MAPCSF_ON_UNIX =  /home/matthew/Documents/ProgramInstallFiles/MatlabInstalled/tools/glnxa64/mapcsf $@
+   endif
+THIRD_PARTY_LIBS = 
+ 
+#--------------------------------- Rules --------------------------------------
+ 
+MEX_FILE_NAME = $(MACHINE)_$(TARGET).mexa64
+ 
+ $(MEX_FILE_NAME): $(MAKEFILE) $(OBJS) $(SFCLIB) $(AUX_LNK_OBJS) $(USER_LIBS)
+	@echo ### Linking ...
+	$(CC) -silent LDFLAGS="\$$LDFLAGS $(AUXLDFLAGS)" -output $(MEX_FILE_NAME) $(OBJS) $(AUX_LNK_OBJS) $(USER_LIBS) $(LINK_MACHINE_LIBS) $(SFCLIB) $(TMWLIB) $(PARLIB) $(IPPLIB) $(THIRD_PARTY_LIBS)
+	$(RUN_MAPCSF_ON_UNIX)
+
+%.o :    %.c
+	$(CC) -c $(CFLAGS) $<
+
+%.o :    %.cpp
+	$(CC) -c $(CFLAGS) $<
+
