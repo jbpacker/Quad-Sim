@@ -8,7 +8,7 @@ LD = $(CC)
  
 MACHINE     = PC_Quadcopter_SimulationPathPlanner
 TARGET      = sfun
-CHART_SRCS   = c1_PC_Quadcopter_SimulationPathPlanner.c c2_PC_Quadcopter_SimulationPathPlanner.c
+CHART_SRCS   = c1_PC_Quadcopter_SimulationPathPlanner.c c2_PC_Quadcopter_SimulationPathPlanner.c c3_PC_Quadcopter_SimulationPathPlanner.c
 MACHINE_SRC  = PC_Quadcopter_SimulationPathPlanner_sfun.c
 MACHINE_REG = PC_Quadcopter_SimulationPathPlanner_sfun_registry.c
 MAKEFILE    = PC_Quadcopter_SimulationPathPlanner_sfun.mku
