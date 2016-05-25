@@ -82,10 +82,10 @@ unsigned int sf_PC_Quadcopter_SimulationPathPlanner_process_check_sum_call( int
       ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(0U);
       ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(0U);
     } else if (!strcmp(commandName,"makefile")) {
-      ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(1091271907U);
-      ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(4007459125U);
-      ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(1421239769U);
-      ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(3645091433U);
+      ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(2901930842U);
+      ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(2190760943U);
+      ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(470297699U);
+      ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(3589915450U);
     } else if (nrhs==3 && !strcmp(commandName,"chart")) {
       unsigned int chartFileNumber;
       chartFileNumber = (unsigned int)mxGetScalar(prhs[2]);
@@ -121,18 +121,18 @@ unsigned int sf_PC_Quadcopter_SimulationPathPlanner_process_check_sum_call( int
         ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(0.0);
       }
     } else if (!strcmp(commandName,"target")) {
-      ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(2083502392U);
-      ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(1110276785U);
-      ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(3258378658U);
-      ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(3926592909U);
+      ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(3031367619U);
+      ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(4001028638U);
+      ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(3978939492U);
+      ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(838979348U);
     } else {
       return 0;
     }
   } else {
-    ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(3314412347U);
-    ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(3369259760U);
-    ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(1433859534U);
-    ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(3881561527U);
+    ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(2233616559U);
+    ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(2755771174U);
+    ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(516038498U);
+    ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(2401331665U);
   }
 
   return 1;
@@ -200,7 +200,7 @@ unsigned int sf_PC_Quadcopter_SimulationPathPlanner_autoinheritance_info( int
 
      case 3:
       {
-        if (strcmp(aiChksum, "MId26Yuz4T6mplnaF74W5F") == 0) {
+        if (strcmp(aiChksum, "u67pBcag2DP2kgykYX4eRG") == 0) {
           extern mxArray
             *sf_c3_PC_Quadcopter_SimulationPathPlanner_get_autoinheritance_info
             (void);
@@ -349,7 +349,7 @@ unsigned int sf_PC_Quadcopter_SimulationPathPlanner_third_party_uses_info( int
 
      case 3:
       {
-        if (strcmp(tpChksum, "TMbW3TT2FI281gZHr2GGzD") == 0) {
+        if (strcmp(tpChksum, "VXUkA6vcKhFDyZYfTRNdZG") == 0) {
           extern mxArray
             *sf_c3_PC_Quadcopter_SimulationPathPlanner_third_party_uses_info
             (void);
@@ -413,7 +413,7 @@ unsigned int sf_PC_Quadcopter_SimulationPathPlanner_updateBuildInfo_args_info
 
      case 3:
       {
-        if (strcmp(tpChksum, "TMbW3TT2FI281gZHr2GGzD") == 0) {
+        if (strcmp(tpChksum, "VXUkA6vcKhFDyZYfTRNdZG") == 0) {
           extern mxArray
             *sf_c3_PC_Quadcopter_SimulationPathPlanner_updateBuildInfo_args_info
             (void);

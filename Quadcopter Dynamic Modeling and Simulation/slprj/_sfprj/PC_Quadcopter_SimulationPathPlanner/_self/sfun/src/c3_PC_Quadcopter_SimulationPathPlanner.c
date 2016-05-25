@@ -19,9 +19,9 @@
 
 /* Variable Definitions */
 static real_T _sfTime_;
-static const char * c3_debug_family_names[14] = { "Xmax", "Ymax", "map",
-  "angleSpan", "angleStep", "rangeMax", "Tl", "p", "nargin", "nargout", "xq",
-  "yq", "r", "theta" };
+static const char * c3_debug_family_names[19] = { "lidarUpdateTime", "Xmax",
+  "Ymax", "map", "angleSpan", "angleStep", "rangeMax", "Tl", "p", "nargin",
+  "nargout", "xq", "yq", "t", "r", "theta", "prev_t", "prev_r", "prev_theta" };
 
 static const char * c3_b_debug_family_names[10] = { "x", "y", "th", "cth", "sth",
   "R", "nargin", "nargout", "a", "t" };
@@ -111,7 +111,7 @@ static void c3_c_emlrt_marshallIn
 static const mxArray *c3_sf_marshallOut(void *chartInstanceVoid, void *c3_inData);
 static void c3_d_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_theta, const char_T *c3_identifier, real_T c3_y[361]);
+   mxArray *c3_b_prev_theta, const char_T *c3_identifier, real_T c3_y[361]);
 static void c3_e_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
    mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[361]);
@@ -119,27 +119,39 @@ static void c3_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_b_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static real_T c3_f_emlrt_marshallIn
+static void c3_f_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId);
+   mxArray *c3_b_prev_r, const char_T *c3_identifier, real_T c3_y[361]);
+static void c3_g_emlrt_marshallIn
+  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[361]);
 static void c3_b_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_c_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
+static real_T c3_h_emlrt_marshallIn
+  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
+   mxArray *c3_b_prev_t, const char_T *c3_identifier);
+static real_T c3_i_emlrt_marshallIn
+  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId);
 static void c3_c_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_d_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static void c3_g_emlrt_marshallIn
+static void c3_j_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[722]);
+   mxArray *c3_theta, const char_T *c3_identifier, real_T c3_y[361]);
+static void c3_k_emlrt_marshallIn
+  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[361]);
 static void c3_d_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_e_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static void c3_h_emlrt_marshallIn
+static real_T c3_l_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[9]);
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId);
 static void c3_e_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_f_sf_marshallOut(void *chartInstanceVoid, void
@@ -148,103 +160,121 @@ static void c3_f_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_g_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static void c3_i_emlrt_marshallIn
+static void c3_m_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[3]);
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[722]);
 static void c3_g_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_h_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static void c3_j_emlrt_marshallIn
+static void c3_n_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[4]);
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[9]);
 static void c3_h_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_i_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static void c3_k_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[2]);
 static void c3_i_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_j_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static void c3_l_emlrt_marshallIn
+static void c3_o_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[4]);
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[3]);
 static void c3_j_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
-static const mxArray *c3_k_sf_marshallOut(void *chartInstanceVoid, real_T
-  c3_inData_data[], int32_T c3_inData_sizes[2]);
-static void c3_m_emlrt_marshallIn
+static const mxArray *c3_k_sf_marshallOut(void *chartInstanceVoid, void
+  *c3_inData);
+static void c3_p_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
-   int32_T c3_y_sizes[2]);
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[4]);
 static void c3_k_sf_marshallIn(void *chartInstanceVoid, const mxArray
-  *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
-  c3_outData_sizes[2]);
+  *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_l_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static boolean_T c3_n_emlrt_marshallIn
+static void c3_q_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId);
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[2]);
 static void c3_l_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_m_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static const mxArray *c3_n_sf_marshallOut(void *chartInstanceVoid, real_T
-  c3_inData_data[], int32_T *c3_inData_sizes);
-static void c3_o_emlrt_marshallIn
+static void c3_r_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
-   int32_T *c3_y_sizes);
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[4]);
 static void c3_m_sf_marshallIn(void *chartInstanceVoid, const mxArray
-  *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
-  *c3_outData_sizes);
-static const mxArray *c3_o_sf_marshallOut(void *chartInstanceVoid, real_T
+  *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
+static const mxArray *c3_n_sf_marshallOut(void *chartInstanceVoid, real_T
   c3_inData_data[], int32_T c3_inData_sizes[2]);
-static void c3_p_emlrt_marshallIn
+static void c3_s_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
    mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
    int32_T c3_y_sizes[2]);
 static void c3_n_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
   c3_outData_sizes[2]);
-static const mxArray *c3_p_sf_marshallOut(void *chartInstanceVoid, void
+static const mxArray *c3_o_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static const mxArray *c3_q_sf_marshallOut(void *chartInstanceVoid, void
-  *c3_inData);
-static void c3_q_emlrt_marshallIn
+static boolean_T c3_t_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[8]);
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId);
 static void c3_o_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
-static const mxArray *c3_r_sf_marshallOut(void *chartInstanceVoid, void
+static const mxArray *c3_p_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static const mxArray *c3_s_sf_marshallOut(void *chartInstanceVoid, real_T
-  c3_inData_data[], int32_T c3_inData_sizes[2]);
-static void c3_r_emlrt_marshallIn
+static const mxArray *c3_q_sf_marshallOut(void *chartInstanceVoid, real_T
+  c3_inData_data[], int32_T *c3_inData_sizes);
+static void c3_u_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
    mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
-   int32_T c3_y_sizes[2]);
+   int32_T *c3_y_sizes);
 static void c3_p_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
-  c3_outData_sizes[2]);
-static const mxArray *c3_t_sf_marshallOut(void *chartInstanceVoid, real_T
+  *c3_outData_sizes);
+static const mxArray *c3_r_sf_marshallOut(void *chartInstanceVoid, real_T
   c3_inData_data[], int32_T c3_inData_sizes[2]);
-static void c3_s_emlrt_marshallIn
+static void c3_v_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
    mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
    int32_T c3_y_sizes[2]);
 static void c3_q_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
   c3_outData_sizes[2]);
+static const mxArray *c3_s_sf_marshallOut(void *chartInstanceVoid, void
+  *c3_inData);
+static const mxArray *c3_t_sf_marshallOut(void *chartInstanceVoid, void
+  *c3_inData);
+static void c3_w_emlrt_marshallIn
+  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[8]);
+static void c3_r_sf_marshallIn(void *chartInstanceVoid, const mxArray
+  *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_u_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static void c3_t_emlrt_marshallIn
+static const mxArray *c3_v_sf_marshallOut(void *chartInstanceVoid, real_T
+  c3_inData_data[], int32_T c3_inData_sizes[2]);
+static void c3_x_emlrt_marshallIn
+  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
+   int32_T c3_y_sizes[2]);
+static void c3_s_sf_marshallIn(void *chartInstanceVoid, const mxArray
+  *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
+  c3_outData_sizes[2]);
+static const mxArray *c3_w_sf_marshallOut(void *chartInstanceVoid, real_T
+  c3_inData_data[], int32_T c3_inData_sizes[2]);
+static void c3_y_emlrt_marshallIn
+  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
+   int32_T c3_y_sizes[2]);
+static void c3_t_sf_marshallIn(void *chartInstanceVoid, const mxArray
+  *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
+  c3_outData_sizes[2]);
+static const mxArray *c3_x_sf_marshallOut(void *chartInstanceVoid, void
+  *c3_inData);
+static void c3_ab_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
    mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[3]);
-static void c3_r_sf_marshallIn(void *chartInstanceVoid, const mxArray
+static void c3_u_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static void c3_info_helper(const mxArray **c3_info);
 static const mxArray *c3_emlrt_marshallOut(const char * c3_u);
@@ -296,18 +326,18 @@ static real_T c3_mpower(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   *chartInstance, real_T c3_a);
 static void c3_eml_error(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *
   chartInstance);
-static const mxArray *c3_v_sf_marshallOut(void *chartInstanceVoid, void
+static const mxArray *c3_y_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static int32_T c3_u_emlrt_marshallIn
+static int32_T c3_bb_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
    mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId);
-static void c3_s_sf_marshallIn(void *chartInstanceVoid, const mxArray
+static void c3_v_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
-static uint8_T c3_v_emlrt_marshallIn
+static uint8_T c3_cb_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
    mxArray *c3_b_is_active_c3_PC_Quadcopter_SimulationPathPlanner, const char_T *
    c3_identifier);
-static uint8_T c3_w_emlrt_marshallIn
+static uint8_T c3_db_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
    mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId);
 static void c3_b_eml_xgemm
@@ -322,6 +352,9 @@ static void initialize_c3_PC_Quadcopter_SimulationPathPlanner
 {
   chartInstance->c3_sfEvent = CALL_EVENT;
   _sfTime_ = sf_get_time(chartInstance->S);
+  chartInstance->c3_prev_t_not_empty = false;
+  chartInstance->c3_prev_r_not_empty = false;
+  chartInstance->c3_prev_theta_not_empty = false;
   chartInstance->c3_is_active_c3_PC_Quadcopter_SimulationPathPlanner = 0U;
 }
 
@@ -360,9 +393,18 @@ static const mxArray *get_sim_state_c3_PC_Quadcopter_SimulationPathPlanner
   int32_T c3_i1;
   real_T c3_b_u[361];
   const mxArray *c3_c_y = NULL;
-  uint8_T c3_hoistedGlobal;
-  uint8_T c3_c_u;
+  int32_T c3_i2;
+  real_T c3_c_u[361];
   const mxArray *c3_d_y = NULL;
+  real_T c3_hoistedGlobal;
+  real_T c3_d_u;
+  const mxArray *c3_e_y = NULL;
+  int32_T c3_i3;
+  real_T c3_e_u[361];
+  const mxArray *c3_f_y = NULL;
+  uint8_T c3_b_hoistedGlobal;
+  uint8_T c3_f_u;
+  const mxArray *c3_g_y = NULL;
   real_T (*c3_theta)[361];
   real_T (*c3_r)[361];
   c3_theta = (real_T (*)[361])ssGetOutputPortSignal(chartInstance->S, 2);
@@ -370,7 +412,7 @@ static const mxArray *get_sim_state_c3_PC_Quadcopter_SimulationPathPlanner
   c3_st = NULL;
   c3_st = NULL;
   c3_y = NULL;
-  sf_mex_assign(&c3_y, sf_mex_createcellmatrix(3, 1), false);
+  sf_mex_assign(&c3_y, sf_mex_createcellmatrix(6, 1), false);
   for (c3_i0 = 0; c3_i0 < 361; c3_i0++) {
     c3_u[c3_i0] = (*c3_r)[c3_i0];
   }
@@ -386,12 +428,51 @@ static const mxArray *get_sim_state_c3_PC_Quadcopter_SimulationPathPlanner
   sf_mex_assign(&c3_c_y, sf_mex_create("y", c3_b_u, 0, 0U, 1U, 0U, 1, 361),
                 false);
   sf_mex_setcell(c3_y, 1, c3_c_y);
-  c3_hoistedGlobal =
-    chartInstance->c3_is_active_c3_PC_Quadcopter_SimulationPathPlanner;
-  c3_c_u = c3_hoistedGlobal;
+  for (c3_i2 = 0; c3_i2 < 361; c3_i2++) {
+    c3_c_u[c3_i2] = chartInstance->c3_prev_r[c3_i2];
+  }
+
   c3_d_y = NULL;
-  sf_mex_assign(&c3_d_y, sf_mex_create("y", &c3_c_u, 3, 0U, 0U, 0U, 0), false);
+  if (!chartInstance->c3_prev_r_not_empty) {
+    sf_mex_assign(&c3_d_y, sf_mex_create("y", NULL, 0, 0U, 1U, 0U, 2, 0, 0),
+                  false);
+  } else {
+    sf_mex_assign(&c3_d_y, sf_mex_create("y", c3_c_u, 0, 0U, 1U, 0U, 1, 361),
+                  false);
+  }
+
   sf_mex_setcell(c3_y, 2, c3_d_y);
+  c3_hoistedGlobal = chartInstance->c3_prev_t;
+  c3_d_u = c3_hoistedGlobal;
+  c3_e_y = NULL;
+  if (!chartInstance->c3_prev_t_not_empty) {
+    sf_mex_assign(&c3_e_y, sf_mex_create("y", NULL, 0, 0U, 1U, 0U, 2, 0, 0),
+                  false);
+  } else {
+    sf_mex_assign(&c3_e_y, sf_mex_create("y", &c3_d_u, 0, 0U, 0U, 0U, 0), false);
+  }
+
+  sf_mex_setcell(c3_y, 3, c3_e_y);
+  for (c3_i3 = 0; c3_i3 < 361; c3_i3++) {
+    c3_e_u[c3_i3] = chartInstance->c3_prev_theta[c3_i3];
+  }
+
+  c3_f_y = NULL;
+  if (!chartInstance->c3_prev_theta_not_empty) {
+    sf_mex_assign(&c3_f_y, sf_mex_create("y", NULL, 0, 0U, 1U, 0U, 2, 0, 0),
+                  false);
+  } else {
+    sf_mex_assign(&c3_f_y, sf_mex_create("y", c3_e_u, 0, 0U, 1U, 0U, 1, 361),
+                  false);
+  }
+
+  sf_mex_setcell(c3_y, 4, c3_f_y);
+  c3_b_hoistedGlobal =
+    chartInstance->c3_is_active_c3_PC_Quadcopter_SimulationPathPlanner;
+  c3_f_u = c3_b_hoistedGlobal;
+  c3_g_y = NULL;
+  sf_mex_assign(&c3_g_y, sf_mex_create("y", &c3_f_u, 3, 0U, 0U, 0U, 0), false);
+  sf_mex_setcell(c3_y, 5, c3_g_y);
   sf_mex_assign(&c3_st, c3_y, false);
   return c3_st;
 }
@@ -402,29 +483,47 @@ static void set_sim_state_c3_PC_Quadcopter_SimulationPathPlanner
 {
   const mxArray *c3_u;
   real_T c3_dv0[361];
-  int32_T c3_i2;
+  int32_T c3_i4;
   real_T c3_dv1[361];
-  int32_T c3_i3;
+  int32_T c3_i5;
+  real_T c3_dv2[361];
+  int32_T c3_i6;
+  real_T c3_dv3[361];
+  int32_T c3_i7;
   real_T (*c3_r)[361];
   real_T (*c3_theta)[361];
   c3_theta = (real_T (*)[361])ssGetOutputPortSignal(chartInstance->S, 2);
   c3_r = (real_T (*)[361])ssGetOutputPortSignal(chartInstance->S, 1);
   chartInstance->c3_doneDoubleBufferReInit = true;
   c3_u = sf_mex_dup(c3_st);
-  c3_d_emlrt_marshallIn(chartInstance, sf_mex_dup(sf_mex_getcell(c3_u, 0)), "r",
+  c3_j_emlrt_marshallIn(chartInstance, sf_mex_dup(sf_mex_getcell(c3_u, 0)), "r",
                         c3_dv0);
-  for (c3_i2 = 0; c3_i2 < 361; c3_i2++) {
-    (*c3_r)[c3_i2] = c3_dv0[c3_i2];
+  for (c3_i4 = 0; c3_i4 < 361; c3_i4++) {
+    (*c3_r)[c3_i4] = c3_dv0[c3_i4];
   }
 
-  c3_d_emlrt_marshallIn(chartInstance, sf_mex_dup(sf_mex_getcell(c3_u, 1)),
+  c3_j_emlrt_marshallIn(chartInstance, sf_mex_dup(sf_mex_getcell(c3_u, 1)),
                         "theta", c3_dv1);
-  for (c3_i3 = 0; c3_i3 < 361; c3_i3++) {
-    (*c3_theta)[c3_i3] = c3_dv1[c3_i3];
+  for (c3_i5 = 0; c3_i5 < 361; c3_i5++) {
+    (*c3_theta)[c3_i5] = c3_dv1[c3_i5];
+  }
+
+  c3_f_emlrt_marshallIn(chartInstance, sf_mex_dup(sf_mex_getcell(c3_u, 2)),
+                        "prev_r", c3_dv2);
+  for (c3_i6 = 0; c3_i6 < 361; c3_i6++) {
+    chartInstance->c3_prev_r[c3_i6] = c3_dv2[c3_i6];
+  }
+
+  chartInstance->c3_prev_t = c3_h_emlrt_marshallIn(chartInstance, sf_mex_dup
+    (sf_mex_getcell(c3_u, 3)), "prev_t");
+  c3_d_emlrt_marshallIn(chartInstance, sf_mex_dup(sf_mex_getcell(c3_u, 4)),
+                        "prev_theta", c3_dv3);
+  for (c3_i7 = 0; c3_i7 < 361; c3_i7++) {
+    chartInstance->c3_prev_theta[c3_i7] = c3_dv3[c3_i7];
   }
 
   chartInstance->c3_is_active_c3_PC_Quadcopter_SimulationPathPlanner =
-    c3_v_emlrt_marshallIn(chartInstance, sf_mex_dup(sf_mex_getcell(c3_u, 2)),
+    c3_cb_emlrt_marshallIn(chartInstance, sf_mex_dup(sf_mex_getcell(c3_u, 5)),
     "is_active_c3_PC_Quadcopter_SimulationPathPlanner");
   sf_mex_destroy(&c3_u);
   c3_update_debugger_state_c3_PC_Quadcopter_SimulationPathPlanner(chartInstance);
@@ -440,12 +539,14 @@ static void finalize_c3_PC_Quadcopter_SimulationPathPlanner
 static void sf_gateway_c3_PC_Quadcopter_SimulationPathPlanner
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance)
 {
-  int32_T c3_i4;
-  int32_T c3_i5;
+  int32_T c3_i8;
+  int32_T c3_i9;
   real_T *c3_xq;
   real_T *c3_yq;
+  real_T *c3_t;
   real_T (*c3_theta)[361];
   real_T (*c3_r)[361];
+  c3_t = (real_T *)ssGetInputPortSignal(chartInstance->S, 2);
   c3_theta = (real_T (*)[361])ssGetOutputPortSignal(chartInstance->S, 2);
   c3_yq = (real_T *)ssGetInputPortSignal(chartInstance->S, 1);
   c3_r = (real_T (*)[361])ssGetOutputPortSignal(chartInstance->S, 1);
@@ -460,14 +561,16 @@ static void sf_gateway_c3_PC_Quadcopter_SimulationPathPlanner
   _SFD_CHECK_FOR_STATE_INCONSISTENCY
     (_PC_Quadcopter_SimulationPathPlannerMachineNumber_,
      chartInstance->chartNumber, chartInstance->instanceNumber);
-  for (c3_i4 = 0; c3_i4 < 361; c3_i4++) {
-    _SFD_DATA_RANGE_CHECK((*c3_r)[c3_i4], 1U);
+  for (c3_i8 = 0; c3_i8 < 361; c3_i8++) {
+    _SFD_DATA_RANGE_CHECK((*c3_r)[c3_i8], 1U);
   }
 
   _SFD_DATA_RANGE_CHECK(*c3_yq, 2U);
-  for (c3_i5 = 0; c3_i5 < 361; c3_i5++) {
-    _SFD_DATA_RANGE_CHECK((*c3_theta)[c3_i5], 3U);
+  for (c3_i9 = 0; c3_i9 < 361; c3_i9++) {
+    _SFD_DATA_RANGE_CHECK((*c3_theta)[c3_i9], 3U);
   }
+
+  _SFD_DATA_RANGE_CHECK(*c3_t, 4U);
 }
 
 static void c3_chartstep_c3_PC_Quadcopter_SimulationPathPlanner
@@ -475,9 +578,12 @@ static void c3_chartstep_c3_PC_Quadcopter_SimulationPathPlanner
 {
   real_T c3_hoistedGlobal;
   real_T c3_b_hoistedGlobal;
+  real_T c3_c_hoistedGlobal;
   real_T c3_xq;
   real_T c3_yq;
-  uint32_T c3_debug_family_var_map[14];
+  real_T c3_t;
+  uint32_T c3_debug_family_var_map[19];
+  real_T c3_lidarUpdateTime;
   real_T c3_Xmax;
   real_T c3_Ymax;
   static c3_s2aqkGCuE38RBomNVWBcX1B c3_map;
@@ -487,30 +593,37 @@ static void c3_chartstep_c3_PC_Quadcopter_SimulationPathPlanner
   real_T c3_Tl[9];
   real_T c3_p[722];
   static real_T c3_b_map[10000];
-  real_T c3_nargin = 2.0;
+  real_T c3_nargin = 3.0;
   real_T c3_nargout = 2.0;
   real_T c3_r[361];
   real_T c3_theta[361];
   const mxArray *c3_y = NULL;
   static c3_s2aqkGCuE38RBomNVWBcX1B c3_r0;
-  int32_T c3_i6;
-  real_T c3_b_xq[3];
-  real_T c3_dv2[9];
-  int32_T c3_i7;
-  int32_T c3_i8;
-  real_T c3_b_Tl[9];
-  int32_T c3_i9;
-  real_T c3_c_map[10000];
-  real_T c3_dv3[722];
   int32_T c3_i10;
+  real_T c3_b_xq[3];
+  real_T c3_dv4[9];
   int32_T c3_i11;
   int32_T c3_i12;
+  real_T c3_b_Tl[9];
   int32_T c3_i13;
+  real_T c3_c_map[10000];
+  real_T c3_dv5[722];
   int32_T c3_i14;
+  int32_T c3_i15;
+  int32_T c3_i16;
+  int32_T c3_i17;
+  int32_T c3_i18;
+  int32_T c3_i19;
+  int32_T c3_i20;
+  int32_T c3_i21;
+  int32_T c3_i22;
   real_T *c3_c_xq;
   real_T *c3_b_yq;
+  real_T *c3_b_t;
   real_T (*c3_b_r)[361];
   real_T (*c3_b_theta)[361];
+  boolean_T guard1 = false;
+  c3_b_t = (real_T *)ssGetInputPortSignal(chartInstance->S, 2);
   c3_b_theta = (real_T (*)[361])ssGetOutputPortSignal(chartInstance->S, 2);
   c3_b_yq = (real_T *)ssGetInputPortSignal(chartInstance->S, 1);
   c3_b_r = (real_T (*)[361])ssGetOutputPortSignal(chartInstance->S, 1);
@@ -518,104 +631,163 @@ static void c3_chartstep_c3_PC_Quadcopter_SimulationPathPlanner
   _SFD_CC_CALL(CHART_ENTER_DURING_FUNCTION_TAG, 2U, chartInstance->c3_sfEvent);
   c3_hoistedGlobal = *c3_c_xq;
   c3_b_hoistedGlobal = *c3_b_yq;
+  c3_c_hoistedGlobal = *c3_b_t;
   c3_xq = c3_hoistedGlobal;
   c3_yq = c3_b_hoistedGlobal;
-  _SFD_SYMBOL_SCOPE_PUSH_EML(0U, 14U, 15U, c3_debug_family_names,
+  c3_t = c3_c_hoistedGlobal;
+  _SFD_SYMBOL_SCOPE_PUSH_EML(0U, 19U, 20U, c3_debug_family_names,
     c3_debug_family_var_map);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_Xmax, 0U, c3_b_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_Ymax, 1U, c3_b_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_lidarUpdateTime, 0U,
+    c3_e_sf_marshallOut, c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_Xmax, 1U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_Ymax, 2U, c3_e_sf_marshallOut);
   _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_map, MAX_uint32_T,
-    c3_f_sf_marshallOut, c3_f_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_angleSpan, 3U, c3_b_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_angleStep, 4U, c3_b_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_rangeMax, 5U, c3_b_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_Tl, 6U, c3_e_sf_marshallOut,
-    c3_e_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_p, 7U, c3_d_sf_marshallOut,
-    c3_d_sf_marshallIn);
+    c3_i_sf_marshallOut, c3_i_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_angleSpan, 4U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_angleStep, 5U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_rangeMax, 6U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_Tl, 7U, c3_h_sf_marshallOut,
+    c3_h_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_p, 8U, c3_g_sf_marshallOut,
+    c3_g_sf_marshallIn);
   _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_b_map, MAX_uint32_T,
+    c3_f_sf_marshallOut, c3_f_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargin, 9U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargout, 10U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_xq, 11U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_yq, 12U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_t, 13U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_r, 14U, c3_d_sf_marshallOut,
+    c3_d_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_theta, 15U, c3_d_sf_marshallOut,
+    c3_d_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&chartInstance->c3_prev_t, 16U,
     c3_c_sf_marshallOut, c3_c_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargin, 8U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargout, 9U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_xq, 10U, c3_b_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_yq, 11U, c3_b_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_r, 12U, c3_sf_marshallOut,
-    c3_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_theta, 13U, c3_sf_marshallOut,
-    c3_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(chartInstance->c3_prev_r, 17U,
+    c3_b_sf_marshallOut, c3_b_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(chartInstance->c3_prev_theta, 18U,
+    c3_sf_marshallOut, c3_sf_marshallIn);
   CV_EML_FCN(0, 0);
+  _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 2);
+  _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 3);
   _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 4);
-  c3_Xmax = 25.0;
-  _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 4);
-  c3_Ymax = 25.0;
-  _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 5);
-  _SFD_SYMBOL_SWITCH(2U, 2U);
-  c3_y = NULL;
-  sf_mex_assign(&c3_y, sf_mex_create("y",
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/ObstacleMap/map.mat",
-    15, 0U, 0U, 0U, 2, 1, strlen(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/ObstacleMap/map.mat")),
-                false);
-  c3_emlrt_marshallIn(chartInstance, sf_mex_call_debug
-                      (sfGlobalDebugInstanceStruct, "load", 1U, 1U, 14, c3_y),
-                      "load", &c3_r0);
-  c3_map = c3_r0;
-  _SFD_SYMBOL_SWITCH(2U, 2U);
   _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 6);
-  for (c3_i6 = 0; c3_i6 < 10000; c3_i6++) {
-    c3_b_map[c3_i6] = c3_map.map[c3_i6];
+  if (CV_EML_IF(0, 1, 0, !chartInstance->c3_prev_t_not_empty)) {
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 7);
+    chartInstance->c3_prev_t = 0.0;
+    chartInstance->c3_prev_t_not_empty = true;
   }
 
-  _SFD_SYMBOL_SWITCH(2U, 8U);
-  _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 8);
-  c3_angleSpan = 6.2831853071795862;
-  _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 8);
-  c3_angleStep = 0.017453292519943295;
-  _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 10);
-  c3_rangeMax = 50.0;
-  _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 13);
-  c3_b_xq[0] = c3_xq * 3.28;
-  c3_b_xq[1] = c3_yq * 3.28;
-  c3_b_xq[2] = 0.0;
-  c3_se2(chartInstance, c3_b_xq, c3_dv2);
-  for (c3_i7 = 0; c3_i7 < 9; c3_i7++) {
-    c3_Tl[c3_i7] = c3_dv2[c3_i7];
+  _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 11);
+  c3_lidarUpdateTime = 0.1;
+  _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 12);
+  guard1 = false;
+  if (CV_EML_COND(0, 1, 0, !chartInstance->c3_prev_r_not_empty)) {
+    guard1 = true;
+  } else if (CV_EML_COND(0, 1, 1, c3_t - chartInstance->c3_prev_t > 0.1)) {
+    guard1 = true;
+  } else {
+    CV_EML_MCDC(0, 1, 0, false);
+    CV_EML_IF(0, 1, 1, false);
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 37);
+    for (c3_i19 = 0; c3_i19 < 361; c3_i19++) {
+      c3_r[c3_i19] = chartInstance->c3_prev_r[c3_i19];
+    }
+
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 38);
+    for (c3_i20 = 0; c3_i20 < 361; c3_i20++) {
+      c3_theta[c3_i20] = chartInstance->c3_prev_theta[c3_i20];
+    }
   }
 
-  _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 17);
-  for (c3_i8 = 0; c3_i8 < 9; c3_i8++) {
-    c3_b_Tl[c3_i8] = c3_Tl[c3_i8];
+  if (guard1 == true) {
+    CV_EML_MCDC(0, 1, 0, true);
+    CV_EML_IF(0, 1, 1, true);
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 14);
+    c3_Xmax = 25.0;
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 14);
+    c3_Ymax = 25.0;
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 15);
+    _SFD_SYMBOL_SWITCH(3U, 3U);
+    c3_y = NULL;
+    sf_mex_assign(&c3_y, sf_mex_create("y", "./Lidar/ObstacleMap/map.mat", 15,
+      0U, 0U, 0U, 2, 1, strlen("./Lidar/ObstacleMap/map.mat")), false);
+    c3_emlrt_marshallIn(chartInstance, sf_mex_call_debug
+                        (sfGlobalDebugInstanceStruct, "load", 1U, 1U, 14, c3_y),
+                        "load", &c3_r0);
+    c3_map = c3_r0;
+    _SFD_SYMBOL_SWITCH(3U, 3U);
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 16);
+    for (c3_i10 = 0; c3_i10 < 10000; c3_i10++) {
+      c3_b_map[c3_i10] = c3_map.map[c3_i10];
+    }
+
+    _SFD_SYMBOL_SWITCH(3U, 9U);
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 18);
+    c3_angleSpan = 6.2831853071795862;
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 18);
+    c3_angleStep = 0.017453292519943295;
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 20);
+    c3_rangeMax = 50.0;
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 23);
+    c3_b_xq[0] = c3_xq * 3.28;
+    c3_b_xq[1] = c3_yq * 3.28;
+    c3_b_xq[2] = 0.0;
+    c3_se2(chartInstance, c3_b_xq, c3_dv4);
+    for (c3_i11 = 0; c3_i11 < 9; c3_i11++) {
+      c3_Tl[c3_i11] = c3_dv4[c3_i11];
+    }
+
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 27);
+    for (c3_i12 = 0; c3_i12 < 9; c3_i12++) {
+      c3_b_Tl[c3_i12] = c3_Tl[c3_i12];
+    }
+
+    for (c3_i13 = 0; c3_i13 < 10000; c3_i13++) {
+      c3_c_map[c3_i13] = c3_b_map[c3_i13];
+    }
+
+    c3_laserScanner(chartInstance, c3_b_Tl, c3_c_map, c3_dv5);
+    for (c3_i14 = 0; c3_i14 < 722; c3_i14++) {
+      c3_p[c3_i14] = c3_dv5[c3_i14];
+    }
+
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 32);
+    for (c3_i15 = 0; c3_i15 < 361; c3_i15++) {
+      c3_r[c3_i15] = c3_p[c3_i15 + 361];
+    }
+
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 32);
+    for (c3_i16 = 0; c3_i16 < 361; c3_i16++) {
+      c3_theta[c3_i16] = c3_p[c3_i16];
+    }
+
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 33);
+    for (c3_i17 = 0; c3_i17 < 361; c3_i17++) {
+      chartInstance->c3_prev_r[c3_i17] = c3_r[c3_i17];
+    }
+
+    chartInstance->c3_prev_r_not_empty = true;
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 34);
+    for (c3_i18 = 0; c3_i18 < 361; c3_i18++) {
+      chartInstance->c3_prev_theta[c3_i18] = c3_theta[c3_i18];
+    }
+
+    chartInstance->c3_prev_theta_not_empty = true;
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 35);
+    chartInstance->c3_prev_t = c3_t;
   }
 
-  for (c3_i9 = 0; c3_i9 < 10000; c3_i9++) {
-    c3_c_map[c3_i9] = c3_b_map[c3_i9];
-  }
-
-  c3_laserScanner(chartInstance, c3_b_Tl, c3_c_map, c3_dv3);
-  for (c3_i10 = 0; c3_i10 < 722; c3_i10++) {
-    c3_p[c3_i10] = c3_dv3[c3_i10];
-  }
-
-  _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 22);
-  for (c3_i11 = 0; c3_i11 < 361; c3_i11++) {
-    c3_r[c3_i11] = c3_p[c3_i11 + 361];
-  }
-
-  _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 22);
-  for (c3_i12 = 0; c3_i12 < 361; c3_i12++) {
-    c3_theta[c3_i12] = c3_p[c3_i12];
-  }
-
-  _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, -22);
+  _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, -38);
   _SFD_SYMBOL_SCOPE_POP();
-  for (c3_i13 = 0; c3_i13 < 361; c3_i13++) {
-    (*c3_b_r)[c3_i13] = c3_r[c3_i13];
+  for (c3_i21 = 0; c3_i21 < 361; c3_i21++) {
+    (*c3_b_r)[c3_i21] = c3_r[c3_i21];
   }
 
-  for (c3_i14 = 0; c3_i14 < 361; c3_i14++) {
-    (*c3_b_theta)[c3_i14] = c3_theta[c3_i14];
+  for (c3_i22 = 0; c3_i22 < 361; c3_i22++) {
+    (*c3_b_theta)[c3_i22] = c3_theta[c3_i22];
   }
 
   _SFD_CC_CALL(EXIT_OUT_OF_FUNCTION_TAG, 2U, chartInstance->c3_sfEvent);
@@ -639,41 +811,41 @@ static void c3_se2(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   real_T c3_R[4];
   real_T c3_nargin = 1.0;
   real_T c3_nargout = 1.0;
-  int32_T c3_i15;
-  static real_T c3_dv4[4] = { 1.0, 0.0, -0.0, 1.0 };
+  int32_T c3_i23;
+  static real_T c3_dv6[4] = { 1.0, 0.0, -0.0, 1.0 };
 
   real_T c3_b_x[2];
-  int32_T c3_i16;
-  int32_T c3_i17;
-  int32_T c3_i18;
-  int32_T c3_i19;
-  int32_T c3_i20;
-  int32_T c3_i21;
-  int32_T c3_i22;
-  static real_T c3_dv5[3] = { 0.0, 0.0, 1.0 };
+  int32_T c3_i24;
+  int32_T c3_i25;
+  int32_T c3_i26;
+  int32_T c3_i27;
+  int32_T c3_i28;
+  int32_T c3_i29;
+  int32_T c3_i30;
+  static real_T c3_dv7[3] = { 0.0, 0.0, 1.0 };
 
   _SFD_SYMBOL_SCOPE_PUSH_EML(0U, 10U, 10U, c3_b_debug_family_names,
     c3_debug_family_var_map);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_x, 0U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_y, 1U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_th, 2U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_cth, 3U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_sth, 4U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_R, 5U, c3_h_sf_marshallOut,
-    c3_h_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargin, 6U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargout, 7U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_a, 8U, c3_g_sf_marshallOut,
-    c3_g_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_t, 9U, c3_e_sf_marshallOut,
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_x, 0U, c3_e_sf_marshallOut,
     c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_y, 1U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_th, 2U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_cth, 3U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_sth, 4U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_R, 5U, c3_k_sf_marshallOut,
+    c3_k_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargin, 6U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargout, 7U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_a, 8U, c3_j_sf_marshallOut,
+    c3_j_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_t, 9U, c3_h_sf_marshallOut,
+    c3_h_sf_marshallIn);
   CV_SCRIPT_FCN(0, 0);
   _SFD_SCRIPT_CALL(0U, chartInstance->c3_sfEvent, 36);
   CV_SCRIPT_IF(0, 0, true);
@@ -688,32 +860,32 @@ static void c3_se2(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   _SFD_SCRIPT_CALL(0U, chartInstance->c3_sfEvent, 59);
   c3_sth = 0.0;
   _SFD_SCRIPT_CALL(0U, chartInstance->c3_sfEvent, 60);
-  for (c3_i15 = 0; c3_i15 < 4; c3_i15++) {
-    c3_R[c3_i15] = c3_dv4[c3_i15];
+  for (c3_i23 = 0; c3_i23 < 4; c3_i23++) {
+    c3_R[c3_i23] = c3_dv6[c3_i23];
   }
 
   _SFD_SCRIPT_CALL(0U, chartInstance->c3_sfEvent, 62);
   c3_b_x[0] = c3_x;
   c3_b_x[1] = c3_y;
-  c3_i16 = 0;
-  c3_i17 = 0;
-  for (c3_i18 = 0; c3_i18 < 2; c3_i18++) {
-    for (c3_i19 = 0; c3_i19 < 2; c3_i19++) {
-      c3_t[c3_i19 + c3_i16] = c3_R[c3_i19 + c3_i17];
+  c3_i24 = 0;
+  c3_i25 = 0;
+  for (c3_i26 = 0; c3_i26 < 2; c3_i26++) {
+    for (c3_i27 = 0; c3_i27 < 2; c3_i27++) {
+      c3_t[c3_i27 + c3_i24] = c3_R[c3_i27 + c3_i25];
     }
 
-    c3_i16 += 3;
-    c3_i17 += 2;
+    c3_i24 += 3;
+    c3_i25 += 2;
   }
 
-  for (c3_i20 = 0; c3_i20 < 2; c3_i20++) {
-    c3_t[c3_i20 + 6] = c3_b_x[c3_i20];
+  for (c3_i28 = 0; c3_i28 < 2; c3_i28++) {
+    c3_t[c3_i28 + 6] = c3_b_x[c3_i28];
   }
 
-  c3_i21 = 0;
-  for (c3_i22 = 0; c3_i22 < 3; c3_i22++) {
-    c3_t[c3_i21 + 2] = c3_dv5[c3_i22];
-    c3_i21 += 3;
+  c3_i29 = 0;
+  for (c3_i30 = 0; c3_i30 < 3; c3_i30++) {
+    c3_t[c3_i29 + 2] = c3_dv7[c3_i30];
+    c3_i29 += 3;
   }
 
   _SFD_SCRIPT_CALL(0U, chartInstance->c3_sfEvent, -62);
@@ -757,21 +929,21 @@ static void c3_laserScanner
   real_T c3_Ymax;
   real_T c3_nargin = 7.0;
   real_T c3_nargout = 1.0;
-  int32_T c3_i23;
-  int32_T c3_i24;
+  int32_T c3_i31;
+  int32_T c3_i32;
   real_T c3_b_a[9];
-  int32_T c3_i25;
-  int32_T c3_i26;
-  int32_T c3_i27;
-  real_T c3_dv6[9];
-  int32_T c3_i28;
+  int32_T c3_i33;
+  int32_T c3_i34;
+  int32_T c3_i35;
+  real_T c3_dv8[9];
+  int32_T c3_i36;
   static real_T c3_b[3] = { 0.0, 0.0, 1.0 };
 
-  real_T c3_dv7[3];
-  int32_T c3_i29;
-  real_T c3_dv8[9];
-  int32_T c3_i30;
   real_T c3_dv9[3];
+  int32_T c3_i37;
+  real_T c3_dv10[9];
+  int32_T c3_i38;
+  real_T c3_dv11[3];
   real_T c3_b_J1;
   real_T c3_b_I1;
   int32_T c3_c_a;
@@ -779,35 +951,35 @@ static void c3_laserScanner
   real_T c3_b_x;
   real_T c3_c_x;
   real_T c3_d_x;
-  int32_T c3_i31;
-  real_T c3_b_Xl[3];
-  int32_T c3_i32;
-  real_T c3_b_b[3];
-  int32_T c3_i33;
-  int32_T c3_i34;
-  int32_T c3_i35;
-  real_T c3_dv10[9];
-  int32_T c3_i36;
-  real_T c3_dv11[3];
-  int32_T c3_i37;
-  real_T c3_dv12[9];
-  int32_T c3_i38;
-  real_T c3_dv13[3];
-  real_T c3_b_x1[4];
-  real_T c3_dv14[4];
   int32_T c3_i39;
+  real_T c3_b_Xl[3];
+  int32_T c3_i40;
+  real_T c3_b_b[3];
+  int32_T c3_i41;
+  int32_T c3_i42;
+  int32_T c3_i43;
+  real_T c3_dv12[9];
+  int32_T c3_i44;
+  real_T c3_dv13[3];
+  int32_T c3_i45;
+  real_T c3_dv14[9];
+  int32_T c3_i46;
+  real_T c3_dv15[3];
+  real_T c3_b_x1[4];
+  real_T c3_dv16[4];
+  int32_T c3_i47;
   real_T c3_b_J2;
   real_T c3_b_I2;
   real_T c3_c_I1[2];
   real_T c3_c_I2[2];
-  int32_T c3_i40;
+  int32_T c3_i48;
   real_T c3_b_map[10000];
   int32_T c3_tmp_sizes[2];
   real_T c3_tmp_data[2];
   int32_T c3_Pxel;
   int32_T c3_b_Pxel;
   int32_T c3_loop_ub;
-  int32_T c3_i41;
+  int32_T c3_i49;
   real_T c3_e_x;
   boolean_T c3_c_b;
   real_T c3_f_x;
@@ -837,67 +1009,67 @@ static void c3_laserScanner
   boolean_T guard1 = false;
   _SFD_SYMBOL_SCOPE_PUSH_EML(0U, 34U, 34U, c3_i_debug_family_names,
     c3_debug_family_var_map);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_N, 0U, c3_b_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_R, 1U, c3_b_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_C, 2U, c3_b_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_i, 3U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_P1, 4U, c3_u_sf_marshallOut,
-    c3_r_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_x1, 5U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_y1, 6U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_I1, 7U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_J1, 8U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_a, 9U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_Xl, 10U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_Yl, 11U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_P2, 12U, c3_u_sf_marshallOut,
-    c3_r_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_x2, 13U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_y2, 14U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_edge, 15U, c3_j_sf_marshallOut,
-    c3_j_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_I2, 16U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_J2, 17U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_DYN_IMPORTABLE(c3_Pxel_data, (const int32_T *)
-    &c3_Pxel_sizes, NULL, 0, 18, (void *)c3_t_sf_marshallOut, (void *)
-    c3_q_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_Io, 19U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_Jo, 20U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_xTarget, 21U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_yTarget, 22U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_r, 23U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_angleSpan, 24U, c3_b_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_angleStep, 25U, c3_b_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_rangeMax, 26U, c3_b_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_Xmax, 27U, c3_b_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_Ymax, 28U, c3_b_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargin, 29U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargout, 30U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_Tl, 31U, c3_e_sf_marshallOut,
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_N, 0U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_R, 1U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_C, 2U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_i, 3U, c3_e_sf_marshallOut,
     c3_e_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_map, 32U, c3_c_sf_marshallOut,
-    c3_c_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_p, 33U, c3_d_sf_marshallOut,
-    c3_d_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_P1, 4U, c3_x_sf_marshallOut,
+    c3_u_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_x1, 5U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_y1, 6U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_I1, 7U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_J1, 8U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_a, 9U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_Xl, 10U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_Yl, 11U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_P2, 12U, c3_x_sf_marshallOut,
+    c3_u_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_x2, 13U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_y2, 14U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_edge, 15U, c3_m_sf_marshallOut,
+    c3_m_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_I2, 16U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_J2, 17U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_DYN_IMPORTABLE(c3_Pxel_data, (const int32_T *)
+    &c3_Pxel_sizes, NULL, 0, 18, (void *)c3_w_sf_marshallOut, (void *)
+    c3_t_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_Io, 19U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_Jo, 20U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_xTarget, 21U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_yTarget, 22U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_r, 23U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_angleSpan, 24U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_angleStep, 25U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_rangeMax, 26U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_Xmax, 27U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_Ymax, 28U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargin, 29U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargout, 30U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_Tl, 31U, c3_h_sf_marshallOut,
+    c3_h_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_map, 32U, c3_f_sf_marshallOut,
+    c3_f_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_p, 33U, c3_g_sf_marshallOut,
+    c3_g_sf_marshallIn);
   c3_Ymax = 25.0;
   c3_Xmax = 25.0;
   c3_rangeMax = 50.0;
@@ -907,8 +1079,8 @@ static void c3_laserScanner
   _SFD_SCRIPT_CALL(1U, chartInstance->c3_sfEvent, 6);
   c3_N = 361.0;
   _SFD_SCRIPT_CALL(1U, chartInstance->c3_sfEvent, 7);
-  for (c3_i23 = 0; c3_i23 < 722; c3_i23++) {
-    c3_p[c3_i23] = 0.0;
+  for (c3_i31 = 0; c3_i31 < 722; c3_i31++) {
+    c3_p[c3_i31] = 0.0;
   }
 
   _SFD_SCRIPT_CALL(1U, chartInstance->c3_sfEvent, 8);
@@ -917,37 +1089,37 @@ static void c3_laserScanner
   _SFD_SCRIPT_CALL(1U, chartInstance->c3_sfEvent, 9);
   c3_i = 1.0;
   _SFD_SCRIPT_CALL(1U, chartInstance->c3_sfEvent, 11);
-  for (c3_i24 = 0; c3_i24 < 9; c3_i24++) {
-    c3_b_a[c3_i24] = c3_Tl[c3_i24];
+  for (c3_i32 = 0; c3_i32 < 9; c3_i32++) {
+    c3_b_a[c3_i32] = c3_Tl[c3_i32];
   }
 
   c3_eml_scalar_eg(chartInstance);
   c3_eml_scalar_eg(chartInstance);
-  for (c3_i25 = 0; c3_i25 < 3; c3_i25++) {
-    c3_P1[c3_i25] = 0.0;
+  for (c3_i33 = 0; c3_i33 < 3; c3_i33++) {
+    c3_P1[c3_i33] = 0.0;
   }
 
-  for (c3_i26 = 0; c3_i26 < 3; c3_i26++) {
-    c3_P1[c3_i26] = 0.0;
+  for (c3_i34 = 0; c3_i34 < 3; c3_i34++) {
+    c3_P1[c3_i34] = 0.0;
   }
 
-  for (c3_i27 = 0; c3_i27 < 9; c3_i27++) {
-    c3_dv6[c3_i27] = c3_b_a[c3_i27];
+  for (c3_i35 = 0; c3_i35 < 9; c3_i35++) {
+    c3_dv8[c3_i35] = c3_b_a[c3_i35];
   }
 
-  for (c3_i28 = 0; c3_i28 < 3; c3_i28++) {
-    c3_dv7[c3_i28] = c3_b[c3_i28];
+  for (c3_i36 = 0; c3_i36 < 3; c3_i36++) {
+    c3_dv9[c3_i36] = c3_b[c3_i36];
   }
 
-  for (c3_i29 = 0; c3_i29 < 9; c3_i29++) {
-    c3_dv8[c3_i29] = c3_dv6[c3_i29];
+  for (c3_i37 = 0; c3_i37 < 9; c3_i37++) {
+    c3_dv10[c3_i37] = c3_dv8[c3_i37];
   }
 
-  for (c3_i30 = 0; c3_i30 < 3; c3_i30++) {
-    c3_dv9[c3_i30] = c3_dv7[c3_i30];
+  for (c3_i38 = 0; c3_i38 < 3; c3_i38++) {
+    c3_dv11[c3_i38] = c3_dv9[c3_i38];
   }
 
-  c3_b_eml_xgemm(chartInstance, c3_dv8, c3_dv9, c3_P1);
+  c3_b_eml_xgemm(chartInstance, c3_dv10, c3_dv11, c3_P1);
   _SFD_SCRIPT_CALL(1U, chartInstance->c3_sfEvent, 12);
   c3_x1 = c3_P1[0];
   _SFD_SCRIPT_CALL(1U, chartInstance->c3_sfEvent, 12);
@@ -974,44 +1146,44 @@ static void c3_laserScanner
     c3_d_x = muDoubleScalarSin(c3_d_x);
     c3_Yl = 50.0 * c3_d_x;
     _SFD_SCRIPT_CALL(1U, chartInstance->c3_sfEvent, 20);
-    for (c3_i31 = 0; c3_i31 < 9; c3_i31++) {
-      c3_b_a[c3_i31] = c3_Tl[c3_i31];
+    for (c3_i39 = 0; c3_i39 < 9; c3_i39++) {
+      c3_b_a[c3_i39] = c3_Tl[c3_i39];
     }
 
     c3_b_Xl[0] = c3_Xl;
     c3_b_Xl[1] = c3_Yl;
     c3_b_Xl[2] = 1.0;
-    for (c3_i32 = 0; c3_i32 < 3; c3_i32++) {
-      c3_b_b[c3_i32] = c3_b_Xl[c3_i32];
+    for (c3_i40 = 0; c3_i40 < 3; c3_i40++) {
+      c3_b_b[c3_i40] = c3_b_Xl[c3_i40];
     }
 
     c3_eml_scalar_eg(chartInstance);
     c3_eml_scalar_eg(chartInstance);
-    for (c3_i33 = 0; c3_i33 < 3; c3_i33++) {
-      c3_P2[c3_i33] = 0.0;
+    for (c3_i41 = 0; c3_i41 < 3; c3_i41++) {
+      c3_P2[c3_i41] = 0.0;
     }
 
-    for (c3_i34 = 0; c3_i34 < 3; c3_i34++) {
-      c3_P2[c3_i34] = 0.0;
+    for (c3_i42 = 0; c3_i42 < 3; c3_i42++) {
+      c3_P2[c3_i42] = 0.0;
     }
 
-    for (c3_i35 = 0; c3_i35 < 9; c3_i35++) {
-      c3_dv10[c3_i35] = c3_b_a[c3_i35];
+    for (c3_i43 = 0; c3_i43 < 9; c3_i43++) {
+      c3_dv12[c3_i43] = c3_b_a[c3_i43];
     }
 
-    for (c3_i36 = 0; c3_i36 < 3; c3_i36++) {
-      c3_dv11[c3_i36] = c3_b_b[c3_i36];
+    for (c3_i44 = 0; c3_i44 < 3; c3_i44++) {
+      c3_dv13[c3_i44] = c3_b_b[c3_i44];
     }
 
-    for (c3_i37 = 0; c3_i37 < 9; c3_i37++) {
-      c3_dv12[c3_i37] = c3_dv10[c3_i37];
+    for (c3_i45 = 0; c3_i45 < 9; c3_i45++) {
+      c3_dv14[c3_i45] = c3_dv12[c3_i45];
     }
 
-    for (c3_i38 = 0; c3_i38 < 3; c3_i38++) {
-      c3_dv13[c3_i38] = c3_dv11[c3_i38];
+    for (c3_i46 = 0; c3_i46 < 3; c3_i46++) {
+      c3_dv15[c3_i46] = c3_dv13[c3_i46];
     }
 
-    c3_b_eml_xgemm(chartInstance, c3_dv12, c3_dv13, c3_P2);
+    c3_b_eml_xgemm(chartInstance, c3_dv14, c3_dv15, c3_P2);
     _SFD_SCRIPT_CALL(1U, chartInstance->c3_sfEvent, 21);
     c3_x2 = c3_P2[0];
     _SFD_SCRIPT_CALL(1U, chartInstance->c3_sfEvent, 21);
@@ -1021,9 +1193,9 @@ static void c3_laserScanner
     c3_b_x1[1] = c3_y1;
     c3_b_x1[2] = c3_x2 - c3_x1;
     c3_b_x1[3] = c3_y2 - c3_y1;
-    c3_clipLine(chartInstance, c3_b_x1, c3_dv14);
-    for (c3_i39 = 0; c3_i39 < 4; c3_i39++) {
-      c3_edge[c3_i39] = c3_dv14[c3_i39];
+    c3_clipLine(chartInstance, c3_b_x1, c3_dv16);
+    for (c3_i47 = 0; c3_i47 < 4; c3_i47++) {
+      c3_edge[c3_i47] = c3_dv16[c3_i47];
     }
 
     _SFD_SCRIPT_CALL(1U, chartInstance->c3_sfEvent, 26);
@@ -1043,8 +1215,8 @@ static void c3_laserScanner
     c3_c_I1[1] = c3_J1;
     c3_c_I2[0] = c3_I2;
     c3_c_I2[1] = c3_J2;
-    for (c3_i40 = 0; c3_i40 < 10000; c3_i40++) {
-      c3_b_map[c3_i40] = c3_map[c3_i40];
+    for (c3_i48 = 0; c3_i48 < 10000; c3_i48++) {
+      c3_b_map[c3_i48] = c3_map[c3_i48];
     }
 
     c3_laserRange(chartInstance, c3_c_I1, c3_c_I2, c3_b_map, c3_tmp_data,
@@ -1054,8 +1226,8 @@ static void c3_laserScanner
     c3_Pxel = c3_Pxel_sizes[0];
     c3_b_Pxel = c3_Pxel_sizes[1];
     c3_loop_ub = c3_tmp_sizes[0] * c3_tmp_sizes[1] - 1;
-    for (c3_i41 = 0; c3_i41 <= c3_loop_ub; c3_i41++) {
-      c3_Pxel_data[c3_i41] = c3_tmp_data[c3_i41];
+    for (c3_i49 = 0; c3_i49 <= c3_loop_ub; c3_i49++) {
+      c3_Pxel_data[c3_i49] = c3_tmp_data[c3_i49];
     }
 
     _SFD_SCRIPT_CALL(1U, chartInstance->c3_sfEvent, 37);
@@ -1086,25 +1258,25 @@ static void c3_laserScanner
         _SFD_SYMBOL_SCOPE_PUSH_EML(0U, 10U, 10U, c3_h_debug_family_names,
           c3_b_debug_family_var_map);
         _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b_nargin, 0U,
-          c3_b_sf_marshallOut, c3_b_sf_marshallIn);
+          c3_e_sf_marshallOut, c3_e_sf_marshallIn);
         _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b_nargout, 1U,
-          c3_b_sf_marshallOut, c3_b_sf_marshallIn);
-        _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b_i, 2U, c3_b_sf_marshallOut,
-          c3_b_sf_marshallIn);
-        _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_j, 3U, c3_b_sf_marshallOut,
-          c3_b_sf_marshallIn);
-        _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b_Xmax, 4U, c3_b_sf_marshallOut,
-          c3_b_sf_marshallIn);
-        _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b_Ymax, 5U, c3_b_sf_marshallOut,
-          c3_b_sf_marshallIn);
-        _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b_R, 6U, c3_b_sf_marshallOut,
-          c3_b_sf_marshallIn);
-        _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b_C, 7U, c3_b_sf_marshallOut,
-          c3_b_sf_marshallIn);
+          c3_e_sf_marshallOut, c3_e_sf_marshallIn);
+        _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b_i, 2U, c3_e_sf_marshallOut,
+          c3_e_sf_marshallIn);
+        _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_j, 3U, c3_e_sf_marshallOut,
+          c3_e_sf_marshallIn);
+        _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b_Xmax, 4U, c3_e_sf_marshallOut,
+          c3_e_sf_marshallIn);
+        _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b_Ymax, 5U, c3_e_sf_marshallOut,
+          c3_e_sf_marshallIn);
+        _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b_R, 6U, c3_e_sf_marshallOut,
+          c3_e_sf_marshallIn);
+        _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b_C, 7U, c3_e_sf_marshallOut,
+          c3_e_sf_marshallIn);
         _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b_xTarget, 8U,
-          c3_b_sf_marshallOut, c3_b_sf_marshallIn);
+          c3_e_sf_marshallOut, c3_e_sf_marshallIn);
         _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b_yTarget, 9U,
-          c3_b_sf_marshallOut, c3_b_sf_marshallIn);
+          c3_e_sf_marshallOut, c3_e_sf_marshallIn);
         CV_SCRIPT_FCN(7, 0);
         _SFD_SCRIPT_CALL(7U, chartInstance->c3_sfEvent, 3);
         c3_A = 25.0 * (c3_b_i - 1.0);
@@ -1187,26 +1359,26 @@ static void c3_XYtoIJ(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   real_T c3_k_x;
   _SFD_SYMBOL_SCOPE_PUSH_EML(0U, 10U, 10U, c3_c_debug_family_names,
     c3_debug_family_var_map);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargin, 0U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargout, 1U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_x, 2U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_y, 3U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_Xmax, 4U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_Ymax, 5U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_R, 6U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_C, 7U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_i, 8U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_j, 9U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargin, 0U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargout, 1U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_x, 2U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_y, 3U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_Xmax, 4U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_Ymax, 5U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_R, 6U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_C, 7U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_i, 8U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_j, 9U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
   CV_SCRIPT_FCN(2, 0);
   _SFD_SCRIPT_CALL(2U, chartInstance->c3_sfEvent, 4);
   c3_A = 25.0 - c3_y;
@@ -1265,39 +1437,39 @@ static void c3_clipLine(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   real_T c3_box[4];
   real_T c3_nargin = 2.0;
   real_T c3_nargout = 1.0;
-  int32_T c3_i42;
-  static real_T c3_dv15[4] = { 0.0, 25.0, 0.0, 25.0 };
-
-  int32_T c3_i43;
-  int32_T c3_i44;
-  real_T c3_b_line[4];
-  real_T c3_dv16[4];
-  real_T c3_dv17[2];
-  int32_T c3_i45;
-  int32_T c3_i46;
-  real_T c3_c_line[4];
-  real_T c3_dv18[4];
-  real_T c3_dv19[2];
-  int32_T c3_i47;
-  int32_T c3_i48;
-  real_T c3_d_line[4];
-  real_T c3_dv20[4];
-  real_T c3_dv21[2];
-  int32_T c3_i49;
   int32_T c3_i50;
-  real_T c3_e_line[4];
-  real_T c3_dv22[4];
-  real_T c3_dv23[2];
+  static real_T c3_dv17[4] = { 0.0, 25.0, 0.0, 25.0 };
+
   int32_T c3_i51;
   int32_T c3_i52;
+  real_T c3_b_line[4];
+  real_T c3_dv18[4];
+  real_T c3_dv19[2];
   int32_T c3_i53;
   int32_T c3_i54;
+  real_T c3_c_line[4];
+  real_T c3_dv20[4];
+  real_T c3_dv21[2];
   int32_T c3_i55;
   int32_T c3_i56;
+  real_T c3_d_line[4];
+  real_T c3_dv22[4];
+  real_T c3_dv23[2];
   int32_T c3_i57;
   int32_T c3_i58;
+  real_T c3_e_line[4];
+  real_T c3_dv24[4];
+  real_T c3_dv25[2];
   int32_T c3_i59;
   int32_T c3_i60;
+  int32_T c3_i61;
+  int32_T c3_i62;
+  int32_T c3_i63;
+  int32_T c3_i64;
+  int32_T c3_i65;
+  int32_T c3_i66;
+  int32_T c3_i67;
+  int32_T c3_i68;
   real_T c3_b_points[4];
   boolean_T c3_x[4];
   int32_T c3_k;
@@ -1308,7 +1480,7 @@ static void c3_clipLine(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   const mxArray *c3_y = NULL;
   int32_T c3_iidx_sizes;
   int32_T c3_loop_ub;
-  int32_T c3_i61;
+  int32_T c3_i69;
   int32_T c3_iidx_data[4];
   int32_T c3_y_sizes;
   int32_T c3_j;
@@ -1317,16 +1489,16 @@ static void c3_clipLine(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   int32_T c3_y_data[4];
   int32_T c3_c_a;
   int32_T c3_d_a;
-  int32_T c3_i62;
+  int32_T c3_i70;
   int32_T c3_b_loop_ub;
-  int32_T c3_i63;
+  int32_T c3_i71;
   int32_T c3_point_sizes[2];
   int32_T c3_point;
   int32_T c3_b_point;
   int32_T c3_c_loop_ub;
-  int32_T c3_i64;
+  int32_T c3_i72;
   real_T c3_point_data[8];
-  int32_T c3_i65;
+  int32_T c3_i73;
   real_T c3_f_line[4];
   uint32_T c3_b_debug_family_var_map[12];
   real_T c3_vx;
@@ -1339,164 +1511,164 @@ static void c3_clipLine(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   boolean_T c3_invalidLine;
   real_T c3_b_nargin = 2.0;
   real_T c3_b_nargout = 1.0;
-  int32_T c3_i66;
+  int32_T c3_i74;
   int32_T c3_b_point_sizes;
   int32_T c3_d_loop_ub;
-  int32_T c3_i67;
+  int32_T c3_i75;
   real_T c3_b_point_data[4];
   int32_T c3_tmp_sizes;
   real_T c3_tmp_data[4];
   int32_T c3_e_loop_ub;
-  int32_T c3_i68;
-  int32_T c3_i69;
+  int32_T c3_i76;
+  int32_T c3_i77;
   int32_T c3_c_point_sizes;
   int32_T c3_f_loop_ub;
-  int32_T c3_i70;
+  int32_T c3_i78;
   real_T c3_c_point_data[4];
   int32_T c3_b_tmp_sizes;
   real_T c3_b_tmp_data[4];
   int32_T c3_g_loop_ub;
-  int32_T c3_i71;
-  real_T c3_dv24[1];
+  int32_T c3_i79;
+  real_T c3_dv26[1];
   int32_T c3_c_tmp_sizes[2];
   int32_T c3_c_tmp_data[1];
   int32_T c3_h_loop_ub;
-  int32_T c3_i72;
+  int32_T c3_i80;
   int32_T c3_b_dx_sizes;
   int32_T c3_i_loop_ub;
-  int32_T c3_i73;
+  int32_T c3_i81;
   real_T c3_b_dx_data[4];
   int32_T c3_x_sizes;
   real_T c3_x_data[4];
   int32_T c3_b_dy_sizes;
   int32_T c3_j_loop_ub;
-  int32_T c3_i74;
+  int32_T c3_i82;
   real_T c3_b_dy_data[4];
   int32_T c3_b_inds_sizes;
   real_T c3_b_inds_data[4];
   int32_T c3_b_x_sizes;
   int32_T c3_k_loop_ub;
-  int32_T c3_i75;
+  int32_T c3_i83;
   real_T c3_b_x_data[4];
   int32_T c3_d_tmp_sizes;
   real_T c3_d_tmp_data[4];
   int32_T c3_l_loop_ub;
-  int32_T c3_i76;
-  int32_T c3_i77;
+  int32_T c3_i84;
+  int32_T c3_i85;
   int32_T c3_m_loop_ub;
-  int32_T c3_i78;
+  int32_T c3_i86;
   int32_T c3_pos;
   int32_T c3_b_pos[2];
   int32_T c3_iidx[2];
   int32_T c3_n_loop_ub;
-  int32_T c3_i79;
+  int32_T c3_i87;
   int32_T c3_o_loop_ub;
-  int32_T c3_i80;
+  int32_T c3_i88;
   int32_T c3_e_tmp_sizes[2];
   int32_T c3_p_loop_ub;
-  int32_T c3_i81;
+  int32_T c3_i89;
   int32_T c3_c_x_sizes;
   int32_T c3_q_loop_ub;
-  int32_T c3_i82;
+  int32_T c3_i90;
   real_T c3_c_x_data[4];
   int32_T c3_r_loop_ub;
-  int32_T c3_i83;
+  int32_T c3_i91;
   int32_T c3_s_loop_ub;
-  int32_T c3_i84;
+  int32_T c3_i92;
   int32_T c3_t_loop_ub;
-  int32_T c3_i85;
+  int32_T c3_i93;
   int32_T c3_c_points;
   int32_T c3_b_points_sizes[2];
-  int32_T c3_i86;
+  int32_T c3_i94;
   int32_T c3_u_loop_ub;
-  int32_T c3_i87;
+  int32_T c3_i95;
   real_T c3_b_points_data[8];
-  int32_T c3_i88;
+  int32_T c3_i96;
   int32_T c3_v_loop_ub;
-  int32_T c3_i89;
+  int32_T c3_i97;
   real_T c3_A;
   real_T c3_b_x;
   real_T c3_c_x;
   real_T c3_d_x;
   int32_T c3_b_ind;
-  int32_T c3_i90;
+  int32_T c3_i98;
   int32_T c3_c_ind;
-  int32_T c3_i91;
-  int32_T c3_i92;
-  int32_T c3_i93;
-  int32_T c3_i94;
-  int32_T c3_i95;
+  int32_T c3_i99;
+  int32_T c3_i100;
+  int32_T c3_i101;
+  int32_T c3_i102;
+  int32_T c3_i103;
   real_T c3_b_edge[2];
   boolean_T c3_b0;
-  int32_T c3_i96;
-  int32_T c3_i97;
+  int32_T c3_i104;
+  int32_T c3_i105;
   real_T c3_c_edge[2];
   boolean_T c3_b1;
   boolean_T c3_b2;
-  int32_T c3_i98;
+  int32_T c3_i106;
   boolean_T guard1 = false;
   boolean_T guard2 = false;
   boolean_T guard3 = false;
   _SFD_SYMBOL_SCOPE_PUSH_EML(0U, 28U, 29U, c3_f_debug_family_names,
     c3_debug_family_var_map);
-  _SFD_SYMBOL_SCOPE_ADD_EML(NULL, 0U, c3_r_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_nLines, 1U, c3_b_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_nBoxes, 2U, c3_b_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_i, 3U, c3_b_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_xmin, 4U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_xmax, 5U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_ymin, 6U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_ymax, 7U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_delta, 8U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_px1, 9U, c3_i_sf_marshallOut,
-    c3_i_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_px2, 10U, c3_i_sf_marshallOut,
-    c3_i_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_py1, 11U, c3_i_sf_marshallOut,
-    c3_i_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_py2, 12U, c3_i_sf_marshallOut,
-    c3_i_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML(NULL, 0U, c3_u_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_nLines, 1U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_nBoxes, 2U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_i, 3U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_xmin, 4U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_xmax, 5U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_ymin, 6U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_ymax, 7U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_delta, 8U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_px1, 9U, c3_l_sf_marshallOut,
+    c3_l_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_px2, 10U, c3_l_sf_marshallOut,
+    c3_l_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_py1, 11U, c3_l_sf_marshallOut,
+    c3_l_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_py2, 12U, c3_l_sf_marshallOut,
+    c3_l_sf_marshallIn);
   _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_points, MAX_uint32_T,
-    c3_q_sf_marshallOut, c3_o_sf_marshallIn);
+    c3_t_sf_marshallOut, c3_r_sf_marshallIn);
   _SFD_SYMBOL_SCOPE_ADD_EML_DYN_IMPORTABLE(c3_pos_data, (const int32_T *)
-    &c3_pos_sizes, NULL, 0, 14, (void *)c3_n_sf_marshallOut, (void *)
-    c3_m_sf_marshallIn);
+    &c3_pos_sizes, NULL, 0, 14, (void *)c3_q_sf_marshallOut, (void *)
+    c3_p_sf_marshallIn);
   _SFD_SYMBOL_SCOPE_ADD_EML_DYN_IMPORTABLE(c3_inds_data, (const int32_T *)
-    &c3_inds_sizes, NULL, 0, 15, (void *)c3_n_sf_marshallOut, (void *)
-    c3_m_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_ind, 16U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_inter1, 17U, c3_i_sf_marshallOut,
-    c3_i_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_inter2, 18U, c3_i_sf_marshallOut,
-    c3_i_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_midX, 19U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_xOk, 20U, c3_l_sf_marshallOut,
+    &c3_inds_sizes, NULL, 0, 15, (void *)c3_q_sf_marshallOut, (void *)
+    c3_p_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_ind, 16U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_inter1, 17U, c3_l_sf_marshallOut,
     c3_l_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_midY, 21U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_yOk, 22U, c3_l_sf_marshallOut,
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_inter2, 18U, c3_l_sf_marshallOut,
     c3_l_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_midX, 19U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_xOk, 20U, c3_o_sf_marshallOut,
+    c3_o_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_midY, 21U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_yOk, 22U, c3_o_sf_marshallOut,
+    c3_o_sf_marshallIn);
   _SFD_SYMBOL_SCOPE_ADD_EML_DYN_IMPORTABLE(c3_points_data, (const int32_T *)
-    &c3_points_sizes, NULL, 0, -1, (void *)c3_o_sf_marshallOut, (void *)
-    c3_n_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML(c3_box, 23U, c3_j_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargin, 24U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargout, 25U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_line, 26U, c3_j_sf_marshallOut,
-    c3_j_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_edge, 27U, c3_j_sf_marshallOut,
-    c3_j_sf_marshallIn);
-  for (c3_i42 = 0; c3_i42 < 4; c3_i42++) {
-    c3_box[c3_i42] = c3_dv15[c3_i42];
+    &c3_points_sizes, NULL, 0, -1, (void *)c3_r_sf_marshallOut, (void *)
+    c3_q_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML(c3_box, 23U, c3_m_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargin, 24U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargout, 25U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_line, 26U, c3_m_sf_marshallOut,
+    c3_m_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_edge, 27U, c3_m_sf_marshallOut,
+    c3_m_sf_marshallIn);
+  for (c3_i50 = 0; c3_i50 < 4; c3_i50++) {
+    c3_box[c3_i50] = c3_dv17[c3_i50];
   }
 
   CV_SCRIPT_FCN(3, 0);
@@ -1519,8 +1691,8 @@ static void c3_clipLine(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   _SFD_SCRIPT_CALL(3U, chartInstance->c3_sfEvent, 53);
   c3_nLines = 1.0;
   _SFD_SCRIPT_CALL(3U, chartInstance->c3_sfEvent, 54);
-  for (c3_i43 = 0; c3_i43 < 4; c3_i43++) {
-    c3_edge[c3_i43] = 0.0;
+  for (c3_i51 = 0; c3_i51 < 4; c3_i51++) {
+    c3_edge[c3_i51] = 0.0;
   }
 
   _SFD_SCRIPT_CALL(3U, chartInstance->c3_sfEvent, 57);
@@ -1537,90 +1709,90 @@ static void c3_clipLine(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   _SFD_SCRIPT_CALL(3U, chartInstance->c3_sfEvent, 66);
   c3_delta = c3_hypot(chartInstance, c3_line[2], c3_line[3]);
   _SFD_SCRIPT_CALL(3U, chartInstance->c3_sfEvent, 69);
-  for (c3_i44 = 0; c3_i44 < 4; c3_i44++) {
-    c3_b_line[c3_i44] = c3_line[c3_i44];
+  for (c3_i52 = 0; c3_i52 < 4; c3_i52++) {
+    c3_b_line[c3_i52] = c3_line[c3_i52];
   }
 
-  c3_dv16[0] = 0.0;
-  c3_dv16[1] = 0.0;
-  c3_dv16[2] = c3_delta;
-  c3_dv16[3] = 0.0;
-  c3_intersectLines(chartInstance, c3_b_line, c3_dv16, c3_dv17);
-  for (c3_i45 = 0; c3_i45 < 2; c3_i45++) {
-    c3_px1[c3_i45] = c3_dv17[c3_i45];
+  c3_dv18[0] = 0.0;
+  c3_dv18[1] = 0.0;
+  c3_dv18[2] = c3_delta;
+  c3_dv18[3] = 0.0;
+  c3_intersectLines(chartInstance, c3_b_line, c3_dv18, c3_dv19);
+  for (c3_i53 = 0; c3_i53 < 2; c3_i53++) {
+    c3_px1[c3_i53] = c3_dv19[c3_i53];
   }
 
   _SFD_SCRIPT_CALL(3U, chartInstance->c3_sfEvent, 70);
-  for (c3_i46 = 0; c3_i46 < 4; c3_i46++) {
-    c3_c_line[c3_i46] = c3_line[c3_i46];
-  }
-
-  c3_dv18[0] = 25.0;
-  c3_dv18[1] = 0.0;
-  c3_dv18[2] = 0.0;
-  c3_dv18[3] = c3_delta;
-  c3_intersectLines(chartInstance, c3_c_line, c3_dv18, c3_dv19);
-  for (c3_i47 = 0; c3_i47 < 2; c3_i47++) {
-    c3_px2[c3_i47] = c3_dv19[c3_i47];
-  }
-
-  _SFD_SCRIPT_CALL(3U, chartInstance->c3_sfEvent, 71);
-  for (c3_i48 = 0; c3_i48 < 4; c3_i48++) {
-    c3_d_line[c3_i48] = c3_line[c3_i48];
+  for (c3_i54 = 0; c3_i54 < 4; c3_i54++) {
+    c3_c_line[c3_i54] = c3_line[c3_i54];
   }
 
   c3_dv20[0] = 25.0;
-  c3_dv20[1] = 25.0;
-  c3_dv20[2] = -c3_delta;
-  c3_dv20[3] = 0.0;
-  c3_intersectLines(chartInstance, c3_d_line, c3_dv20, c3_dv21);
-  for (c3_i49 = 0; c3_i49 < 2; c3_i49++) {
-    c3_py1[c3_i49] = c3_dv21[c3_i49];
+  c3_dv20[1] = 0.0;
+  c3_dv20[2] = 0.0;
+  c3_dv20[3] = c3_delta;
+  c3_intersectLines(chartInstance, c3_c_line, c3_dv20, c3_dv21);
+  for (c3_i55 = 0; c3_i55 < 2; c3_i55++) {
+    c3_px2[c3_i55] = c3_dv21[c3_i55];
+  }
+
+  _SFD_SCRIPT_CALL(3U, chartInstance->c3_sfEvent, 71);
+  for (c3_i56 = 0; c3_i56 < 4; c3_i56++) {
+    c3_d_line[c3_i56] = c3_line[c3_i56];
+  }
+
+  c3_dv22[0] = 25.0;
+  c3_dv22[1] = 25.0;
+  c3_dv22[2] = -c3_delta;
+  c3_dv22[3] = 0.0;
+  c3_intersectLines(chartInstance, c3_d_line, c3_dv22, c3_dv23);
+  for (c3_i57 = 0; c3_i57 < 2; c3_i57++) {
+    c3_py1[c3_i57] = c3_dv23[c3_i57];
   }
 
   _SFD_SCRIPT_CALL(3U, chartInstance->c3_sfEvent, 72);
-  for (c3_i50 = 0; c3_i50 < 4; c3_i50++) {
-    c3_e_line[c3_i50] = c3_line[c3_i50];
+  for (c3_i58 = 0; c3_i58 < 4; c3_i58++) {
+    c3_e_line[c3_i58] = c3_line[c3_i58];
   }
 
-  c3_dv22[0] = 0.0;
-  c3_dv22[1] = 25.0;
-  c3_dv22[2] = 0.0;
-  c3_dv22[3] = -c3_delta;
-  c3_intersectLines(chartInstance, c3_e_line, c3_dv22, c3_dv23);
-  for (c3_i51 = 0; c3_i51 < 2; c3_i51++) {
-    c3_py2[c3_i51] = c3_dv23[c3_i51];
+  c3_dv24[0] = 0.0;
+  c3_dv24[1] = 25.0;
+  c3_dv24[2] = 0.0;
+  c3_dv24[3] = -c3_delta;
+  c3_intersectLines(chartInstance, c3_e_line, c3_dv24, c3_dv25);
+  for (c3_i59 = 0; c3_i59 < 2; c3_i59++) {
+    c3_py2[c3_i59] = c3_dv25[c3_i59];
   }
 
   _SFD_SCRIPT_CALL(3U, chartInstance->c3_sfEvent, 75);
-  c3_i52 = 0;
-  for (c3_i53 = 0; c3_i53 < 2; c3_i53++) {
-    c3_points[c3_i52] = c3_px1[c3_i53];
-    c3_i52 += 4;
+  c3_i60 = 0;
+  for (c3_i61 = 0; c3_i61 < 2; c3_i61++) {
+    c3_points[c3_i60] = c3_px1[c3_i61];
+    c3_i60 += 4;
   }
 
-  c3_i54 = 0;
-  for (c3_i55 = 0; c3_i55 < 2; c3_i55++) {
-    c3_points[c3_i54 + 1] = c3_px2[c3_i55];
-    c3_i54 += 4;
+  c3_i62 = 0;
+  for (c3_i63 = 0; c3_i63 < 2; c3_i63++) {
+    c3_points[c3_i62 + 1] = c3_px2[c3_i63];
+    c3_i62 += 4;
   }
 
-  c3_i56 = 0;
-  for (c3_i57 = 0; c3_i57 < 2; c3_i57++) {
-    c3_points[c3_i56 + 2] = c3_py1[c3_i57];
-    c3_i56 += 4;
+  c3_i64 = 0;
+  for (c3_i65 = 0; c3_i65 < 2; c3_i65++) {
+    c3_points[c3_i64 + 2] = c3_py1[c3_i65];
+    c3_i64 += 4;
   }
 
-  c3_i58 = 0;
-  for (c3_i59 = 0; c3_i59 < 2; c3_i59++) {
-    c3_points[c3_i58 + 3] = c3_py2[c3_i59];
-    c3_i58 += 4;
+  c3_i66 = 0;
+  for (c3_i67 = 0; c3_i67 < 2; c3_i67++) {
+    c3_points[c3_i66 + 3] = c3_py2[c3_i67];
+    c3_i66 += 4;
   }
 
   _SFD_SYMBOL_SWITCH(13U, 13U);
   _SFD_SCRIPT_CALL(3U, chartInstance->c3_sfEvent, 76);
-  for (c3_i60 = 0; c3_i60 < 4; c3_i60++) {
-    c3_b_points[c3_i60] = c3_points[c3_i60];
+  for (c3_i68 = 0; c3_i68 < 4; c3_i68++) {
+    c3_b_points[c3_i68] = c3_points[c3_i68];
   }
 
   c3_isfinite(chartInstance, c3_b_points, c3_x);
@@ -1644,8 +1816,8 @@ static void c3_clipLine(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
 
   c3_iidx_sizes = (int32_T)_SFD_NON_NEGATIVE_CHECK("", (real_T)c3_k);
   c3_loop_ub = (int32_T)_SFD_NON_NEGATIVE_CHECK("", (real_T)c3_k) - 1;
-  for (c3_i61 = 0; c3_i61 <= c3_loop_ub; c3_i61++) {
-    c3_iidx_data[c3_i61] = 0;
+  for (c3_i69 = 0; c3_i69 <= c3_loop_ub; c3_i69++) {
+    c3_iidx_data[c3_i69] = 0;
   }
 
   c3_y_sizes = c3_iidx_sizes;
@@ -1663,11 +1835,11 @@ static void c3_clipLine(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
 
   c3_points_sizes[0] = c3_y_sizes;
   c3_points_sizes[1] = 2;
-  for (c3_i62 = 0; c3_i62 < 2; c3_i62++) {
+  for (c3_i70 = 0; c3_i70 < 2; c3_i70++) {
     c3_b_loop_ub = c3_y_sizes - 1;
-    for (c3_i63 = 0; c3_i63 <= c3_b_loop_ub; c3_i63++) {
-      c3_points_data[c3_i63 + c3_points_sizes[0] * c3_i62] = c3_points
-        [(c3_y_data[c3_i63] + (c3_i62 << 2)) - 1];
+    for (c3_i71 = 0; c3_i71 <= c3_b_loop_ub; c3_i71++) {
+      c3_points_data[c3_i71 + c3_points_sizes[0] * c3_i70] = c3_points
+        [(c3_y_data[c3_i71] + (c3_i70 << 2)) - 1];
     }
   }
 
@@ -1678,43 +1850,43 @@ static void c3_clipLine(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   c3_point = c3_point_sizes[0];
   c3_b_point = c3_point_sizes[1];
   c3_c_loop_ub = c3_points_sizes[0] * c3_points_sizes[1] - 1;
-  for (c3_i64 = 0; c3_i64 <= c3_c_loop_ub; c3_i64++) {
-    c3_point_data[c3_i64] = c3_points_data[c3_i64];
+  for (c3_i72 = 0; c3_i72 <= c3_c_loop_ub; c3_i72++) {
+    c3_point_data[c3_i72] = c3_points_data[c3_i72];
   }
 
-  for (c3_i65 = 0; c3_i65 < 4; c3_i65++) {
-    c3_f_line[c3_i65] = c3_line[c3_i65];
+  for (c3_i73 = 0; c3_i73 < 4; c3_i73++) {
+    c3_f_line[c3_i73] = c3_line[c3_i73];
   }
 
   _SFD_SYMBOL_SCOPE_PUSH_EML(0U, 12U, 12U, c3_e_debug_family_names,
     c3_b_debug_family_var_map);
-  _SFD_SYMBOL_SCOPE_ADD_EML(NULL, 0U, c3_p_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_vx, 1U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_vy, 2U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML(NULL, 0U, c3_s_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_vx, 1U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_vy, 2U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
   _SFD_SYMBOL_SCOPE_ADD_EML_DYN_IMPORTABLE(c3_dx_data, (const int32_T *)
-    &c3_dx_sizes, NULL, 0, 3, (void *)c3_n_sf_marshallOut, (void *)
-    c3_m_sf_marshallIn);
+    &c3_dx_sizes, NULL, 0, 3, (void *)c3_q_sf_marshallOut, (void *)
+    c3_p_sf_marshallIn);
   _SFD_SYMBOL_SCOPE_ADD_EML_DYN_IMPORTABLE(c3_dy_data, (const int32_T *)
-    &c3_dy_sizes, NULL, 0, 4, (void *)c3_n_sf_marshallOut, (void *)
-    c3_m_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b_delta, 5U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_invalidLine, 6U, c3_l_sf_marshallOut,
-    c3_l_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b_nargin, 7U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b_nargout, 8U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
+    &c3_dy_sizes, NULL, 0, 4, (void *)c3_q_sf_marshallOut, (void *)
+    c3_p_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b_delta, 5U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_invalidLine, 6U, c3_o_sf_marshallOut,
+    c3_o_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b_nargin, 7U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b_nargout, 8U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
   _SFD_SYMBOL_SCOPE_ADD_EML_DYN_IMPORTABLE(c3_point_data, (const int32_T *)
-    &c3_point_sizes, NULL, 1, 9, (void *)c3_o_sf_marshallOut, (void *)
-    c3_n_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_f_line, 10U, c3_j_sf_marshallOut,
-    c3_j_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_DYN_IMPORTABLE(c3_pos_data, (const int32_T *)
-    &c3_pos_sizes, NULL, 0, 11, (void *)c3_n_sf_marshallOut, (void *)
+    &c3_point_sizes, NULL, 1, 9, (void *)c3_r_sf_marshallOut, (void *)
+    c3_q_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_f_line, 10U, c3_m_sf_marshallOut,
     c3_m_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_DYN_IMPORTABLE(c3_pos_data, (const int32_T *)
+    &c3_pos_sizes, NULL, 0, 11, (void *)c3_q_sf_marshallOut, (void *)
+    c3_p_sf_marshallIn);
   CV_SCRIPT_FCN(5, 0);
   _SFD_SCRIPT_CALL(5U, chartInstance->c3_sfEvent, 52);
   CV_SCRIPT_COND(5, 0, true);
@@ -1725,35 +1897,35 @@ static void c3_clipLine(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   _SFD_SCRIPT_CALL(5U, chartInstance->c3_sfEvent, 77);
   c3_vy = c3_f_line[3];
   _SFD_SCRIPT_CALL(5U, chartInstance->c3_sfEvent, 80);
-  c3_i66 = c3_point_sizes[0];
-  c3_b_point_sizes = c3_i66;
-  c3_d_loop_ub = c3_i66 - 1;
-  for (c3_i67 = 0; c3_i67 <= c3_d_loop_ub; c3_i67++) {
-    c3_b_point_data[c3_i67] = c3_point_data[c3_i67];
+  c3_i74 = c3_point_sizes[0];
+  c3_b_point_sizes = c3_i74;
+  c3_d_loop_ub = c3_i74 - 1;
+  for (c3_i75 = 0; c3_i75 <= c3_d_loop_ub; c3_i75++) {
+    c3_b_point_data[c3_i75] = c3_point_data[c3_i75];
   }
 
   c3_b_bsxfun(chartInstance, c3_b_point_data, c3_b_point_sizes, c3_f_line[0],
               c3_tmp_data, &c3_tmp_sizes);
   c3_dx_sizes = c3_tmp_sizes;
   c3_e_loop_ub = c3_tmp_sizes - 1;
-  for (c3_i68 = 0; c3_i68 <= c3_e_loop_ub; c3_i68++) {
-    c3_dx_data[c3_i68] = c3_tmp_data[c3_i68];
+  for (c3_i76 = 0; c3_i76 <= c3_e_loop_ub; c3_i76++) {
+    c3_dx_data[c3_i76] = c3_tmp_data[c3_i76];
   }
 
   _SFD_SCRIPT_CALL(5U, chartInstance->c3_sfEvent, 81);
-  c3_i69 = c3_point_sizes[0];
-  c3_c_point_sizes = c3_i69;
-  c3_f_loop_ub = c3_i69 - 1;
-  for (c3_i70 = 0; c3_i70 <= c3_f_loop_ub; c3_i70++) {
-    c3_c_point_data[c3_i70] = c3_point_data[c3_i70 + c3_point_sizes[0]];
+  c3_i77 = c3_point_sizes[0];
+  c3_c_point_sizes = c3_i77;
+  c3_f_loop_ub = c3_i77 - 1;
+  for (c3_i78 = 0; c3_i78 <= c3_f_loop_ub; c3_i78++) {
+    c3_c_point_data[c3_i78] = c3_point_data[c3_i78 + c3_point_sizes[0]];
   }
 
   c3_b_bsxfun(chartInstance, c3_c_point_data, c3_c_point_sizes, c3_f_line[1],
               c3_b_tmp_data, &c3_b_tmp_sizes);
   c3_dy_sizes = c3_b_tmp_sizes;
   c3_g_loop_ub = c3_b_tmp_sizes - 1;
-  for (c3_i71 = 0; c3_i71 <= c3_g_loop_ub; c3_i71++) {
-    c3_dy_data[c3_i71] = c3_b_tmp_data[c3_i71];
+  for (c3_i79 = 0; c3_i79 <= c3_g_loop_ub; c3_i79++) {
+    c3_dy_data[c3_i79] = c3_b_tmp_data[c3_i79];
   }
 
   _SFD_SCRIPT_CALL(5U, chartInstance->c3_sfEvent, 86);
@@ -1761,27 +1933,27 @@ static void c3_clipLine(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   _SFD_SCRIPT_CALL(5U, chartInstance->c3_sfEvent, 87);
   c3_invalidLine = (c3_b_delta < 2.2204460492503131E-16);
   _SFD_SCRIPT_CALL(5U, chartInstance->c3_sfEvent, 88);
-  c3_dv24[0] = c3_b_delta;
+  c3_dv26[0] = c3_b_delta;
   c3_eml_li_find(chartInstance, c3_invalidLine, c3_c_tmp_data, c3_c_tmp_sizes);
   c3_h_loop_ub = c3_c_tmp_sizes[0] * c3_c_tmp_sizes[1] - 1;
-  for (c3_i72 = 0; c3_i72 <= c3_h_loop_ub; c3_i72++) {
-    c3_dv24[c3_c_tmp_data[c3_i72] - 1] = 1.0;
+  for (c3_i80 = 0; c3_i80 <= c3_h_loop_ub; c3_i80++) {
+    c3_dv26[c3_c_tmp_data[c3_i80] - 1] = 1.0;
   }
 
-  c3_b_delta = c3_dv24[0];
+  c3_b_delta = c3_dv26[0];
   _SFD_SCRIPT_CALL(5U, chartInstance->c3_sfEvent, 92);
   c3_b_dx_sizes = c3_dx_sizes;
   c3_i_loop_ub = c3_dx_sizes - 1;
-  for (c3_i73 = 0; c3_i73 <= c3_i_loop_ub; c3_i73++) {
-    c3_b_dx_data[c3_i73] = c3_dx_data[c3_i73];
+  for (c3_i81 = 0; c3_i81 <= c3_i_loop_ub; c3_i81++) {
+    c3_b_dx_data[c3_i81] = c3_dx_data[c3_i81];
   }
 
   c3_c_bsxfun(chartInstance, c3_b_dx_data, c3_b_dx_sizes, c3_vx, c3_x_data,
               &c3_x_sizes);
   c3_b_dy_sizes = c3_dy_sizes;
   c3_j_loop_ub = c3_dy_sizes - 1;
-  for (c3_i74 = 0; c3_i74 <= c3_j_loop_ub; c3_i74++) {
-    c3_b_dy_data[c3_i74] = c3_dy_data[c3_i74];
+  for (c3_i82 = 0; c3_i82 <= c3_j_loop_ub; c3_i82++) {
+    c3_b_dy_data[c3_i82] = c3_dy_data[c3_i82];
   }
 
   c3_c_bsxfun(chartInstance, c3_b_dy_data, c3_b_dy_sizes, c3_vy, c3_b_inds_data,
@@ -1789,24 +1961,24 @@ static void c3_clipLine(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   _SFD_SIZE_EQ_CHECK_1D(c3_x_sizes, c3_b_inds_sizes);
   c3_b_x_sizes = c3_x_sizes;
   c3_k_loop_ub = c3_x_sizes - 1;
-  for (c3_i75 = 0; c3_i75 <= c3_k_loop_ub; c3_i75++) {
-    c3_b_x_data[c3_i75] = c3_x_data[c3_i75] + c3_b_inds_data[c3_i75];
+  for (c3_i83 = 0; c3_i83 <= c3_k_loop_ub; c3_i83++) {
+    c3_b_x_data[c3_i83] = c3_x_data[c3_i83] + c3_b_inds_data[c3_i83];
   }
 
   c3_d_bsxfun(chartInstance, c3_b_x_data, c3_b_x_sizes, c3_b_delta,
               c3_d_tmp_data, &c3_d_tmp_sizes);
   c3_pos_sizes = c3_d_tmp_sizes;
   c3_l_loop_ub = c3_d_tmp_sizes - 1;
-  for (c3_i76 = 0; c3_i76 <= c3_l_loop_ub; c3_i76++) {
-    c3_pos_data[c3_i76] = c3_d_tmp_data[c3_i76];
+  for (c3_i84 = 0; c3_i84 <= c3_l_loop_ub; c3_i84++) {
+    c3_pos_data[c3_i84] = c3_d_tmp_data[c3_i84];
   }
 
   _SFD_SCRIPT_CALL(5U, chartInstance->c3_sfEvent, 96);
-  c3_i77 = c3_pos_sizes;
-  c3_iidx_sizes = c3_i77;
-  c3_m_loop_ub = c3_i77 - 1;
-  for (c3_i78 = 0; c3_i78 <= c3_m_loop_ub; c3_i78++) {
-    c3_iidx_data[c3_i78] = 1 + c3_i78;
+  c3_i85 = c3_pos_sizes;
+  c3_iidx_sizes = c3_i85;
+  c3_m_loop_ub = c3_i85 - 1;
+  for (c3_i86 = 0; c3_i86 <= c3_m_loop_ub; c3_i86++) {
+    c3_iidx_data[c3_i86] = 1 + c3_i86;
   }
 
   c3_eml_li_find(chartInstance, c3_invalidLine, c3_c_tmp_data, c3_c_tmp_sizes);
@@ -1816,13 +1988,13 @@ static void c3_clipLine(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   c3_iidx[0] = c3_iidx_sizes;
   c3_iidx[1] = c3_c_tmp_sizes[1];
   c3_n_loop_ub = c3_iidx[1] - 1;
-  for (c3_i79 = 0; c3_i79 <= c3_n_loop_ub; c3_i79++) {
+  for (c3_i87 = 0; c3_i87 <= c3_n_loop_ub; c3_i87++) {
     c3_o_loop_ub = c3_iidx[0] - 1;
-    for (c3_i80 = 0; c3_i80 <= c3_o_loop_ub; c3_i80++) {
+    for (c3_i88 = 0; c3_i88 <= c3_o_loop_ub; c3_i88++) {
       c3_e_tmp_sizes[0] = c3_b_pos[0];
       c3_e_tmp_sizes[1] = c3_b_pos[1];
-      c3_pos_data[(c3_iidx_data[c3_i80] + c3_e_tmp_sizes[0] *
-                   (c3_c_tmp_data[c3_c_tmp_sizes[0] * c3_i79] - 1)) - 1] = 0.0;
+      c3_pos_data[(c3_iidx_data[c3_i88] + c3_e_tmp_sizes[0] *
+                   (c3_c_tmp_data[c3_c_tmp_sizes[0] * c3_i87] - 1)) - 1] = 0.0;
     }
   }
 
@@ -1831,56 +2003,56 @@ static void c3_clipLine(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   _SFD_SCRIPT_CALL(3U, chartInstance->c3_sfEvent, 80);
   c3_x_sizes = c3_pos_sizes;
   c3_p_loop_ub = c3_pos_sizes - 1;
-  for (c3_i81 = 0; c3_i81 <= c3_p_loop_ub; c3_i81++) {
-    c3_x_data[c3_i81] = c3_pos_data[c3_i81];
+  for (c3_i89 = 0; c3_i89 <= c3_p_loop_ub; c3_i89++) {
+    c3_x_data[c3_i89] = c3_pos_data[c3_i89];
   }
 
   c3_c_x_sizes = c3_x_sizes;
   c3_q_loop_ub = c3_x_sizes - 1;
-  for (c3_i82 = 0; c3_i82 <= c3_q_loop_ub; c3_i82++) {
-    c3_c_x_data[c3_i82] = c3_x_data[c3_i82];
+  for (c3_i90 = 0; c3_i90 <= c3_q_loop_ub; c3_i90++) {
+    c3_c_x_data[c3_i90] = c3_x_data[c3_i90];
   }
 
   c3_eml_sort(chartInstance, c3_c_x_data, c3_c_x_sizes, c3_x_data, &c3_x_sizes,
               c3_iidx_data, &c3_iidx_sizes);
   c3_b_inds_sizes = c3_iidx_sizes;
   c3_r_loop_ub = c3_iidx_sizes - 1;
-  for (c3_i83 = 0; c3_i83 <= c3_r_loop_ub; c3_i83++) {
-    c3_b_inds_data[c3_i83] = (real_T)c3_iidx_data[c3_i83];
+  for (c3_i91 = 0; c3_i91 <= c3_r_loop_ub; c3_i91++) {
+    c3_b_inds_data[c3_i91] = (real_T)c3_iidx_data[c3_i91];
   }
 
   c3_pos_sizes = c3_x_sizes;
   c3_s_loop_ub = c3_x_sizes - 1;
-  for (c3_i84 = 0; c3_i84 <= c3_s_loop_ub; c3_i84++) {
-    c3_pos_data[c3_i84] = c3_x_data[c3_i84];
+  for (c3_i92 = 0; c3_i92 <= c3_s_loop_ub; c3_i92++) {
+    c3_pos_data[c3_i92] = c3_x_data[c3_i92];
   }
 
   c3_inds_sizes = c3_b_inds_sizes;
   c3_t_loop_ub = c3_b_inds_sizes - 1;
-  for (c3_i85 = 0; c3_i85 <= c3_t_loop_ub; c3_i85++) {
-    c3_inds_data[c3_i85] = c3_b_inds_data[c3_i85];
+  for (c3_i93 = 0; c3_i93 <= c3_t_loop_ub; c3_i93++) {
+    c3_inds_data[c3_i93] = c3_b_inds_data[c3_i93];
   }
 
   _SFD_SCRIPT_CALL(3U, chartInstance->c3_sfEvent, 81);
   c3_c_points = c3_points_sizes[0];
   c3_b_points_sizes[0] = c3_inds_sizes;
   c3_b_points_sizes[1] = 2;
-  for (c3_i86 = 0; c3_i86 < 2; c3_i86++) {
+  for (c3_i94 = 0; c3_i94 < 2; c3_i94++) {
     c3_u_loop_ub = c3_inds_sizes - 1;
-    for (c3_i87 = 0; c3_i87 <= c3_u_loop_ub; c3_i87++) {
-      c3_b_points_data[c3_i87 + c3_b_points_sizes[0] * c3_i86] = c3_points_data
-        [(_SFD_EML_ARRAY_BOUNDS_CHECK("points", (int32_T)c3_inds_data[c3_i87], 1,
-           c3_c_points, 1, 0) + c3_points_sizes[0] * c3_i86) - 1];
+    for (c3_i95 = 0; c3_i95 <= c3_u_loop_ub; c3_i95++) {
+      c3_b_points_data[c3_i95 + c3_b_points_sizes[0] * c3_i94] = c3_points_data
+        [(_SFD_EML_ARRAY_BOUNDS_CHECK("points", (int32_T)c3_inds_data[c3_i95], 1,
+           c3_c_points, 1, 0) + c3_points_sizes[0] * c3_i94) - 1];
     }
   }
 
   c3_points_sizes[0] = c3_b_points_sizes[0];
   c3_points_sizes[1] = 2;
-  for (c3_i88 = 0; c3_i88 < 2; c3_i88++) {
+  for (c3_i96 = 0; c3_i96 < 2; c3_i96++) {
     c3_v_loop_ub = c3_b_points_sizes[0] - 1;
-    for (c3_i89 = 0; c3_i89 <= c3_v_loop_ub; c3_i89++) {
-      c3_points_data[c3_i89 + c3_points_sizes[0] * c3_i88] =
-        c3_b_points_data[c3_i89 + c3_b_points_sizes[0] * c3_i88];
+    for (c3_i97 = 0; c3_i97 <= c3_v_loop_ub; c3_i97++) {
+      c3_points_data[c3_i97 + c3_points_sizes[0] * c3_i96] =
+        c3_b_points_data[c3_i97 + c3_b_points_sizes[0] * c3_i96];
     }
   }
 
@@ -1894,31 +2066,31 @@ static void c3_clipLine(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   _SFD_SCRIPT_CALL(3U, chartInstance->c3_sfEvent, 85);
   c3_b_ind = _SFD_EML_ARRAY_BOUNDS_CHECK("points", (int32_T)_SFD_INTEGER_CHECK(
     "ind", c3_ind), 1, c3_points_sizes[0], 1, 0) - 1;
-  for (c3_i90 = 0; c3_i90 < 2; c3_i90++) {
-    c3_inter1[c3_i90] = c3_points_data[c3_b_ind + c3_points_sizes[0] * c3_i90];
+  for (c3_i98 = 0; c3_i98 < 2; c3_i98++) {
+    c3_inter1[c3_i98] = c3_points_data[c3_b_ind + c3_points_sizes[0] * c3_i98];
   }
 
   _SFD_SCRIPT_CALL(3U, chartInstance->c3_sfEvent, 86);
   c3_c_ind = _SFD_EML_ARRAY_BOUNDS_CHECK("points", (int32_T)(c3_ind + 1.0), 1,
     c3_points_sizes[0], 1, 0) - 1;
-  for (c3_i91 = 0; c3_i91 < 2; c3_i91++) {
-    c3_inter2[c3_i91] = c3_points_data[c3_c_ind + c3_points_sizes[0] * c3_i91];
+  for (c3_i99 = 0; c3_i99 < 2; c3_i99++) {
+    c3_inter2[c3_i99] = c3_points_data[c3_c_ind + c3_points_sizes[0] * c3_i99];
   }
 
   _SFD_SCRIPT_CALL(3U, chartInstance->c3_sfEvent, 87);
-  for (c3_i92 = 0; c3_i92 < 2; c3_i92++) {
-    c3_edge[c3_i92] = c3_inter1[c3_i92];
+  for (c3_i100 = 0; c3_i100 < 2; c3_i100++) {
+    c3_edge[c3_i100] = c3_inter1[c3_i100];
   }
 
-  for (c3_i93 = 0; c3_i93 < 2; c3_i93++) {
-    c3_edge[c3_i93 + 2] = c3_inter2[c3_i93];
+  for (c3_i101 = 0; c3_i101 < 2; c3_i101++) {
+    c3_edge[c3_i101 + 2] = c3_inter2[c3_i101];
   }
 
   _SFD_SCRIPT_CALL(3U, chartInstance->c3_sfEvent, 90);
-  c3_i94 = 0;
-  for (c3_i95 = 0; c3_i95 < 2; c3_i95++) {
-    c3_b_edge[c3_i95] = c3_edge[c3_i94];
-    c3_i94 += 2;
+  c3_i102 = 0;
+  for (c3_i103 = 0; c3_i103 < 2; c3_i103++) {
+    c3_b_edge[c3_i103] = c3_edge[c3_i102];
+    c3_i102 += 2;
   }
 
   c3_midX = c3_mean(chartInstance, c3_b_edge);
@@ -1940,10 +2112,10 @@ static void c3_clipLine(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
 
   c3_xOk = c3_b0;
   _SFD_SCRIPT_CALL(3U, chartInstance->c3_sfEvent, 92);
-  c3_i96 = 0;
-  for (c3_i97 = 0; c3_i97 < 2; c3_i97++) {
-    c3_c_edge[c3_i97] = c3_edge[c3_i96 + 1];
-    c3_i96 += 2;
+  c3_i104 = 0;
+  for (c3_i105 = 0; c3_i105 < 2; c3_i105++) {
+    c3_c_edge[c3_i105] = c3_edge[c3_i104 + 1];
+    c3_i104 += 2;
   }
 
   c3_midY = c3_mean(chartInstance, c3_c_edge);
@@ -1982,8 +2154,8 @@ static void c3_clipLine(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
 
   if (CV_SCRIPT_IF(3, 3, CV_SCRIPT_MCDC(3, 2, !c3_b2))) {
     _SFD_SCRIPT_CALL(3U, chartInstance->c3_sfEvent, 97);
-    for (c3_i98 = 0; c3_i98 < 4; c3_i98++) {
-      c3_edge[c3_i98] = rtNaN;
+    for (c3_i106 = 0; c3_i106 < 4; c3_i106++) {
+      c3_edge[c3_i106] = rtNaN;
     }
   }
 
@@ -2029,43 +2201,43 @@ static void c3_intersectLines
   real_T c3_b_y;
   boolean_T c3_b3;
   boolean_T c3_b_par;
-  real_T c3_dv25[1];
+  real_T c3_dv27[1];
   int32_T c3_tmp_sizes[2];
   int32_T c3_tmp_data[1];
   int32_T c3_loop_ub;
-  int32_T c3_i99;
-  real_T c3_dv26[1];
+  int32_T c3_i107;
+  real_T c3_dv28[1];
   int32_T c3_b_loop_ub;
-  int32_T c3_i100;
-  real_T c3_dv27[1];
+  int32_T c3_i108;
+  real_T c3_dv29[1];
   boolean_T c3_c_par;
   boolean_T c3_b4;
   int32_T c3_c_loop_ub;
-  int32_T c3_i101;
-  real_T c3_dv28[1];
+  int32_T c3_i109;
+  real_T c3_dv30[1];
   boolean_T c3_d_par;
   boolean_T c3_b5;
   int32_T c3_d_loop_ub;
-  int32_T c3_i102;
+  int32_T c3_i110;
   boolean_T c3_e_x;
   boolean_T c3_f_x;
   boolean_T c3_c_y;
-  int32_T c3_i103;
-  int32_T c3_i104;
-  int32_T c3_i105;
-  int32_T c3_i106;
+  int32_T c3_i111;
+  int32_T c3_i112;
+  int32_T c3_i113;
+  int32_T c3_i114;
   int32_T c3_e_loop_ub;
-  int32_T c3_i107;
+  int32_T c3_i115;
   int32_T c3_b_denom;
   int32_T c3_c_denom;
   int32_T c3_f_loop_ub;
-  int32_T c3_i108;
+  int32_T c3_i116;
   real_T c3_g_x;
   int32_T c3_y_sizes[2];
   int32_T c3_d_y;
   int32_T c3_e_y;
   int32_T c3_g_loop_ub;
-  int32_T c3_i109;
+  int32_T c3_i117;
   real_T c3_y_data[1];
   real_T c3_h_x;
   real_T c3_i_x;
@@ -2074,15 +2246,15 @@ static void c3_intersectLines
   int32_T c3_h_y;
   int32_T c3_i_y;
   int32_T c3_h_loop_ub;
-  int32_T c3_i110;
-  real_T c3_dv29[1];
+  int32_T c3_i118;
+  real_T c3_dv31[1];
   int32_T c3_i_loop_ub;
-  int32_T c3_i111;
+  int32_T c3_i119;
   real_T c3_j_x;
   int32_T c3_j_y;
   int32_T c3_k_y;
   int32_T c3_j_loop_ub;
-  int32_T c3_i112;
+  int32_T c3_i120;
   real_T c3_k_x;
   real_T c3_l_x;
   int32_T c3_l_y;
@@ -2090,63 +2262,63 @@ static void c3_intersectLines
   int32_T c3_n_y;
   int32_T c3_o_y;
   int32_T c3_k_loop_ub;
-  int32_T c3_i113;
-  real_T c3_dv30[1];
+  int32_T c3_i121;
+  real_T c3_dv32[1];
   int32_T c3_l_loop_ub;
-  int32_T c3_i114;
+  int32_T c3_i122;
   _SFD_SYMBOL_SCOPE_PUSH_EML(0U, 26U, 27U, c3_d_debug_family_names,
     c3_debug_family_var_map);
-  _SFD_SYMBOL_SCOPE_ADD_EML(NULL, 0U, c3_m_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_tol, 1U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_N1, 2U, c3_b_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_N2, 3U, c3_b_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_N, 4U, c3_b_sf_marshallOut);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_dx, 5U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_dy, 6U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML(NULL, 0U, c3_p_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_tol, 1U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_N1, 2U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_N2, 3U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML(&c3_N, 4U, c3_e_sf_marshallOut);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_dx, 5U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_dy, 6U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
   _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_denom, MAX_uint32_T,
-    c3_b_sf_marshallOut, c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_par, 8U, c3_l_sf_marshallOut,
-    c3_l_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_col, 9U, c3_l_sf_marshallOut,
-    c3_l_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_x0, 10U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_y0, 11U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_inds, 12U, c3_l_sf_marshallOut,
-    c3_l_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_x1, 13U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_y1, 14U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_dx1, 15U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_dy1, 16U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_x2, 17U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_y2, 18U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_dx2, 19U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_dy2, 20U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
+    c3_e_sf_marshallOut, c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_par, 8U, c3_o_sf_marshallOut,
+    c3_o_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_col, 9U, c3_o_sf_marshallOut,
+    c3_o_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_x0, 10U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_y0, 11U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_inds, 12U, c3_o_sf_marshallOut,
+    c3_o_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_x1, 13U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_y1, 14U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_dx1, 15U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_dy1, 16U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_x2, 17U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_y2, 18U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_dx2, 19U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_dy2, 20U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
   _SFD_SYMBOL_SCOPE_ADD_EML_DYN_IMPORTABLE(c3_denom_data, (const int32_T *)
-    &c3_denom_sizes, NULL, 0, -1, (void *)c3_k_sf_marshallOut, (void *)
-    c3_k_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargin, 21U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargout, 22U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_line1, 23U, c3_j_sf_marshallOut,
-    c3_j_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_line2, 24U, c3_j_sf_marshallOut,
-    c3_j_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_point, 25U, c3_i_sf_marshallOut,
-    c3_i_sf_marshallIn);
+    &c3_denom_sizes, NULL, 0, -1, (void *)c3_n_sf_marshallOut, (void *)
+    c3_n_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargin, 21U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargout, 22U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_line1, 23U, c3_m_sf_marshallOut,
+    c3_m_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_line2, 24U, c3_m_sf_marshallOut,
+    c3_m_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_point, 25U, c3_l_sf_marshallOut,
+    c3_l_sf_marshallIn);
   CV_SCRIPT_FCN(4, 0);
   _SFD_SCRIPT_CALL(4U, chartInstance->c3_sfEvent, 46);
   c3_tol = 1.0E-14;
@@ -2188,45 +2360,45 @@ static void c3_intersectLines
   _SFD_SCRIPT_CALL(4U, chartInstance->c3_sfEvent, 76);
   c3_y0 = 0.0;
   _SFD_SCRIPT_CALL(4U, chartInstance->c3_sfEvent, 79);
-  c3_dv25[0] = 0.0;
+  c3_dv27[0] = 0.0;
   c3_eml_li_find(chartInstance, c3_col, c3_tmp_data, c3_tmp_sizes);
   c3_loop_ub = c3_tmp_sizes[0] * c3_tmp_sizes[1] - 1;
-  for (c3_i99 = 0; c3_i99 <= c3_loop_ub; c3_i99++) {
-    c3_dv25[c3_tmp_data[c3_i99] - 1] = rtInf;
+  for (c3_i107 = 0; c3_i107 <= c3_loop_ub; c3_i107++) {
+    c3_dv27[c3_tmp_data[c3_i107] - 1] = rtInf;
   }
 
-  c3_x0 = c3_dv25[0];
+  c3_x0 = c3_dv27[0];
   _SFD_SCRIPT_CALL(4U, chartInstance->c3_sfEvent, 80);
-  c3_dv26[0] = 0.0;
+  c3_dv28[0] = 0.0;
   c3_eml_li_find(chartInstance, c3_col, c3_tmp_data, c3_tmp_sizes);
   c3_b_loop_ub = c3_tmp_sizes[0] * c3_tmp_sizes[1] - 1;
-  for (c3_i100 = 0; c3_i100 <= c3_b_loop_ub; c3_i100++) {
-    c3_dv26[c3_tmp_data[c3_i100] - 1] = rtInf;
+  for (c3_i108 = 0; c3_i108 <= c3_b_loop_ub; c3_i108++) {
+    c3_dv28[c3_tmp_data[c3_i108] - 1] = rtInf;
   }
 
-  c3_y0 = c3_dv26[0];
+  c3_y0 = c3_dv28[0];
   _SFD_SCRIPT_CALL(4U, chartInstance->c3_sfEvent, 81);
-  c3_dv27[0] = c3_x0;
+  c3_dv29[0] = c3_x0;
   c3_c_par = c3_par;
   c3_b4 = !c3_col;
   c3_eml_li_find(chartInstance, c3_c_par && c3_b4, c3_tmp_data, c3_tmp_sizes);
   c3_c_loop_ub = c3_tmp_sizes[0] * c3_tmp_sizes[1] - 1;
-  for (c3_i101 = 0; c3_i101 <= c3_c_loop_ub; c3_i101++) {
-    c3_dv27[c3_tmp_data[c3_i101] - 1] = rtNaN;
+  for (c3_i109 = 0; c3_i109 <= c3_c_loop_ub; c3_i109++) {
+    c3_dv29[c3_tmp_data[c3_i109] - 1] = rtNaN;
   }
 
-  c3_x0 = c3_dv27[0];
+  c3_x0 = c3_dv29[0];
   _SFD_SCRIPT_CALL(4U, chartInstance->c3_sfEvent, 82);
-  c3_dv28[0] = c3_y0;
+  c3_dv30[0] = c3_y0;
   c3_d_par = c3_par;
   c3_b5 = !c3_col;
   c3_eml_li_find(chartInstance, c3_d_par && c3_b5, c3_tmp_data, c3_tmp_sizes);
   c3_d_loop_ub = c3_tmp_sizes[0] * c3_tmp_sizes[1] - 1;
-  for (c3_i102 = 0; c3_i102 <= c3_d_loop_ub; c3_i102++) {
-    c3_dv28[c3_tmp_data[c3_i102] - 1] = rtNaN;
+  for (c3_i110 = 0; c3_i110 <= c3_d_loop_ub; c3_i110++) {
+    c3_dv30[c3_tmp_data[c3_i110] - 1] = rtNaN;
   }
 
-  c3_y0 = c3_dv28[0];
+  c3_y0 = c3_dv30[0];
   _SFD_SCRIPT_CALL(4U, chartInstance->c3_sfEvent, 85);
   c3_e_x = c3_par;
   c3_f_x = c3_e_x;
@@ -2267,13 +2439,13 @@ static void c3_intersectLines
     c3_eml_li_find(chartInstance, c3_inds, c3_tmp_data, c3_tmp_sizes);
     c3_tmp_sizes[0] = 1;
     c3_tmp_sizes[1];
-    c3_i103 = c3_tmp_sizes[0];
-    c3_i104 = c3_tmp_sizes[1];
-    c3_i105 = c3_tmp_sizes[0];
-    c3_i106 = c3_tmp_sizes[1];
-    c3_e_loop_ub = c3_i105 * c3_i106 - 1;
-    for (c3_i107 = 0; c3_i107 <= c3_e_loop_ub; c3_i107++) {
-      c3_tmp_data[c3_i107]--;
+    c3_i111 = c3_tmp_sizes[0];
+    c3_i112 = c3_tmp_sizes[1];
+    c3_i113 = c3_tmp_sizes[0];
+    c3_i114 = c3_tmp_sizes[1];
+    c3_e_loop_ub = c3_i113 * c3_i114 - 1;
+    for (c3_i115 = 0; c3_i115 <= c3_e_loop_ub; c3_i115++) {
+      c3_tmp_data[c3_i115]--;
     }
 
     c3_denom_sizes[0] = 1;
@@ -2281,8 +2453,8 @@ static void c3_intersectLines
     c3_b_denom = c3_denom_sizes[0];
     c3_c_denom = c3_denom_sizes[1];
     c3_f_loop_ub = c3_tmp_sizes[0] * c3_tmp_sizes[1] - 1;
-    for (c3_i108 = 0; c3_i108 <= c3_f_loop_ub; c3_i108++) {
-      c3_denom_data[c3_i108] = c3_denom;
+    for (c3_i116 = 0; c3_i116 <= c3_f_loop_ub; c3_i116++) {
+      c3_denom_data[c3_i116] = c3_denom;
     }
 
     _SFD_SYMBOL_SWITCH(7U, 21U);
@@ -2295,8 +2467,8 @@ static void c3_intersectLines
     c3_d_y = c3_y_sizes[0];
     c3_e_y = c3_y_sizes[1];
     c3_g_loop_ub = c3_denom_sizes[0] * c3_denom_sizes[1] - 1;
-    for (c3_i109 = 0; c3_i109 <= c3_g_loop_ub; c3_i109++) {
-      c3_y_data[c3_i109] = c3_denom_data[c3_i109];
+    for (c3_i117 = 0; c3_i117 <= c3_g_loop_ub; c3_i117++) {
+      c3_y_data[c3_i117] = c3_denom_data[c3_i117];
     }
 
     c3_h_x = c3_g_x;
@@ -2308,18 +2480,18 @@ static void c3_intersectLines
     c3_h_y = c3_y_sizes[0];
     c3_i_y = c3_y_sizes[1];
     c3_h_loop_ub = c3_h_y * c3_i_y - 1;
-    for (c3_i110 = 0; c3_i110 <= c3_h_loop_ub; c3_i110++) {
-      c3_y_data[c3_i110] = c3_i_x / c3_y_data[c3_i110];
+    for (c3_i118 = 0; c3_i118 <= c3_h_loop_ub; c3_i118++) {
+      c3_y_data[c3_i118] = c3_i_x / c3_y_data[c3_i118];
     }
 
     _SFD_SIZE_EQ_CHECK_1D(c3_tmp_sizes[1], c3_y_sizes[1]);
-    c3_dv29[0] = c3_x0;
+    c3_dv31[0] = c3_x0;
     c3_i_loop_ub = c3_y_sizes[0] * c3_y_sizes[1] - 1;
-    for (c3_i111 = 0; c3_i111 <= c3_i_loop_ub; c3_i111++) {
-      c3_dv29[c3_tmp_data[c3_i111] - 1] = c3_y_data[c3_i111];
+    for (c3_i119 = 0; c3_i119 <= c3_i_loop_ub; c3_i119++) {
+      c3_dv31[c3_tmp_data[c3_i119] - 1] = c3_y_data[c3_i119];
     }
 
-    c3_x0 = c3_dv29[0];
+    c3_x0 = c3_dv31[0];
     _SFD_SCRIPT_CALL(4U, chartInstance->c3_sfEvent, 123);
     c3_eml_li_find(chartInstance, c3_inds, c3_tmp_data, c3_tmp_sizes);
     c3_j_x = (c3_dx * c3_dy1 * c3_dy2 + c3_y1 * c3_dx1 * c3_dy2) - c3_y2 *
@@ -2329,8 +2501,8 @@ static void c3_intersectLines
     c3_j_y = c3_y_sizes[0];
     c3_k_y = c3_y_sizes[1];
     c3_j_loop_ub = c3_denom_sizes[0] * c3_denom_sizes[1] - 1;
-    for (c3_i112 = 0; c3_i112 <= c3_j_loop_ub; c3_i112++) {
-      c3_y_data[c3_i112] = c3_denom_data[c3_i112];
+    for (c3_i120 = 0; c3_i120 <= c3_j_loop_ub; c3_i120++) {
+      c3_y_data[c3_i120] = c3_denom_data[c3_i120];
     }
 
     c3_k_x = c3_j_x;
@@ -2342,18 +2514,18 @@ static void c3_intersectLines
     c3_n_y = c3_y_sizes[0];
     c3_o_y = c3_y_sizes[1];
     c3_k_loop_ub = c3_n_y * c3_o_y - 1;
-    for (c3_i113 = 0; c3_i113 <= c3_k_loop_ub; c3_i113++) {
-      c3_y_data[c3_i113] = c3_l_x / c3_y_data[c3_i113];
+    for (c3_i121 = 0; c3_i121 <= c3_k_loop_ub; c3_i121++) {
+      c3_y_data[c3_i121] = c3_l_x / c3_y_data[c3_i121];
     }
 
     _SFD_SIZE_EQ_CHECK_1D(c3_tmp_sizes[1], c3_y_sizes[1]);
-    c3_dv30[0] = c3_y0;
+    c3_dv32[0] = c3_y0;
     c3_l_loop_ub = c3_y_sizes[0] * c3_y_sizes[1] - 1;
-    for (c3_i114 = 0; c3_i114 <= c3_l_loop_ub; c3_i114++) {
-      c3_dv30[c3_tmp_data[c3_i114] - 1] = c3_y_data[c3_i114];
+    for (c3_i122 = 0; c3_i122 <= c3_l_loop_ub; c3_i122++) {
+      c3_dv32[c3_tmp_data[c3_i122] - 1] = c3_y_data[c3_i122];
     }
 
-    c3_y0 = c3_dv30[0];
+    c3_y0 = c3_dv32[0];
     _SFD_SCRIPT_CALL(4U, chartInstance->c3_sfEvent, 126);
     c3_point[0] = c3_x0;
     c3_point[1] = c3_y0;
@@ -2389,29 +2561,29 @@ static void c3_laserRange(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   int32_T c3_b_p;
   int32_T c3_c_p;
   int32_T c3_d_p;
-  int32_T c3_i115;
+  int32_T c3_i123;
   real_T c3_b_x[2];
   int32_T c3_e_p;
   int32_T c3_f_p;
-  int32_T c3_i116;
+  int32_T c3_i124;
   real_T c3_c_x[2];
-  int32_T c3_i117;
+  int32_T c3_i125;
   boolean_T c3_d_x[2];
   int32_T c3_g_p;
   int32_T c3_h_p;
-  int32_T c3_i118;
+  int32_T c3_i126;
   int32_T c3_i_p;
   int32_T c3_j_p;
-  int32_T c3_i119;
+  int32_T c3_i127;
   int32_T c3_k_p;
   int32_T c3_l_p;
-  int32_T c3_i120;
+  int32_T c3_i128;
   real_T c3_e_x[2];
-  int32_T c3_i121;
+  int32_T c3_i129;
   boolean_T c3_f_x[2];
   int32_T c3_m_p;
   int32_T c3_n_p;
-  int32_T c3_i122;
+  int32_T c3_i130;
   boolean_T guard1 = false;
   boolean_T guard2 = false;
   boolean_T guard3 = false;
@@ -2422,49 +2594,49 @@ static void c3_laserRange(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   int32_T exitg2;
   _SFD_SYMBOL_SCOPE_PUSH_EML(0U, 21U, 21U, c3_g_debug_family_names,
     c3_debug_family_var_map);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_R, 0U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_C, 1U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_x1, 2U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_y1, 3U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_x2, 4U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_y2, 5U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_x, 6U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_xd, 7U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_dx, 8U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_y, 9U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_yd, 10U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_dy, 11U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_a, 12U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b, 13U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_c, 14U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargin, 15U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargout, 16U, c3_b_sf_marshallOut,
-    c3_b_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_p1, 17U, c3_i_sf_marshallOut,
-    c3_i_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_p2, 18U, c3_i_sf_marshallOut,
-    c3_i_sf_marshallIn);
-  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_map, 19U, c3_c_sf_marshallOut,
-    c3_c_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_R, 0U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_C, 1U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_x1, 2U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_y1, 3U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_x2, 4U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_y2, 5U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_x, 6U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_xd, 7U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_dx, 8U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_y, 9U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_yd, 10U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_dy, 11U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_a, 12U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_b, 13U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_c, 14U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargin, 15U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargout, 16U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_p1, 17U, c3_l_sf_marshallOut,
+    c3_l_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_p2, 18U, c3_l_sf_marshallOut,
+    c3_l_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(c3_map, 19U, c3_f_sf_marshallOut,
+    c3_f_sf_marshallIn);
   _SFD_SYMBOL_SCOPE_ADD_EML_DYN_IMPORTABLE(c3_p_data, (const int32_T *)
-    c3_p_sizes, NULL, 0, 20, (void *)c3_s_sf_marshallOut, (void *)
-    c3_p_sf_marshallIn);
+    c3_p_sizes, NULL, 0, 20, (void *)c3_v_sf_marshallOut, (void *)
+    c3_s_sf_marshallIn);
   CV_SCRIPT_FCN(6, 0);
   _SFD_SCRIPT_CALL(6U, chartInstance->c3_sfEvent, 24);
   c3_R = 100.0;
@@ -2555,8 +2727,8 @@ static void c3_laserRange(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
           c3_p_sizes[1] = 2;
           c3_e_p = c3_p_sizes[0];
           c3_f_p = c3_p_sizes[1];
-          for (c3_i116 = 0; c3_i116 < 2; c3_i116++) {
-            c3_p_data[c3_i116] = c3_b_x[c3_i116];
+          for (c3_i124 = 0; c3_i124 < 2; c3_i124++) {
+            c3_p_data[c3_i124] = c3_b_x[c3_i124];
           }
 
           _SFD_SCRIPT_CALL(6U, chartInstance->c3_sfEvent, 63);
@@ -2565,8 +2737,8 @@ static void c3_laserRange(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
           _SFD_SCRIPT_CALL(6U, chartInstance->c3_sfEvent, 65);
           c3_c_x[0] = c3_x - c3_x2;
           c3_c_x[1] = c3_y - c3_y2;
-          for (c3_i117 = 0; c3_i117 < 2; c3_i117++) {
-            c3_d_x[c3_i117] = (c3_c_x[c3_i117] == 0.0);
+          for (c3_i125 = 0; c3_i125 < 2; c3_i125++) {
+            c3_d_x[c3_i125] = (c3_c_x[c3_i125] == 0.0);
           }
 
           if (CV_SCRIPT_IF(6, 5, c3_all(chartInstance, c3_d_x))) {
@@ -2575,8 +2747,8 @@ static void c3_laserRange(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
             c3_p_sizes[1] = 2;
             c3_g_p = c3_p_sizes[0];
             c3_h_p = c3_p_sizes[1];
-            for (c3_i118 = 0; c3_i118 < 2; c3_i118++) {
-              c3_p_data[c3_i118] = rtInf;
+            for (c3_i126 = 0; c3_i126 < 2; c3_i126++) {
+              c3_p_data[c3_i126] = rtInf;
             }
 
             _SFD_SCRIPT_CALL(6U, chartInstance->c3_sfEvent, 67);
@@ -2623,8 +2795,8 @@ static void c3_laserRange(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
       c3_p_sizes[1] = 2;
       c3_c_p = c3_p_sizes[0];
       c3_d_p = c3_p_sizes[1];
-      for (c3_i115 = 0; c3_i115 < 2; c3_i115++) {
-        c3_p_data[c3_i115] = rtInf;
+      for (c3_i123 = 0; c3_i123 < 2; c3_i123++) {
+        c3_p_data[c3_i123] = rtInf;
       }
 
       _SFD_SCRIPT_CALL(6U, chartInstance->c3_sfEvent, 59);
@@ -2671,8 +2843,8 @@ static void c3_laserRange(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
           c3_p_sizes[1] = 2;
           c3_k_p = c3_p_sizes[0];
           c3_l_p = c3_p_sizes[1];
-          for (c3_i120 = 0; c3_i120 < 2; c3_i120++) {
-            c3_p_data[c3_i120] = c3_b_x[c3_i120];
+          for (c3_i128 = 0; c3_i128 < 2; c3_i128++) {
+            c3_p_data[c3_i128] = c3_b_x[c3_i128];
           }
 
           _SFD_SCRIPT_CALL(6U, chartInstance->c3_sfEvent, 90);
@@ -2681,8 +2853,8 @@ static void c3_laserRange(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
           _SFD_SCRIPT_CALL(6U, chartInstance->c3_sfEvent, 92);
           c3_e_x[0] = c3_x - c3_x2;
           c3_e_x[1] = c3_y - c3_y2;
-          for (c3_i121 = 0; c3_i121 < 2; c3_i121++) {
-            c3_f_x[c3_i121] = (c3_e_x[c3_i121] == 0.0);
+          for (c3_i129 = 0; c3_i129 < 2; c3_i129++) {
+            c3_f_x[c3_i129] = (c3_e_x[c3_i129] == 0.0);
           }
 
           if (CV_SCRIPT_IF(6, 9, c3_all(chartInstance, c3_f_x))) {
@@ -2691,8 +2863,8 @@ static void c3_laserRange(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
             c3_p_sizes[1] = 2;
             c3_m_p = c3_p_sizes[0];
             c3_n_p = c3_p_sizes[1];
-            for (c3_i122 = 0; c3_i122 < 2; c3_i122++) {
-              c3_p_data[c3_i122] = rtInf;
+            for (c3_i130 = 0; c3_i130 < 2; c3_i130++) {
+              c3_p_data[c3_i130] = rtInf;
             }
 
             _SFD_SCRIPT_CALL(6U, chartInstance->c3_sfEvent, 94);
@@ -2739,8 +2911,8 @@ static void c3_laserRange(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
       c3_p_sizes[1] = 2;
       c3_i_p = c3_p_sizes[0];
       c3_j_p = c3_p_sizes[1];
-      for (c3_i119 = 0; c3_i119 < 2; c3_i119++) {
-        c3_p_data[c3_i119] = rtInf;
+      for (c3_i127 = 0; c3_i127 < 2; c3_i127++) {
+        c3_p_data[c3_i127] = rtInf;
       }
 
       _SFD_SCRIPT_CALL(6U, chartInstance->c3_sfEvent, 86);
@@ -2757,28 +2929,28 @@ static void init_script_number_translation(uint32_T c3_machineNumber, uint32_T
   (void)c3_machineNumber;
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 0U,
     sf_debug_get_script_id(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"));
+    "C:\\Users\\jpacker\\stash\\Quad-Sim\\Quadcopter Dynamic Modeling and Simulation\\Lidar\\rvctools\\robot\\se2.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 1U,
     sf_debug_get_script_id(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"));
+    "C:\\Users\\jpacker\\stash\\Quad-Sim\\Quadcopter Dynamic Modeling and Simulation\\Lidar\\assignment6\\laserScanner.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 2U,
     sf_debug_get_script_id(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"));
+    "C:\\Users\\jpacker\\stash\\Quad-Sim\\Quadcopter Dynamic Modeling and Simulation\\Lidar\\assignment6\\XYtoIJ.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 3U,
     sf_debug_get_script_id(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"));
+    "C:\\Users\\jpacker\\stash\\Quad-Sim\\Quadcopter Dynamic Modeling and Simulation\\Lidar\\geom2d\\geom2d\\geom2d\\clipLine.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 4U,
     sf_debug_get_script_id(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"));
+    "C:\\Users\\jpacker\\stash\\Quad-Sim\\Quadcopter Dynamic Modeling and Simulation\\Lidar\\geom2d\\geom2d\\geom2d\\intersectLines.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 5U,
     sf_debug_get_script_id(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"));
+    "C:\\Users\\jpacker\\stash\\Quad-Sim\\Quadcopter Dynamic Modeling and Simulation\\Lidar\\geom2d\\geom2d\\geom2d\\linePosition.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 6U,
     sf_debug_get_script_id(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"));
+    "C:\\Users\\jpacker\\stash\\Quad-Sim\\Quadcopter Dynamic Modeling and Simulation\\Lidar\\rvctools\\common\\laserRange.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 7U,
     sf_debug_get_script_id(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"));
+    "C:\\Users\\jpacker\\stash\\Quad-Sim\\Quadcopter Dynamic Modeling and Simulation\\Lidar\\assignment6\\IJtoXY.m"));
 }
 
 static void c3_emlrt_marshallIn
@@ -2813,13 +2985,13 @@ static void c3_c_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
    mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[10000])
 {
-  real_T c3_dv31[10000];
-  int32_T c3_i123;
+  real_T c3_dv33[10000];
+  int32_T c3_i131;
   (void)chartInstance;
-  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv31, 1, 0, 0U, 1, 0U, 2, 100,
+  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv33, 1, 0, 0U, 1, 0U, 2, 100,
                 100);
-  for (c3_i123 = 0; c3_i123 < 10000; c3_i123++) {
-    c3_y[c3_i123] = c3_dv31[c3_i123];
+  for (c3_i131 = 0; c3_i131 < 10000; c3_i131++) {
+    c3_y[c3_i131] = c3_dv33[c3_i131];
   }
 
   sf_mex_destroy(&c3_u);
@@ -2828,50 +3000,61 @@ static void c3_c_emlrt_marshallIn
 static const mxArray *c3_sf_marshallOut(void *chartInstanceVoid, void *c3_inData)
 {
   const mxArray *c3_mxArrayOutData = NULL;
-  int32_T c3_i124;
+  int32_T c3_i132;
   real_T c3_b_inData[361];
-  int32_T c3_i125;
+  int32_T c3_i133;
   real_T c3_u[361];
   const mxArray *c3_y = NULL;
   SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
   chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
     chartInstanceVoid;
   c3_mxArrayOutData = NULL;
-  for (c3_i124 = 0; c3_i124 < 361; c3_i124++) {
-    c3_b_inData[c3_i124] = (*(real_T (*)[361])c3_inData)[c3_i124];
+  for (c3_i132 = 0; c3_i132 < 361; c3_i132++) {
+    c3_b_inData[c3_i132] = (*(real_T (*)[361])c3_inData)[c3_i132];
   }
 
-  for (c3_i125 = 0; c3_i125 < 361; c3_i125++) {
-    c3_u[c3_i125] = c3_b_inData[c3_i125];
+  for (c3_i133 = 0; c3_i133 < 361; c3_i133++) {
+    c3_u[c3_i133] = c3_b_inData[c3_i133];
   }
 
   c3_y = NULL;
-  sf_mex_assign(&c3_y, sf_mex_create("y", c3_u, 0, 0U, 1U, 0U, 1, 361), false);
+  if (!chartInstance->c3_prev_theta_not_empty) {
+    sf_mex_assign(&c3_y, sf_mex_create("y", NULL, 0, 0U, 1U, 0U, 2, 0, 0), false);
+  } else {
+    sf_mex_assign(&c3_y, sf_mex_create("y", c3_u, 0, 0U, 1U, 0U, 1, 361), false);
+  }
+
   sf_mex_assign(&c3_mxArrayOutData, c3_y, false);
   return c3_mxArrayOutData;
 }
 
 static void c3_d_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_theta, const char_T *c3_identifier, real_T c3_y[361])
+   mxArray *c3_b_prev_theta, const char_T *c3_identifier, real_T c3_y[361])
 {
   emlrtMsgIdentifier c3_thisId;
   c3_thisId.fIdentifier = c3_identifier;
   c3_thisId.fParent = NULL;
-  c3_e_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_theta), &c3_thisId, c3_y);
-  sf_mex_destroy(&c3_theta);
+  c3_e_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_b_prev_theta), &c3_thisId,
+                        c3_y);
+  sf_mex_destroy(&c3_b_prev_theta);
 }
 
 static void c3_e_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
    mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[361])
 {
-  real_T c3_dv32[361];
-  int32_T c3_i126;
-  (void)chartInstance;
-  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv32, 1, 0, 0U, 1, 0U, 1, 361);
-  for (c3_i126 = 0; c3_i126 < 361; c3_i126++) {
-    c3_y[c3_i126] = c3_dv32[c3_i126];
+  real_T c3_dv34[361];
+  int32_T c3_i134;
+  if (mxIsEmpty(c3_u)) {
+    chartInstance->c3_prev_theta_not_empty = false;
+  } else {
+    chartInstance->c3_prev_theta_not_empty = true;
+    sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv34, 1, 0, 0U, 1, 0U, 1,
+                  361);
+    for (c3_i134 = 0; c3_i134 < 361; c3_i134++) {
+      c3_y[c3_i134] = c3_dv34[c3_i134];
+    }
   }
 
   sf_mex_destroy(&c3_u);
@@ -2880,11 +3063,251 @@ static void c3_e_emlrt_marshallIn
 static void c3_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
 {
+  const mxArray *c3_b_prev_theta;
+  const char_T *c3_identifier;
+  emlrtMsgIdentifier c3_thisId;
+  real_T c3_y[361];
+  int32_T c3_i135;
+  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
+    chartInstanceVoid;
+  c3_b_prev_theta = sf_mex_dup(c3_mxArrayInData);
+  c3_identifier = c3_varName;
+  c3_thisId.fIdentifier = c3_identifier;
+  c3_thisId.fParent = NULL;
+  c3_e_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_b_prev_theta), &c3_thisId,
+                        c3_y);
+  sf_mex_destroy(&c3_b_prev_theta);
+  for (c3_i135 = 0; c3_i135 < 361; c3_i135++) {
+    (*(real_T (*)[361])c3_outData)[c3_i135] = c3_y[c3_i135];
+  }
+
+  sf_mex_destroy(&c3_mxArrayInData);
+}
+
+static const mxArray *c3_b_sf_marshallOut(void *chartInstanceVoid, void
+  *c3_inData)
+{
+  const mxArray *c3_mxArrayOutData = NULL;
+  int32_T c3_i136;
+  real_T c3_b_inData[361];
+  int32_T c3_i137;
+  real_T c3_u[361];
+  const mxArray *c3_y = NULL;
+  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
+    chartInstanceVoid;
+  c3_mxArrayOutData = NULL;
+  for (c3_i136 = 0; c3_i136 < 361; c3_i136++) {
+    c3_b_inData[c3_i136] = (*(real_T (*)[361])c3_inData)[c3_i136];
+  }
+
+  for (c3_i137 = 0; c3_i137 < 361; c3_i137++) {
+    c3_u[c3_i137] = c3_b_inData[c3_i137];
+  }
+
+  c3_y = NULL;
+  if (!chartInstance->c3_prev_r_not_empty) {
+    sf_mex_assign(&c3_y, sf_mex_create("y", NULL, 0, 0U, 1U, 0U, 2, 0, 0), false);
+  } else {
+    sf_mex_assign(&c3_y, sf_mex_create("y", c3_u, 0, 0U, 1U, 0U, 1, 361), false);
+  }
+
+  sf_mex_assign(&c3_mxArrayOutData, c3_y, false);
+  return c3_mxArrayOutData;
+}
+
+static void c3_f_emlrt_marshallIn
+  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
+   mxArray *c3_b_prev_r, const char_T *c3_identifier, real_T c3_y[361])
+{
+  emlrtMsgIdentifier c3_thisId;
+  c3_thisId.fIdentifier = c3_identifier;
+  c3_thisId.fParent = NULL;
+  c3_g_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_b_prev_r), &c3_thisId, c3_y);
+  sf_mex_destroy(&c3_b_prev_r);
+}
+
+static void c3_g_emlrt_marshallIn
+  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[361])
+{
+  real_T c3_dv35[361];
+  int32_T c3_i138;
+  if (mxIsEmpty(c3_u)) {
+    chartInstance->c3_prev_r_not_empty = false;
+  } else {
+    chartInstance->c3_prev_r_not_empty = true;
+    sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv35, 1, 0, 0U, 1, 0U, 1,
+                  361);
+    for (c3_i138 = 0; c3_i138 < 361; c3_i138++) {
+      c3_y[c3_i138] = c3_dv35[c3_i138];
+    }
+  }
+
+  sf_mex_destroy(&c3_u);
+}
+
+static void c3_b_sf_marshallIn(void *chartInstanceVoid, const mxArray
+  *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
+{
+  const mxArray *c3_b_prev_r;
+  const char_T *c3_identifier;
+  emlrtMsgIdentifier c3_thisId;
+  real_T c3_y[361];
+  int32_T c3_i139;
+  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
+    chartInstanceVoid;
+  c3_b_prev_r = sf_mex_dup(c3_mxArrayInData);
+  c3_identifier = c3_varName;
+  c3_thisId.fIdentifier = c3_identifier;
+  c3_thisId.fParent = NULL;
+  c3_g_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_b_prev_r), &c3_thisId, c3_y);
+  sf_mex_destroy(&c3_b_prev_r);
+  for (c3_i139 = 0; c3_i139 < 361; c3_i139++) {
+    (*(real_T (*)[361])c3_outData)[c3_i139] = c3_y[c3_i139];
+  }
+
+  sf_mex_destroy(&c3_mxArrayInData);
+}
+
+static const mxArray *c3_c_sf_marshallOut(void *chartInstanceVoid, void
+  *c3_inData)
+{
+  const mxArray *c3_mxArrayOutData = NULL;
+  real_T c3_u;
+  const mxArray *c3_y = NULL;
+  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
+    chartInstanceVoid;
+  c3_mxArrayOutData = NULL;
+  c3_u = *(real_T *)c3_inData;
+  c3_y = NULL;
+  if (!chartInstance->c3_prev_t_not_empty) {
+    sf_mex_assign(&c3_y, sf_mex_create("y", NULL, 0, 0U, 1U, 0U, 2, 0, 0), false);
+  } else {
+    sf_mex_assign(&c3_y, sf_mex_create("y", &c3_u, 0, 0U, 0U, 0U, 0), false);
+  }
+
+  sf_mex_assign(&c3_mxArrayOutData, c3_y, false);
+  return c3_mxArrayOutData;
+}
+
+static real_T c3_h_emlrt_marshallIn
+  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
+   mxArray *c3_b_prev_t, const char_T *c3_identifier)
+{
+  real_T c3_y;
+  emlrtMsgIdentifier c3_thisId;
+  c3_thisId.fIdentifier = c3_identifier;
+  c3_thisId.fParent = NULL;
+  c3_y = c3_i_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_b_prev_t),
+    &c3_thisId);
+  sf_mex_destroy(&c3_b_prev_t);
+  return c3_y;
+}
+
+static real_T c3_i_emlrt_marshallIn
+  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId)
+{
+  real_T c3_y;
+  real_T c3_d0;
+  if (mxIsEmpty(c3_u)) {
+    chartInstance->c3_prev_t_not_empty = false;
+  } else {
+    chartInstance->c3_prev_t_not_empty = true;
+    sf_mex_import(c3_parentId, sf_mex_dup(c3_u), &c3_d0, 1, 0, 0U, 0, 0U, 0);
+    c3_y = c3_d0;
+  }
+
+  sf_mex_destroy(&c3_u);
+  return c3_y;
+}
+
+static void c3_c_sf_marshallIn(void *chartInstanceVoid, const mxArray
+  *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
+{
+  const mxArray *c3_b_prev_t;
+  const char_T *c3_identifier;
+  emlrtMsgIdentifier c3_thisId;
+  real_T c3_y;
+  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
+    chartInstanceVoid;
+  c3_b_prev_t = sf_mex_dup(c3_mxArrayInData);
+  c3_identifier = c3_varName;
+  c3_thisId.fIdentifier = c3_identifier;
+  c3_thisId.fParent = NULL;
+  c3_y = c3_i_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_b_prev_t),
+    &c3_thisId);
+  sf_mex_destroy(&c3_b_prev_t);
+  *(real_T *)c3_outData = c3_y;
+  sf_mex_destroy(&c3_mxArrayInData);
+}
+
+static const mxArray *c3_d_sf_marshallOut(void *chartInstanceVoid, void
+  *c3_inData)
+{
+  const mxArray *c3_mxArrayOutData = NULL;
+  int32_T c3_i140;
+  real_T c3_b_inData[361];
+  int32_T c3_i141;
+  real_T c3_u[361];
+  const mxArray *c3_y = NULL;
+  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
+    chartInstanceVoid;
+  c3_mxArrayOutData = NULL;
+  for (c3_i140 = 0; c3_i140 < 361; c3_i140++) {
+    c3_b_inData[c3_i140] = (*(real_T (*)[361])c3_inData)[c3_i140];
+  }
+
+  for (c3_i141 = 0; c3_i141 < 361; c3_i141++) {
+    c3_u[c3_i141] = c3_b_inData[c3_i141];
+  }
+
+  c3_y = NULL;
+  sf_mex_assign(&c3_y, sf_mex_create("y", c3_u, 0, 0U, 1U, 0U, 1, 361), false);
+  sf_mex_assign(&c3_mxArrayOutData, c3_y, false);
+  return c3_mxArrayOutData;
+}
+
+static void c3_j_emlrt_marshallIn
+  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
+   mxArray *c3_theta, const char_T *c3_identifier, real_T c3_y[361])
+{
+  emlrtMsgIdentifier c3_thisId;
+  c3_thisId.fIdentifier = c3_identifier;
+  c3_thisId.fParent = NULL;
+  c3_k_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_theta), &c3_thisId, c3_y);
+  sf_mex_destroy(&c3_theta);
+}
+
+static void c3_k_emlrt_marshallIn
+  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[361])
+{
+  real_T c3_dv36[361];
+  int32_T c3_i142;
+  (void)chartInstance;
+  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv36, 1, 0, 0U, 1, 0U, 1, 361);
+  for (c3_i142 = 0; c3_i142 < 361; c3_i142++) {
+    c3_y[c3_i142] = c3_dv36[c3_i142];
+  }
+
+  sf_mex_destroy(&c3_u);
+}
+
+static void c3_d_sf_marshallIn(void *chartInstanceVoid, const mxArray
+  *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
+{
   const mxArray *c3_theta;
   const char_T *c3_identifier;
   emlrtMsgIdentifier c3_thisId;
   real_T c3_y[361];
-  int32_T c3_i127;
+  int32_T c3_i143;
   SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
   chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
     chartInstanceVoid;
@@ -2892,16 +3315,16 @@ static void c3_sf_marshallIn(void *chartInstanceVoid, const mxArray
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
   c3_thisId.fParent = NULL;
-  c3_e_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_theta), &c3_thisId, c3_y);
+  c3_k_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_theta), &c3_thisId, c3_y);
   sf_mex_destroy(&c3_theta);
-  for (c3_i127 = 0; c3_i127 < 361; c3_i127++) {
-    (*(real_T (*)[361])c3_outData)[c3_i127] = c3_y[c3_i127];
+  for (c3_i143 = 0; c3_i143 < 361; c3_i143++) {
+    (*(real_T (*)[361])c3_outData)[c3_i143] = c3_y[c3_i143];
   }
 
   sf_mex_destroy(&c3_mxArrayInData);
 }
 
-static const mxArray *c3_b_sf_marshallOut(void *chartInstanceVoid, void
+static const mxArray *c3_e_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData)
 {
   const mxArray *c3_mxArrayOutData = NULL;
@@ -2918,20 +3341,20 @@ static const mxArray *c3_b_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static real_T c3_f_emlrt_marshallIn
+static real_T c3_l_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
    mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId)
 {
   real_T c3_y;
-  real_T c3_d0;
+  real_T c3_d1;
   (void)chartInstance;
-  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), &c3_d0, 1, 0, 0U, 0, 0U, 0);
-  c3_y = c3_d0;
+  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), &c3_d1, 1, 0, 0U, 0, 0U, 0);
+  c3_y = c3_d1;
   sf_mex_destroy(&c3_u);
   return c3_y;
 }
 
-static void c3_b_sf_marshallIn(void *chartInstanceVoid, const mxArray
+static void c3_e_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
 {
   const mxArray *c3_nargout;
@@ -2945,46 +3368,46 @@ static void c3_b_sf_marshallIn(void *chartInstanceVoid, const mxArray
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
   c3_thisId.fParent = NULL;
-  c3_y = c3_f_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_nargout), &c3_thisId);
+  c3_y = c3_l_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_nargout), &c3_thisId);
   sf_mex_destroy(&c3_nargout);
   *(real_T *)c3_outData = c3_y;
   sf_mex_destroy(&c3_mxArrayInData);
 }
 
-static const mxArray *c3_c_sf_marshallOut(void *chartInstanceVoid, void
+static const mxArray *c3_f_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData)
 {
   const mxArray *c3_mxArrayOutData = NULL;
-  int32_T c3_i128;
-  int32_T c3_i129;
-  int32_T c3_i130;
+  int32_T c3_i144;
+  int32_T c3_i145;
+  int32_T c3_i146;
   real_T c3_b_inData[10000];
-  int32_T c3_i131;
-  int32_T c3_i132;
-  int32_T c3_i133;
+  int32_T c3_i147;
+  int32_T c3_i148;
+  int32_T c3_i149;
   real_T c3_u[10000];
   const mxArray *c3_y = NULL;
   SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
   chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
     chartInstanceVoid;
   c3_mxArrayOutData = NULL;
-  c3_i128 = 0;
-  for (c3_i129 = 0; c3_i129 < 100; c3_i129++) {
-    for (c3_i130 = 0; c3_i130 < 100; c3_i130++) {
-      c3_b_inData[c3_i130 + c3_i128] = (*(real_T (*)[10000])c3_inData)[c3_i130 +
-        c3_i128];
+  c3_i144 = 0;
+  for (c3_i145 = 0; c3_i145 < 100; c3_i145++) {
+    for (c3_i146 = 0; c3_i146 < 100; c3_i146++) {
+      c3_b_inData[c3_i146 + c3_i144] = (*(real_T (*)[10000])c3_inData)[c3_i146 +
+        c3_i144];
     }
 
-    c3_i128 += 100;
+    c3_i144 += 100;
   }
 
-  c3_i131 = 0;
-  for (c3_i132 = 0; c3_i132 < 100; c3_i132++) {
-    for (c3_i133 = 0; c3_i133 < 100; c3_i133++) {
-      c3_u[c3_i133 + c3_i131] = c3_b_inData[c3_i133 + c3_i131];
+  c3_i147 = 0;
+  for (c3_i148 = 0; c3_i148 < 100; c3_i148++) {
+    for (c3_i149 = 0; c3_i149 < 100; c3_i149++) {
+      c3_u[c3_i149 + c3_i147] = c3_b_inData[c3_i149 + c3_i147];
     }
 
-    c3_i131 += 100;
+    c3_i147 += 100;
   }
 
   c3_y = NULL;
@@ -2994,16 +3417,16 @@ static const mxArray *c3_c_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static void c3_c_sf_marshallIn(void *chartInstanceVoid, const mxArray
+static void c3_f_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
 {
   const mxArray *c3_map;
   const char_T *c3_identifier;
   emlrtMsgIdentifier c3_thisId;
   real_T c3_y[10000];
-  int32_T c3_i134;
-  int32_T c3_i135;
-  int32_T c3_i136;
+  int32_T c3_i150;
+  int32_T c3_i151;
+  int32_T c3_i152;
   SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
   chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
     chartInstanceVoid;
@@ -3013,53 +3436,53 @@ static void c3_c_sf_marshallIn(void *chartInstanceVoid, const mxArray
   c3_thisId.fParent = NULL;
   c3_c_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_map), &c3_thisId, c3_y);
   sf_mex_destroy(&c3_map);
-  c3_i134 = 0;
-  for (c3_i135 = 0; c3_i135 < 100; c3_i135++) {
-    for (c3_i136 = 0; c3_i136 < 100; c3_i136++) {
-      (*(real_T (*)[10000])c3_outData)[c3_i136 + c3_i134] = c3_y[c3_i136 +
-        c3_i134];
+  c3_i150 = 0;
+  for (c3_i151 = 0; c3_i151 < 100; c3_i151++) {
+    for (c3_i152 = 0; c3_i152 < 100; c3_i152++) {
+      (*(real_T (*)[10000])c3_outData)[c3_i152 + c3_i150] = c3_y[c3_i152 +
+        c3_i150];
     }
 
-    c3_i134 += 100;
+    c3_i150 += 100;
   }
 
   sf_mex_destroy(&c3_mxArrayInData);
 }
 
-static const mxArray *c3_d_sf_marshallOut(void *chartInstanceVoid, void
+static const mxArray *c3_g_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData)
 {
   const mxArray *c3_mxArrayOutData = NULL;
-  int32_T c3_i137;
-  int32_T c3_i138;
-  int32_T c3_i139;
+  int32_T c3_i153;
+  int32_T c3_i154;
+  int32_T c3_i155;
   real_T c3_b_inData[722];
-  int32_T c3_i140;
-  int32_T c3_i141;
-  int32_T c3_i142;
+  int32_T c3_i156;
+  int32_T c3_i157;
+  int32_T c3_i158;
   real_T c3_u[722];
   const mxArray *c3_y = NULL;
   SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
   chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
     chartInstanceVoid;
   c3_mxArrayOutData = NULL;
-  c3_i137 = 0;
-  for (c3_i138 = 0; c3_i138 < 2; c3_i138++) {
-    for (c3_i139 = 0; c3_i139 < 361; c3_i139++) {
-      c3_b_inData[c3_i139 + c3_i137] = (*(real_T (*)[722])c3_inData)[c3_i139 +
-        c3_i137];
+  c3_i153 = 0;
+  for (c3_i154 = 0; c3_i154 < 2; c3_i154++) {
+    for (c3_i155 = 0; c3_i155 < 361; c3_i155++) {
+      c3_b_inData[c3_i155 + c3_i153] = (*(real_T (*)[722])c3_inData)[c3_i155 +
+        c3_i153];
     }
 
-    c3_i137 += 361;
+    c3_i153 += 361;
   }
 
-  c3_i140 = 0;
-  for (c3_i141 = 0; c3_i141 < 2; c3_i141++) {
-    for (c3_i142 = 0; c3_i142 < 361; c3_i142++) {
-      c3_u[c3_i142 + c3_i140] = c3_b_inData[c3_i142 + c3_i140];
+  c3_i156 = 0;
+  for (c3_i157 = 0; c3_i157 < 2; c3_i157++) {
+    for (c3_i158 = 0; c3_i158 < 361; c3_i158++) {
+      c3_u[c3_i158 + c3_i156] = c3_b_inData[c3_i158 + c3_i156];
     }
 
-    c3_i140 += 361;
+    c3_i156 += 361;
   }
 
   c3_y = NULL;
@@ -3068,32 +3491,32 @@ static const mxArray *c3_d_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static void c3_g_emlrt_marshallIn
+static void c3_m_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
    mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[722])
 {
-  real_T c3_dv33[722];
-  int32_T c3_i143;
+  real_T c3_dv37[722];
+  int32_T c3_i159;
   (void)chartInstance;
-  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv33, 1, 0, 0U, 1, 0U, 2, 361,
+  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv37, 1, 0, 0U, 1, 0U, 2, 361,
                 2);
-  for (c3_i143 = 0; c3_i143 < 722; c3_i143++) {
-    c3_y[c3_i143] = c3_dv33[c3_i143];
+  for (c3_i159 = 0; c3_i159 < 722; c3_i159++) {
+    c3_y[c3_i159] = c3_dv37[c3_i159];
   }
 
   sf_mex_destroy(&c3_u);
 }
 
-static void c3_d_sf_marshallIn(void *chartInstanceVoid, const mxArray
+static void c3_g_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
 {
   const mxArray *c3_p;
   const char_T *c3_identifier;
   emlrtMsgIdentifier c3_thisId;
   real_T c3_y[722];
-  int32_T c3_i144;
-  int32_T c3_i145;
-  int32_T c3_i146;
+  int32_T c3_i160;
+  int32_T c3_i161;
+  int32_T c3_i162;
   SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
   chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
     chartInstanceVoid;
@@ -3101,54 +3524,54 @@ static void c3_d_sf_marshallIn(void *chartInstanceVoid, const mxArray
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
   c3_thisId.fParent = NULL;
-  c3_g_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_p), &c3_thisId, c3_y);
+  c3_m_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_p), &c3_thisId, c3_y);
   sf_mex_destroy(&c3_p);
-  c3_i144 = 0;
-  for (c3_i145 = 0; c3_i145 < 2; c3_i145++) {
-    for (c3_i146 = 0; c3_i146 < 361; c3_i146++) {
-      (*(real_T (*)[722])c3_outData)[c3_i146 + c3_i144] = c3_y[c3_i146 + c3_i144];
+  c3_i160 = 0;
+  for (c3_i161 = 0; c3_i161 < 2; c3_i161++) {
+    for (c3_i162 = 0; c3_i162 < 361; c3_i162++) {
+      (*(real_T (*)[722])c3_outData)[c3_i162 + c3_i160] = c3_y[c3_i162 + c3_i160];
     }
 
-    c3_i144 += 361;
+    c3_i160 += 361;
   }
 
   sf_mex_destroy(&c3_mxArrayInData);
 }
 
-static const mxArray *c3_e_sf_marshallOut(void *chartInstanceVoid, void
+static const mxArray *c3_h_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData)
 {
   const mxArray *c3_mxArrayOutData = NULL;
-  int32_T c3_i147;
-  int32_T c3_i148;
-  int32_T c3_i149;
+  int32_T c3_i163;
+  int32_T c3_i164;
+  int32_T c3_i165;
   real_T c3_b_inData[9];
-  int32_T c3_i150;
-  int32_T c3_i151;
-  int32_T c3_i152;
+  int32_T c3_i166;
+  int32_T c3_i167;
+  int32_T c3_i168;
   real_T c3_u[9];
   const mxArray *c3_y = NULL;
   SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
   chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
     chartInstanceVoid;
   c3_mxArrayOutData = NULL;
-  c3_i147 = 0;
-  for (c3_i148 = 0; c3_i148 < 3; c3_i148++) {
-    for (c3_i149 = 0; c3_i149 < 3; c3_i149++) {
-      c3_b_inData[c3_i149 + c3_i147] = (*(real_T (*)[9])c3_inData)[c3_i149 +
-        c3_i147];
+  c3_i163 = 0;
+  for (c3_i164 = 0; c3_i164 < 3; c3_i164++) {
+    for (c3_i165 = 0; c3_i165 < 3; c3_i165++) {
+      c3_b_inData[c3_i165 + c3_i163] = (*(real_T (*)[9])c3_inData)[c3_i165 +
+        c3_i163];
     }
 
-    c3_i147 += 3;
+    c3_i163 += 3;
   }
 
-  c3_i150 = 0;
-  for (c3_i151 = 0; c3_i151 < 3; c3_i151++) {
-    for (c3_i152 = 0; c3_i152 < 3; c3_i152++) {
-      c3_u[c3_i152 + c3_i150] = c3_b_inData[c3_i152 + c3_i150];
+  c3_i166 = 0;
+  for (c3_i167 = 0; c3_i167 < 3; c3_i167++) {
+    for (c3_i168 = 0; c3_i168 < 3; c3_i168++) {
+      c3_u[c3_i168 + c3_i166] = c3_b_inData[c3_i168 + c3_i166];
     }
 
-    c3_i150 += 3;
+    c3_i166 += 3;
   }
 
   c3_y = NULL;
@@ -3157,31 +3580,31 @@ static const mxArray *c3_e_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static void c3_h_emlrt_marshallIn
+static void c3_n_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
    mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[9])
 {
-  real_T c3_dv34[9];
-  int32_T c3_i153;
+  real_T c3_dv38[9];
+  int32_T c3_i169;
   (void)chartInstance;
-  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv34, 1, 0, 0U, 1, 0U, 2, 3, 3);
-  for (c3_i153 = 0; c3_i153 < 9; c3_i153++) {
-    c3_y[c3_i153] = c3_dv34[c3_i153];
+  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv38, 1, 0, 0U, 1, 0U, 2, 3, 3);
+  for (c3_i169 = 0; c3_i169 < 9; c3_i169++) {
+    c3_y[c3_i169] = c3_dv38[c3_i169];
   }
 
   sf_mex_destroy(&c3_u);
 }
 
-static void c3_e_sf_marshallIn(void *chartInstanceVoid, const mxArray
+static void c3_h_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
 {
   const mxArray *c3_Tl;
   const char_T *c3_identifier;
   emlrtMsgIdentifier c3_thisId;
   real_T c3_y[9];
-  int32_T c3_i154;
-  int32_T c3_i155;
-  int32_T c3_i156;
+  int32_T c3_i170;
+  int32_T c3_i171;
+  int32_T c3_i172;
   SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
   chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
     chartInstanceVoid;
@@ -3189,27 +3612,27 @@ static void c3_e_sf_marshallIn(void *chartInstanceVoid, const mxArray
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
   c3_thisId.fParent = NULL;
-  c3_h_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_Tl), &c3_thisId, c3_y);
+  c3_n_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_Tl), &c3_thisId, c3_y);
   sf_mex_destroy(&c3_Tl);
-  c3_i154 = 0;
-  for (c3_i155 = 0; c3_i155 < 3; c3_i155++) {
-    for (c3_i156 = 0; c3_i156 < 3; c3_i156++) {
-      (*(real_T (*)[9])c3_outData)[c3_i156 + c3_i154] = c3_y[c3_i156 + c3_i154];
+  c3_i170 = 0;
+  for (c3_i171 = 0; c3_i171 < 3; c3_i171++) {
+    for (c3_i172 = 0; c3_i172 < 3; c3_i172++) {
+      (*(real_T (*)[9])c3_outData)[c3_i172 + c3_i170] = c3_y[c3_i172 + c3_i170];
     }
 
-    c3_i154 += 3;
+    c3_i170 += 3;
   }
 
   sf_mex_destroy(&c3_mxArrayInData);
 }
 
-static const mxArray *c3_f_sf_marshallOut(void *chartInstanceVoid, void
+static const mxArray *c3_i_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData)
 {
   const mxArray *c3_mxArrayOutData = NULL;
   c3_s2aqkGCuE38RBomNVWBcX1B c3_u;
   const mxArray *c3_y = NULL;
-  int32_T c3_i157;
+  int32_T c3_i173;
   real_T c3_b_u[10000];
   const mxArray *c3_b_y = NULL;
   SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
@@ -3219,8 +3642,8 @@ static const mxArray *c3_f_sf_marshallOut(void *chartInstanceVoid, void
   c3_u = *(c3_s2aqkGCuE38RBomNVWBcX1B *)c3_inData;
   c3_y = NULL;
   sf_mex_assign(&c3_y, sf_mex_createstruct("structure", 2, 1, 1), false);
-  for (c3_i157 = 0; c3_i157 < 10000; c3_i157++) {
-    c3_b_u[c3_i157] = c3_u.map[c3_i157];
+  for (c3_i173 = 0; c3_i173 < 10000; c3_i173++) {
+    c3_b_u[c3_i173] = c3_u.map[c3_i173];
   }
 
   c3_b_y = NULL;
@@ -3231,7 +3654,7 @@ static const mxArray *c3_f_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static void c3_f_sf_marshallIn(void *chartInstanceVoid, const mxArray
+static void c3_i_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
 {
   const mxArray *c3_load;
@@ -3251,25 +3674,25 @@ static void c3_f_sf_marshallIn(void *chartInstanceVoid, const mxArray
   sf_mex_destroy(&c3_mxArrayInData);
 }
 
-static const mxArray *c3_g_sf_marshallOut(void *chartInstanceVoid, void
+static const mxArray *c3_j_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData)
 {
   const mxArray *c3_mxArrayOutData = NULL;
-  int32_T c3_i158;
+  int32_T c3_i174;
   real_T c3_b_inData[3];
-  int32_T c3_i159;
+  int32_T c3_i175;
   real_T c3_u[3];
   const mxArray *c3_y = NULL;
   SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
   chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
     chartInstanceVoid;
   c3_mxArrayOutData = NULL;
-  for (c3_i158 = 0; c3_i158 < 3; c3_i158++) {
-    c3_b_inData[c3_i158] = (*(real_T (*)[3])c3_inData)[c3_i158];
+  for (c3_i174 = 0; c3_i174 < 3; c3_i174++) {
+    c3_b_inData[c3_i174] = (*(real_T (*)[3])c3_inData)[c3_i174];
   }
 
-  for (c3_i159 = 0; c3_i159 < 3; c3_i159++) {
-    c3_u[c3_i159] = c3_b_inData[c3_i159];
+  for (c3_i175 = 0; c3_i175 < 3; c3_i175++) {
+    c3_u[c3_i175] = c3_b_inData[c3_i175];
   }
 
   c3_y = NULL;
@@ -3278,236 +3701,16 @@ static const mxArray *c3_g_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static void c3_i_emlrt_marshallIn
+static void c3_o_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
    mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[3])
 {
-  real_T c3_dv35[3];
-  int32_T c3_i160;
-  (void)chartInstance;
-  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv35, 1, 0, 0U, 1, 0U, 2, 1, 3);
-  for (c3_i160 = 0; c3_i160 < 3; c3_i160++) {
-    c3_y[c3_i160] = c3_dv35[c3_i160];
-  }
-
-  sf_mex_destroy(&c3_u);
-}
-
-static void c3_g_sf_marshallIn(void *chartInstanceVoid, const mxArray
-  *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
-{
-  const mxArray *c3_a;
-  const char_T *c3_identifier;
-  emlrtMsgIdentifier c3_thisId;
-  real_T c3_y[3];
-  int32_T c3_i161;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
-  c3_a = sf_mex_dup(c3_mxArrayInData);
-  c3_identifier = c3_varName;
-  c3_thisId.fIdentifier = c3_identifier;
-  c3_thisId.fParent = NULL;
-  c3_i_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_a), &c3_thisId, c3_y);
-  sf_mex_destroy(&c3_a);
-  for (c3_i161 = 0; c3_i161 < 3; c3_i161++) {
-    (*(real_T (*)[3])c3_outData)[c3_i161] = c3_y[c3_i161];
-  }
-
-  sf_mex_destroy(&c3_mxArrayInData);
-}
-
-static const mxArray *c3_h_sf_marshallOut(void *chartInstanceVoid, void
-  *c3_inData)
-{
-  const mxArray *c3_mxArrayOutData = NULL;
-  int32_T c3_i162;
-  int32_T c3_i163;
-  int32_T c3_i164;
-  real_T c3_b_inData[4];
-  int32_T c3_i165;
-  int32_T c3_i166;
-  int32_T c3_i167;
-  real_T c3_u[4];
-  const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
-  c3_mxArrayOutData = NULL;
-  c3_i162 = 0;
-  for (c3_i163 = 0; c3_i163 < 2; c3_i163++) {
-    for (c3_i164 = 0; c3_i164 < 2; c3_i164++) {
-      c3_b_inData[c3_i164 + c3_i162] = (*(real_T (*)[4])c3_inData)[c3_i164 +
-        c3_i162];
-    }
-
-    c3_i162 += 2;
-  }
-
-  c3_i165 = 0;
-  for (c3_i166 = 0; c3_i166 < 2; c3_i166++) {
-    for (c3_i167 = 0; c3_i167 < 2; c3_i167++) {
-      c3_u[c3_i167 + c3_i165] = c3_b_inData[c3_i167 + c3_i165];
-    }
-
-    c3_i165 += 2;
-  }
-
-  c3_y = NULL;
-  sf_mex_assign(&c3_y, sf_mex_create("y", c3_u, 0, 0U, 1U, 0U, 2, 2, 2), false);
-  sf_mex_assign(&c3_mxArrayOutData, c3_y, false);
-  return c3_mxArrayOutData;
-}
-
-static void c3_j_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[4])
-{
-  real_T c3_dv36[4];
-  int32_T c3_i168;
-  (void)chartInstance;
-  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv36, 1, 0, 0U, 1, 0U, 2, 2, 2);
-  for (c3_i168 = 0; c3_i168 < 4; c3_i168++) {
-    c3_y[c3_i168] = c3_dv36[c3_i168];
-  }
-
-  sf_mex_destroy(&c3_u);
-}
-
-static void c3_h_sf_marshallIn(void *chartInstanceVoid, const mxArray
-  *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
-{
-  const mxArray *c3_R;
-  const char_T *c3_identifier;
-  emlrtMsgIdentifier c3_thisId;
-  real_T c3_y[4];
-  int32_T c3_i169;
-  int32_T c3_i170;
-  int32_T c3_i171;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
-  c3_R = sf_mex_dup(c3_mxArrayInData);
-  c3_identifier = c3_varName;
-  c3_thisId.fIdentifier = c3_identifier;
-  c3_thisId.fParent = NULL;
-  c3_j_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_R), &c3_thisId, c3_y);
-  sf_mex_destroy(&c3_R);
-  c3_i169 = 0;
-  for (c3_i170 = 0; c3_i170 < 2; c3_i170++) {
-    for (c3_i171 = 0; c3_i171 < 2; c3_i171++) {
-      (*(real_T (*)[4])c3_outData)[c3_i171 + c3_i169] = c3_y[c3_i171 + c3_i169];
-    }
-
-    c3_i169 += 2;
-  }
-
-  sf_mex_destroy(&c3_mxArrayInData);
-}
-
-static const mxArray *c3_i_sf_marshallOut(void *chartInstanceVoid, void
-  *c3_inData)
-{
-  const mxArray *c3_mxArrayOutData = NULL;
-  int32_T c3_i172;
-  real_T c3_b_inData[2];
-  int32_T c3_i173;
-  real_T c3_u[2];
-  const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
-  c3_mxArrayOutData = NULL;
-  for (c3_i172 = 0; c3_i172 < 2; c3_i172++) {
-    c3_b_inData[c3_i172] = (*(real_T (*)[2])c3_inData)[c3_i172];
-  }
-
-  for (c3_i173 = 0; c3_i173 < 2; c3_i173++) {
-    c3_u[c3_i173] = c3_b_inData[c3_i173];
-  }
-
-  c3_y = NULL;
-  sf_mex_assign(&c3_y, sf_mex_create("y", c3_u, 0, 0U, 1U, 0U, 2, 1, 2), false);
-  sf_mex_assign(&c3_mxArrayOutData, c3_y, false);
-  return c3_mxArrayOutData;
-}
-
-static void c3_k_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[2])
-{
-  real_T c3_dv37[2];
-  int32_T c3_i174;
-  (void)chartInstance;
-  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv37, 1, 0, 0U, 1, 0U, 2, 1, 2);
-  for (c3_i174 = 0; c3_i174 < 2; c3_i174++) {
-    c3_y[c3_i174] = c3_dv37[c3_i174];
-  }
-
-  sf_mex_destroy(&c3_u);
-}
-
-static void c3_i_sf_marshallIn(void *chartInstanceVoid, const mxArray
-  *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
-{
-  const mxArray *c3_point;
-  const char_T *c3_identifier;
-  emlrtMsgIdentifier c3_thisId;
-  real_T c3_y[2];
-  int32_T c3_i175;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
-  c3_point = sf_mex_dup(c3_mxArrayInData);
-  c3_identifier = c3_varName;
-  c3_thisId.fIdentifier = c3_identifier;
-  c3_thisId.fParent = NULL;
-  c3_k_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_point), &c3_thisId, c3_y);
-  sf_mex_destroy(&c3_point);
-  for (c3_i175 = 0; c3_i175 < 2; c3_i175++) {
-    (*(real_T (*)[2])c3_outData)[c3_i175] = c3_y[c3_i175];
-  }
-
-  sf_mex_destroy(&c3_mxArrayInData);
-}
-
-static const mxArray *c3_j_sf_marshallOut(void *chartInstanceVoid, void
-  *c3_inData)
-{
-  const mxArray *c3_mxArrayOutData = NULL;
+  real_T c3_dv39[3];
   int32_T c3_i176;
-  real_T c3_b_inData[4];
-  int32_T c3_i177;
-  real_T c3_u[4];
-  const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
-  c3_mxArrayOutData = NULL;
-  for (c3_i176 = 0; c3_i176 < 4; c3_i176++) {
-    c3_b_inData[c3_i176] = (*(real_T (*)[4])c3_inData)[c3_i176];
-  }
-
-  for (c3_i177 = 0; c3_i177 < 4; c3_i177++) {
-    c3_u[c3_i177] = c3_b_inData[c3_i177];
-  }
-
-  c3_y = NULL;
-  sf_mex_assign(&c3_y, sf_mex_create("y", c3_u, 0, 0U, 1U, 0U, 2, 1, 4), false);
-  sf_mex_assign(&c3_mxArrayOutData, c3_y, false);
-  return c3_mxArrayOutData;
-}
-
-static void c3_l_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[4])
-{
-  real_T c3_dv38[4];
-  int32_T c3_i178;
   (void)chartInstance;
-  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv38, 1, 0, 0U, 1, 0U, 2, 1, 4);
-  for (c3_i178 = 0; c3_i178 < 4; c3_i178++) {
-    c3_y[c3_i178] = c3_dv38[c3_i178];
+  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv39, 1, 0, 0U, 1, 0U, 2, 1, 3);
+  for (c3_i176 = 0; c3_i176 < 3; c3_i176++) {
+    c3_y[c3_i176] = c3_dv39[c3_i176];
   }
 
   sf_mex_destroy(&c3_u);
@@ -3516,11 +3719,231 @@ static void c3_l_emlrt_marshallIn
 static void c3_j_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
 {
+  const mxArray *c3_a;
+  const char_T *c3_identifier;
+  emlrtMsgIdentifier c3_thisId;
+  real_T c3_y[3];
+  int32_T c3_i177;
+  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
+    chartInstanceVoid;
+  c3_a = sf_mex_dup(c3_mxArrayInData);
+  c3_identifier = c3_varName;
+  c3_thisId.fIdentifier = c3_identifier;
+  c3_thisId.fParent = NULL;
+  c3_o_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_a), &c3_thisId, c3_y);
+  sf_mex_destroy(&c3_a);
+  for (c3_i177 = 0; c3_i177 < 3; c3_i177++) {
+    (*(real_T (*)[3])c3_outData)[c3_i177] = c3_y[c3_i177];
+  }
+
+  sf_mex_destroy(&c3_mxArrayInData);
+}
+
+static const mxArray *c3_k_sf_marshallOut(void *chartInstanceVoid, void
+  *c3_inData)
+{
+  const mxArray *c3_mxArrayOutData = NULL;
+  int32_T c3_i178;
+  int32_T c3_i179;
+  int32_T c3_i180;
+  real_T c3_b_inData[4];
+  int32_T c3_i181;
+  int32_T c3_i182;
+  int32_T c3_i183;
+  real_T c3_u[4];
+  const mxArray *c3_y = NULL;
+  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
+    chartInstanceVoid;
+  c3_mxArrayOutData = NULL;
+  c3_i178 = 0;
+  for (c3_i179 = 0; c3_i179 < 2; c3_i179++) {
+    for (c3_i180 = 0; c3_i180 < 2; c3_i180++) {
+      c3_b_inData[c3_i180 + c3_i178] = (*(real_T (*)[4])c3_inData)[c3_i180 +
+        c3_i178];
+    }
+
+    c3_i178 += 2;
+  }
+
+  c3_i181 = 0;
+  for (c3_i182 = 0; c3_i182 < 2; c3_i182++) {
+    for (c3_i183 = 0; c3_i183 < 2; c3_i183++) {
+      c3_u[c3_i183 + c3_i181] = c3_b_inData[c3_i183 + c3_i181];
+    }
+
+    c3_i181 += 2;
+  }
+
+  c3_y = NULL;
+  sf_mex_assign(&c3_y, sf_mex_create("y", c3_u, 0, 0U, 1U, 0U, 2, 2, 2), false);
+  sf_mex_assign(&c3_mxArrayOutData, c3_y, false);
+  return c3_mxArrayOutData;
+}
+
+static void c3_p_emlrt_marshallIn
+  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[4])
+{
+  real_T c3_dv40[4];
+  int32_T c3_i184;
+  (void)chartInstance;
+  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv40, 1, 0, 0U, 1, 0U, 2, 2, 2);
+  for (c3_i184 = 0; c3_i184 < 4; c3_i184++) {
+    c3_y[c3_i184] = c3_dv40[c3_i184];
+  }
+
+  sf_mex_destroy(&c3_u);
+}
+
+static void c3_k_sf_marshallIn(void *chartInstanceVoid, const mxArray
+  *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
+{
+  const mxArray *c3_R;
+  const char_T *c3_identifier;
+  emlrtMsgIdentifier c3_thisId;
+  real_T c3_y[4];
+  int32_T c3_i185;
+  int32_T c3_i186;
+  int32_T c3_i187;
+  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
+    chartInstanceVoid;
+  c3_R = sf_mex_dup(c3_mxArrayInData);
+  c3_identifier = c3_varName;
+  c3_thisId.fIdentifier = c3_identifier;
+  c3_thisId.fParent = NULL;
+  c3_p_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_R), &c3_thisId, c3_y);
+  sf_mex_destroy(&c3_R);
+  c3_i185 = 0;
+  for (c3_i186 = 0; c3_i186 < 2; c3_i186++) {
+    for (c3_i187 = 0; c3_i187 < 2; c3_i187++) {
+      (*(real_T (*)[4])c3_outData)[c3_i187 + c3_i185] = c3_y[c3_i187 + c3_i185];
+    }
+
+    c3_i185 += 2;
+  }
+
+  sf_mex_destroy(&c3_mxArrayInData);
+}
+
+static const mxArray *c3_l_sf_marshallOut(void *chartInstanceVoid, void
+  *c3_inData)
+{
+  const mxArray *c3_mxArrayOutData = NULL;
+  int32_T c3_i188;
+  real_T c3_b_inData[2];
+  int32_T c3_i189;
+  real_T c3_u[2];
+  const mxArray *c3_y = NULL;
+  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
+    chartInstanceVoid;
+  c3_mxArrayOutData = NULL;
+  for (c3_i188 = 0; c3_i188 < 2; c3_i188++) {
+    c3_b_inData[c3_i188] = (*(real_T (*)[2])c3_inData)[c3_i188];
+  }
+
+  for (c3_i189 = 0; c3_i189 < 2; c3_i189++) {
+    c3_u[c3_i189] = c3_b_inData[c3_i189];
+  }
+
+  c3_y = NULL;
+  sf_mex_assign(&c3_y, sf_mex_create("y", c3_u, 0, 0U, 1U, 0U, 2, 1, 2), false);
+  sf_mex_assign(&c3_mxArrayOutData, c3_y, false);
+  return c3_mxArrayOutData;
+}
+
+static void c3_q_emlrt_marshallIn
+  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[2])
+{
+  real_T c3_dv41[2];
+  int32_T c3_i190;
+  (void)chartInstance;
+  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv41, 1, 0, 0U, 1, 0U, 2, 1, 2);
+  for (c3_i190 = 0; c3_i190 < 2; c3_i190++) {
+    c3_y[c3_i190] = c3_dv41[c3_i190];
+  }
+
+  sf_mex_destroy(&c3_u);
+}
+
+static void c3_l_sf_marshallIn(void *chartInstanceVoid, const mxArray
+  *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
+{
+  const mxArray *c3_point;
+  const char_T *c3_identifier;
+  emlrtMsgIdentifier c3_thisId;
+  real_T c3_y[2];
+  int32_T c3_i191;
+  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
+    chartInstanceVoid;
+  c3_point = sf_mex_dup(c3_mxArrayInData);
+  c3_identifier = c3_varName;
+  c3_thisId.fIdentifier = c3_identifier;
+  c3_thisId.fParent = NULL;
+  c3_q_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_point), &c3_thisId, c3_y);
+  sf_mex_destroy(&c3_point);
+  for (c3_i191 = 0; c3_i191 < 2; c3_i191++) {
+    (*(real_T (*)[2])c3_outData)[c3_i191] = c3_y[c3_i191];
+  }
+
+  sf_mex_destroy(&c3_mxArrayInData);
+}
+
+static const mxArray *c3_m_sf_marshallOut(void *chartInstanceVoid, void
+  *c3_inData)
+{
+  const mxArray *c3_mxArrayOutData = NULL;
+  int32_T c3_i192;
+  real_T c3_b_inData[4];
+  int32_T c3_i193;
+  real_T c3_u[4];
+  const mxArray *c3_y = NULL;
+  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
+    chartInstanceVoid;
+  c3_mxArrayOutData = NULL;
+  for (c3_i192 = 0; c3_i192 < 4; c3_i192++) {
+    c3_b_inData[c3_i192] = (*(real_T (*)[4])c3_inData)[c3_i192];
+  }
+
+  for (c3_i193 = 0; c3_i193 < 4; c3_i193++) {
+    c3_u[c3_i193] = c3_b_inData[c3_i193];
+  }
+
+  c3_y = NULL;
+  sf_mex_assign(&c3_y, sf_mex_create("y", c3_u, 0, 0U, 1U, 0U, 2, 1, 4), false);
+  sf_mex_assign(&c3_mxArrayOutData, c3_y, false);
+  return c3_mxArrayOutData;
+}
+
+static void c3_r_emlrt_marshallIn
+  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[4])
+{
+  real_T c3_dv42[4];
+  int32_T c3_i194;
+  (void)chartInstance;
+  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv42, 1, 0, 0U, 1, 0U, 2, 1, 4);
+  for (c3_i194 = 0; c3_i194 < 4; c3_i194++) {
+    c3_y[c3_i194] = c3_dv42[c3_i194];
+  }
+
+  sf_mex_destroy(&c3_u);
+}
+
+static void c3_m_sf_marshallIn(void *chartInstanceVoid, const mxArray
+  *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
+{
   const mxArray *c3_line2;
   const char_T *c3_identifier;
   emlrtMsgIdentifier c3_thisId;
   real_T c3_y[4];
-  int32_T c3_i179;
+  int32_T c3_i195;
   SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
   chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
     chartInstanceVoid;
@@ -3528,26 +3951,26 @@ static void c3_j_sf_marshallIn(void *chartInstanceVoid, const mxArray
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
   c3_thisId.fParent = NULL;
-  c3_l_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_line2), &c3_thisId, c3_y);
+  c3_r_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_line2), &c3_thisId, c3_y);
   sf_mex_destroy(&c3_line2);
-  for (c3_i179 = 0; c3_i179 < 4; c3_i179++) {
-    (*(real_T (*)[4])c3_outData)[c3_i179] = c3_y[c3_i179];
+  for (c3_i195 = 0; c3_i195 < 4; c3_i195++) {
+    (*(real_T (*)[4])c3_outData)[c3_i195] = c3_y[c3_i195];
   }
 
   sf_mex_destroy(&c3_mxArrayInData);
 }
 
-static const mxArray *c3_k_sf_marshallOut(void *chartInstanceVoid, real_T
+static const mxArray *c3_n_sf_marshallOut(void *chartInstanceVoid, real_T
   c3_inData_data[], int32_T c3_inData_sizes[2])
 {
   const mxArray *c3_mxArrayOutData = NULL;
   int32_T c3_b_inData_sizes[2];
   int32_T c3_loop_ub;
-  int32_T c3_i180;
+  int32_T c3_i196;
   real_T c3_b_inData_data[1];
   int32_T c3_u_sizes[2];
   int32_T c3_b_loop_ub;
-  int32_T c3_i181;
+  int32_T c3_i197;
   real_T c3_u_data[1];
   const mxArray *c3_y = NULL;
   SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
@@ -3557,17 +3980,17 @@ static const mxArray *c3_k_sf_marshallOut(void *chartInstanceVoid, real_T
   c3_b_inData_sizes[0] = 1;
   c3_b_inData_sizes[1] = c3_inData_sizes[1];
   c3_loop_ub = c3_inData_sizes[1] - 1;
-  for (c3_i180 = 0; c3_i180 <= c3_loop_ub; c3_i180++) {
-    c3_b_inData_data[c3_b_inData_sizes[0] * c3_i180] =
-      c3_inData_data[c3_inData_sizes[0] * c3_i180];
+  for (c3_i196 = 0; c3_i196 <= c3_loop_ub; c3_i196++) {
+    c3_b_inData_data[c3_b_inData_sizes[0] * c3_i196] =
+      c3_inData_data[c3_inData_sizes[0] * c3_i196];
   }
 
   c3_u_sizes[0] = 1;
   c3_u_sizes[1] = c3_b_inData_sizes[1];
   c3_b_loop_ub = c3_b_inData_sizes[1] - 1;
-  for (c3_i181 = 0; c3_i181 <= c3_b_loop_ub; c3_i181++) {
-    c3_u_data[c3_u_sizes[0] * c3_i181] = c3_b_inData_data[c3_b_inData_sizes[0] *
-      c3_i181];
+  for (c3_i197 = 0; c3_i197 <= c3_b_loop_ub; c3_i197++) {
+    c3_u_data[c3_u_sizes[0] * c3_i197] = c3_b_inData_data[c3_b_inData_sizes[0] *
+      c3_i197];
   }
 
   c3_y = NULL;
@@ -3577,14 +4000,14 @@ static const mxArray *c3_k_sf_marshallOut(void *chartInstanceVoid, real_T
   return c3_mxArrayOutData;
 }
 
-static void c3_m_emlrt_marshallIn
+static void c3_s_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
    mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
    int32_T c3_y_sizes[2])
 {
-  int32_T c3_i182;
+  int32_T c3_i198;
   uint32_T c3_uv0[2];
-  int32_T c3_i183;
+  int32_T c3_i199;
   static boolean_T c3_bv0[2] = { false, true };
 
   boolean_T c3_bv1[2];
@@ -3593,14 +4016,14 @@ static void c3_m_emlrt_marshallIn
   int32_T c3_y;
   int32_T c3_b_y;
   int32_T c3_loop_ub;
-  int32_T c3_i184;
+  int32_T c3_i200;
   (void)chartInstance;
-  for (c3_i182 = 0; c3_i182 < 2; c3_i182++) {
-    c3_uv0[c3_i182] = 1U;
+  for (c3_i198 = 0; c3_i198 < 2; c3_i198++) {
+    c3_uv0[c3_i198] = 1U;
   }
 
-  for (c3_i183 = 0; c3_i183 < 2; c3_i183++) {
-    c3_bv1[c3_i183] = c3_bv0[c3_i183];
+  for (c3_i199 = 0; c3_i199 < 2; c3_i199++) {
+    c3_bv1[c3_i199] = c3_bv0[c3_i199];
   }
 
   sf_mex_import_vs(c3_parentId, sf_mex_dup(c3_u), c3_tmp_data, 1, 0, 0U, 1, 0U,
@@ -3610,14 +4033,14 @@ static void c3_m_emlrt_marshallIn
   c3_y = c3_y_sizes[0];
   c3_b_y = c3_y_sizes[1];
   c3_loop_ub = c3_tmp_sizes[0] * c3_tmp_sizes[1] - 1;
-  for (c3_i184 = 0; c3_i184 <= c3_loop_ub; c3_i184++) {
-    c3_y_data[c3_i184] = c3_tmp_data[c3_i184];
+  for (c3_i200 = 0; c3_i200 <= c3_loop_ub; c3_i200++) {
+    c3_y_data[c3_i200] = c3_tmp_data[c3_i200];
   }
 
   sf_mex_destroy(&c3_u);
 }
 
-static void c3_k_sf_marshallIn(void *chartInstanceVoid, const mxArray
+static void c3_n_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
   c3_outData_sizes[2])
 {
@@ -3627,7 +4050,7 @@ static void c3_k_sf_marshallIn(void *chartInstanceVoid, const mxArray
   int32_T c3_y_sizes[2];
   real_T c3_y_data[1];
   int32_T c3_loop_ub;
-  int32_T c3_i185;
+  int32_T c3_i201;
   SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
   chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
     chartInstanceVoid;
@@ -3635,21 +4058,21 @@ static void c3_k_sf_marshallIn(void *chartInstanceVoid, const mxArray
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
   c3_thisId.fParent = NULL;
-  c3_m_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_denom), &c3_thisId,
+  c3_s_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_denom), &c3_thisId,
                         c3_y_data, c3_y_sizes);
   sf_mex_destroy(&c3_denom);
   c3_outData_sizes[0] = 1;
   c3_outData_sizes[1] = c3_y_sizes[1];
   c3_loop_ub = c3_y_sizes[1] - 1;
-  for (c3_i185 = 0; c3_i185 <= c3_loop_ub; c3_i185++) {
-    c3_outData_data[c3_outData_sizes[0] * c3_i185] = c3_y_data[c3_y_sizes[0] *
-      c3_i185];
+  for (c3_i201 = 0; c3_i201 <= c3_loop_ub; c3_i201++) {
+    c3_outData_data[c3_outData_sizes[0] * c3_i201] = c3_y_data[c3_y_sizes[0] *
+      c3_i201];
   }
 
   sf_mex_destroy(&c3_mxArrayInData);
 }
 
-static const mxArray *c3_l_sf_marshallOut(void *chartInstanceVoid, void
+static const mxArray *c3_o_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData)
 {
   const mxArray *c3_mxArrayOutData = NULL;
@@ -3666,7 +4089,7 @@ static const mxArray *c3_l_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static boolean_T c3_n_emlrt_marshallIn
+static boolean_T c3_t_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
    mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId)
 {
@@ -3679,7 +4102,7 @@ static boolean_T c3_n_emlrt_marshallIn
   return c3_y;
 }
 
-static void c3_l_sf_marshallIn(void *chartInstanceVoid, const mxArray
+static void c3_o_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
 {
   const mxArray *c3_inds;
@@ -3693,241 +4116,9 @@ static void c3_l_sf_marshallIn(void *chartInstanceVoid, const mxArray
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
   c3_thisId.fParent = NULL;
-  c3_y = c3_n_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_inds), &c3_thisId);
+  c3_y = c3_t_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_inds), &c3_thisId);
   sf_mex_destroy(&c3_inds);
   *(boolean_T *)c3_outData = c3_y;
-  sf_mex_destroy(&c3_mxArrayInData);
-}
-
-static const mxArray *c3_m_sf_marshallOut(void *chartInstanceVoid, void
-  *c3_inData)
-{
-  const mxArray *c3_mxArrayOutData = NULL;
-  const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  (void)c3_inData;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
-  c3_mxArrayOutData = NULL;
-  c3_y = NULL;
-  sf_mex_assign(&c3_y, sf_mex_createcellmatrix(0, 1), false);
-  sf_mex_assign(&c3_mxArrayOutData, c3_y, false);
-  return c3_mxArrayOutData;
-}
-
-static const mxArray *c3_n_sf_marshallOut(void *chartInstanceVoid, real_T
-  c3_inData_data[], int32_T *c3_inData_sizes)
-{
-  const mxArray *c3_mxArrayOutData = NULL;
-  int32_T c3_b_inData_sizes;
-  int32_T c3_loop_ub;
-  int32_T c3_i186;
-  real_T c3_b_inData_data[4];
-  int32_T c3_u_sizes;
-  int32_T c3_b_loop_ub;
-  int32_T c3_i187;
-  real_T c3_u_data[4];
-  const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
-  c3_mxArrayOutData = NULL;
-  c3_b_inData_sizes = *c3_inData_sizes;
-  c3_loop_ub = *c3_inData_sizes - 1;
-  for (c3_i186 = 0; c3_i186 <= c3_loop_ub; c3_i186++) {
-    c3_b_inData_data[c3_i186] = c3_inData_data[c3_i186];
-  }
-
-  c3_u_sizes = c3_b_inData_sizes;
-  c3_b_loop_ub = c3_b_inData_sizes - 1;
-  for (c3_i187 = 0; c3_i187 <= c3_b_loop_ub; c3_i187++) {
-    c3_u_data[c3_i187] = c3_b_inData_data[c3_i187];
-  }
-
-  c3_y = NULL;
-  sf_mex_assign(&c3_y, sf_mex_create("y", c3_u_data, 0, 0U, 1U, 0U, 1,
-    c3_u_sizes), false);
-  sf_mex_assign(&c3_mxArrayOutData, c3_y, false);
-  return c3_mxArrayOutData;
-}
-
-static void c3_o_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
-   int32_T *c3_y_sizes)
-{
-  static uint32_T c3_uv1[1] = { 4U };
-
-  uint32_T c3_uv2[1];
-  static boolean_T c3_bv2[1] = { true };
-
-  boolean_T c3_bv3[1];
-  int32_T c3_tmp_sizes;
-  real_T c3_tmp_data[4];
-  int32_T c3_loop_ub;
-  int32_T c3_i188;
-  (void)chartInstance;
-  c3_uv2[0] = c3_uv1[0];
-  c3_bv3[0] = c3_bv2[0];
-  sf_mex_import_vs(c3_parentId, sf_mex_dup(c3_u), c3_tmp_data, 1, 0, 0U, 1, 0U,
-                   1, c3_bv3, c3_uv2, &c3_tmp_sizes);
-  *c3_y_sizes = c3_tmp_sizes;
-  c3_loop_ub = c3_tmp_sizes - 1;
-  for (c3_i188 = 0; c3_i188 <= c3_loop_ub; c3_i188++) {
-    c3_y_data[c3_i188] = c3_tmp_data[c3_i188];
-  }
-
-  sf_mex_destroy(&c3_u);
-}
-
-static void c3_m_sf_marshallIn(void *chartInstanceVoid, const mxArray
-  *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
-  *c3_outData_sizes)
-{
-  const mxArray *c3_pos;
-  const char_T *c3_identifier;
-  emlrtMsgIdentifier c3_thisId;
-  int32_T c3_y_sizes;
-  real_T c3_y_data[4];
-  int32_T c3_loop_ub;
-  int32_T c3_i189;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
-  c3_pos = sf_mex_dup(c3_mxArrayInData);
-  c3_identifier = c3_varName;
-  c3_thisId.fIdentifier = c3_identifier;
-  c3_thisId.fParent = NULL;
-  c3_o_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_pos), &c3_thisId, c3_y_data,
-                        &c3_y_sizes);
-  sf_mex_destroy(&c3_pos);
-  *c3_outData_sizes = c3_y_sizes;
-  c3_loop_ub = c3_y_sizes - 1;
-  for (c3_i189 = 0; c3_i189 <= c3_loop_ub; c3_i189++) {
-    c3_outData_data[c3_i189] = c3_y_data[c3_i189];
-  }
-
-  sf_mex_destroy(&c3_mxArrayInData);
-}
-
-static const mxArray *c3_o_sf_marshallOut(void *chartInstanceVoid, real_T
-  c3_inData_data[], int32_T c3_inData_sizes[2])
-{
-  const mxArray *c3_mxArrayOutData = NULL;
-  int32_T c3_b_inData_sizes[2];
-  int32_T c3_i190;
-  int32_T c3_loop_ub;
-  int32_T c3_i191;
-  real_T c3_b_inData_data[8];
-  int32_T c3_u_sizes[2];
-  int32_T c3_i192;
-  int32_T c3_b_loop_ub;
-  int32_T c3_i193;
-  real_T c3_u_data[8];
-  const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
-  c3_mxArrayOutData = NULL;
-  c3_b_inData_sizes[0] = c3_inData_sizes[0];
-  c3_b_inData_sizes[1] = 2;
-  for (c3_i190 = 0; c3_i190 < 2; c3_i190++) {
-    c3_loop_ub = c3_inData_sizes[0] - 1;
-    for (c3_i191 = 0; c3_i191 <= c3_loop_ub; c3_i191++) {
-      c3_b_inData_data[c3_i191 + c3_b_inData_sizes[0] * c3_i190] =
-        c3_inData_data[c3_i191 + c3_inData_sizes[0] * c3_i190];
-    }
-  }
-
-  c3_u_sizes[0] = c3_b_inData_sizes[0];
-  c3_u_sizes[1] = 2;
-  for (c3_i192 = 0; c3_i192 < 2; c3_i192++) {
-    c3_b_loop_ub = c3_b_inData_sizes[0] - 1;
-    for (c3_i193 = 0; c3_i193 <= c3_b_loop_ub; c3_i193++) {
-      c3_u_data[c3_i193 + c3_u_sizes[0] * c3_i192] = c3_b_inData_data[c3_i193 +
-        c3_b_inData_sizes[0] * c3_i192];
-    }
-  }
-
-  c3_y = NULL;
-  sf_mex_assign(&c3_y, sf_mex_create("y", c3_u_data, 0, 0U, 1U, 0U, 2,
-    c3_u_sizes[0], c3_u_sizes[1]), false);
-  sf_mex_assign(&c3_mxArrayOutData, c3_y, false);
-  return c3_mxArrayOutData;
-}
-
-static void c3_p_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
-   int32_T c3_y_sizes[2])
-{
-  int32_T c3_i194;
-  uint32_T c3_uv3[2];
-  int32_T c3_i195;
-  static boolean_T c3_bv4[2] = { true, false };
-
-  boolean_T c3_bv5[2];
-  int32_T c3_tmp_sizes[2];
-  real_T c3_tmp_data[8];
-  int32_T c3_y;
-  int32_T c3_b_y;
-  int32_T c3_loop_ub;
-  int32_T c3_i196;
-  (void)chartInstance;
-  for (c3_i194 = 0; c3_i194 < 2; c3_i194++) {
-    c3_uv3[c3_i194] = 4U + (uint32_T)(-2 * (int32_T)(uint32_T)c3_i194);
-  }
-
-  for (c3_i195 = 0; c3_i195 < 2; c3_i195++) {
-    c3_bv5[c3_i195] = c3_bv4[c3_i195];
-  }
-
-  sf_mex_import_vs(c3_parentId, sf_mex_dup(c3_u), c3_tmp_data, 1, 0, 0U, 1, 0U,
-                   2, c3_bv5, c3_uv3, c3_tmp_sizes);
-  c3_y_sizes[0] = c3_tmp_sizes[0];
-  c3_y_sizes[1] = 2;
-  c3_y = c3_y_sizes[0];
-  c3_b_y = c3_y_sizes[1];
-  c3_loop_ub = c3_tmp_sizes[0] * c3_tmp_sizes[1] - 1;
-  for (c3_i196 = 0; c3_i196 <= c3_loop_ub; c3_i196++) {
-    c3_y_data[c3_i196] = c3_tmp_data[c3_i196];
-  }
-
-  sf_mex_destroy(&c3_u);
-}
-
-static void c3_n_sf_marshallIn(void *chartInstanceVoid, const mxArray
-  *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
-  c3_outData_sizes[2])
-{
-  const mxArray *c3_point;
-  const char_T *c3_identifier;
-  emlrtMsgIdentifier c3_thisId;
-  int32_T c3_y_sizes[2];
-  real_T c3_y_data[8];
-  int32_T c3_i197;
-  int32_T c3_loop_ub;
-  int32_T c3_i198;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
-  c3_point = sf_mex_dup(c3_mxArrayInData);
-  c3_identifier = c3_varName;
-  c3_thisId.fIdentifier = c3_identifier;
-  c3_thisId.fParent = NULL;
-  c3_p_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_point), &c3_thisId,
-                        c3_y_data, c3_y_sizes);
-  sf_mex_destroy(&c3_point);
-  c3_outData_sizes[0] = c3_y_sizes[0];
-  c3_outData_sizes[1] = 2;
-  for (c3_i197 = 0; c3_i197 < 2; c3_i197++) {
-    c3_loop_ub = c3_y_sizes[0] - 1;
-    for (c3_i198 = 0; c3_i198 <= c3_loop_ub; c3_i198++) {
-      c3_outData_data[c3_i198 + c3_outData_sizes[0] * c3_i197] =
-        c3_y_data[c3_i198 + c3_y_sizes[0] * c3_i197];
-    }
-  }
-
   sf_mex_destroy(&c3_mxArrayInData);
 }
 
@@ -3947,95 +4138,223 @@ static const mxArray *c3_p_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static const mxArray *c3_q_sf_marshallOut(void *chartInstanceVoid, void
-  *c3_inData)
+static const mxArray *c3_q_sf_marshallOut(void *chartInstanceVoid, real_T
+  c3_inData_data[], int32_T *c3_inData_sizes)
 {
   const mxArray *c3_mxArrayOutData = NULL;
-  int32_T c3_i199;
-  int32_T c3_i200;
-  int32_T c3_i201;
-  real_T c3_b_inData[8];
+  int32_T c3_b_inData_sizes;
+  int32_T c3_loop_ub;
   int32_T c3_i202;
+  real_T c3_b_inData_data[4];
+  int32_T c3_u_sizes;
+  int32_T c3_b_loop_ub;
   int32_T c3_i203;
-  int32_T c3_i204;
-  real_T c3_u[8];
+  real_T c3_u_data[4];
   const mxArray *c3_y = NULL;
   SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
   chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
     chartInstanceVoid;
   c3_mxArrayOutData = NULL;
-  c3_i199 = 0;
-  for (c3_i200 = 0; c3_i200 < 2; c3_i200++) {
-    for (c3_i201 = 0; c3_i201 < 4; c3_i201++) {
-      c3_b_inData[c3_i201 + c3_i199] = (*(real_T (*)[8])c3_inData)[c3_i201 +
-        c3_i199];
-    }
-
-    c3_i199 += 4;
+  c3_b_inData_sizes = *c3_inData_sizes;
+  c3_loop_ub = *c3_inData_sizes - 1;
+  for (c3_i202 = 0; c3_i202 <= c3_loop_ub; c3_i202++) {
+    c3_b_inData_data[c3_i202] = c3_inData_data[c3_i202];
   }
 
-  c3_i202 = 0;
-  for (c3_i203 = 0; c3_i203 < 2; c3_i203++) {
-    for (c3_i204 = 0; c3_i204 < 4; c3_i204++) {
-      c3_u[c3_i204 + c3_i202] = c3_b_inData[c3_i204 + c3_i202];
-    }
-
-    c3_i202 += 4;
+  c3_u_sizes = c3_b_inData_sizes;
+  c3_b_loop_ub = c3_b_inData_sizes - 1;
+  for (c3_i203 = 0; c3_i203 <= c3_b_loop_ub; c3_i203++) {
+    c3_u_data[c3_i203] = c3_b_inData_data[c3_i203];
   }
 
   c3_y = NULL;
-  sf_mex_assign(&c3_y, sf_mex_create("y", c3_u, 0, 0U, 1U, 0U, 2, 4, 2), false);
+  sf_mex_assign(&c3_y, sf_mex_create("y", c3_u_data, 0, 0U, 1U, 0U, 1,
+    c3_u_sizes), false);
   sf_mex_assign(&c3_mxArrayOutData, c3_y, false);
   return c3_mxArrayOutData;
 }
 
-static void c3_q_emlrt_marshallIn
+static void c3_u_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[8])
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
+   int32_T *c3_y_sizes)
 {
-  real_T c3_dv39[8];
-  int32_T c3_i205;
+  static uint32_T c3_uv1[1] = { 4U };
+
+  uint32_T c3_uv2[1];
+  static boolean_T c3_bv2[1] = { true };
+
+  boolean_T c3_bv3[1];
+  int32_T c3_tmp_sizes;
+  real_T c3_tmp_data[4];
+  int32_T c3_loop_ub;
+  int32_T c3_i204;
   (void)chartInstance;
-  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv39, 1, 0, 0U, 1, 0U, 2, 4, 2);
-  for (c3_i205 = 0; c3_i205 < 8; c3_i205++) {
-    c3_y[c3_i205] = c3_dv39[c3_i205];
+  c3_uv2[0] = c3_uv1[0];
+  c3_bv3[0] = c3_bv2[0];
+  sf_mex_import_vs(c3_parentId, sf_mex_dup(c3_u), c3_tmp_data, 1, 0, 0U, 1, 0U,
+                   1, c3_bv3, c3_uv2, &c3_tmp_sizes);
+  *c3_y_sizes = c3_tmp_sizes;
+  c3_loop_ub = c3_tmp_sizes - 1;
+  for (c3_i204 = 0; c3_i204 <= c3_loop_ub; c3_i204++) {
+    c3_y_data[c3_i204] = c3_tmp_data[c3_i204];
   }
 
   sf_mex_destroy(&c3_u);
 }
 
-static void c3_o_sf_marshallIn(void *chartInstanceVoid, const mxArray
-  *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
+static void c3_p_sf_marshallIn(void *chartInstanceVoid, const mxArray
+  *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
+  *c3_outData_sizes)
 {
-  const mxArray *c3_points;
+  const mxArray *c3_pos;
   const char_T *c3_identifier;
   emlrtMsgIdentifier c3_thisId;
-  real_T c3_y[8];
-  int32_T c3_i206;
-  int32_T c3_i207;
-  int32_T c3_i208;
+  int32_T c3_y_sizes;
+  real_T c3_y_data[4];
+  int32_T c3_loop_ub;
+  int32_T c3_i205;
   SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
   chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
     chartInstanceVoid;
-  c3_points = sf_mex_dup(c3_mxArrayInData);
+  c3_pos = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
   c3_thisId.fParent = NULL;
-  c3_q_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_points), &c3_thisId, c3_y);
-  sf_mex_destroy(&c3_points);
-  c3_i206 = 0;
-  for (c3_i207 = 0; c3_i207 < 2; c3_i207++) {
-    for (c3_i208 = 0; c3_i208 < 4; c3_i208++) {
-      (*(real_T (*)[8])c3_outData)[c3_i208 + c3_i206] = c3_y[c3_i208 + c3_i206];
-    }
-
-    c3_i206 += 4;
+  c3_u_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_pos), &c3_thisId, c3_y_data,
+                        &c3_y_sizes);
+  sf_mex_destroy(&c3_pos);
+  *c3_outData_sizes = c3_y_sizes;
+  c3_loop_ub = c3_y_sizes - 1;
+  for (c3_i205 = 0; c3_i205 <= c3_loop_ub; c3_i205++) {
+    c3_outData_data[c3_i205] = c3_y_data[c3_i205];
   }
 
   sf_mex_destroy(&c3_mxArrayInData);
 }
 
-static const mxArray *c3_r_sf_marshallOut(void *chartInstanceVoid, void
+static const mxArray *c3_r_sf_marshallOut(void *chartInstanceVoid, real_T
+  c3_inData_data[], int32_T c3_inData_sizes[2])
+{
+  const mxArray *c3_mxArrayOutData = NULL;
+  int32_T c3_b_inData_sizes[2];
+  int32_T c3_i206;
+  int32_T c3_loop_ub;
+  int32_T c3_i207;
+  real_T c3_b_inData_data[8];
+  int32_T c3_u_sizes[2];
+  int32_T c3_i208;
+  int32_T c3_b_loop_ub;
+  int32_T c3_i209;
+  real_T c3_u_data[8];
+  const mxArray *c3_y = NULL;
+  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
+    chartInstanceVoid;
+  c3_mxArrayOutData = NULL;
+  c3_b_inData_sizes[0] = c3_inData_sizes[0];
+  c3_b_inData_sizes[1] = 2;
+  for (c3_i206 = 0; c3_i206 < 2; c3_i206++) {
+    c3_loop_ub = c3_inData_sizes[0] - 1;
+    for (c3_i207 = 0; c3_i207 <= c3_loop_ub; c3_i207++) {
+      c3_b_inData_data[c3_i207 + c3_b_inData_sizes[0] * c3_i206] =
+        c3_inData_data[c3_i207 + c3_inData_sizes[0] * c3_i206];
+    }
+  }
+
+  c3_u_sizes[0] = c3_b_inData_sizes[0];
+  c3_u_sizes[1] = 2;
+  for (c3_i208 = 0; c3_i208 < 2; c3_i208++) {
+    c3_b_loop_ub = c3_b_inData_sizes[0] - 1;
+    for (c3_i209 = 0; c3_i209 <= c3_b_loop_ub; c3_i209++) {
+      c3_u_data[c3_i209 + c3_u_sizes[0] * c3_i208] = c3_b_inData_data[c3_i209 +
+        c3_b_inData_sizes[0] * c3_i208];
+    }
+  }
+
+  c3_y = NULL;
+  sf_mex_assign(&c3_y, sf_mex_create("y", c3_u_data, 0, 0U, 1U, 0U, 2,
+    c3_u_sizes[0], c3_u_sizes[1]), false);
+  sf_mex_assign(&c3_mxArrayOutData, c3_y, false);
+  return c3_mxArrayOutData;
+}
+
+static void c3_v_emlrt_marshallIn
+  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
+   int32_T c3_y_sizes[2])
+{
+  int32_T c3_i210;
+  uint32_T c3_uv3[2];
+  int32_T c3_i211;
+  static boolean_T c3_bv4[2] = { true, false };
+
+  boolean_T c3_bv5[2];
+  int32_T c3_tmp_sizes[2];
+  real_T c3_tmp_data[8];
+  int32_T c3_y;
+  int32_T c3_b_y;
+  int32_T c3_loop_ub;
+  int32_T c3_i212;
+  (void)chartInstance;
+  for (c3_i210 = 0; c3_i210 < 2; c3_i210++) {
+    c3_uv3[c3_i210] = 4U + (uint32_T)(-2 * (int32_T)(uint32_T)c3_i210);
+  }
+
+  for (c3_i211 = 0; c3_i211 < 2; c3_i211++) {
+    c3_bv5[c3_i211] = c3_bv4[c3_i211];
+  }
+
+  sf_mex_import_vs(c3_parentId, sf_mex_dup(c3_u), c3_tmp_data, 1, 0, 0U, 1, 0U,
+                   2, c3_bv5, c3_uv3, c3_tmp_sizes);
+  c3_y_sizes[0] = c3_tmp_sizes[0];
+  c3_y_sizes[1] = 2;
+  c3_y = c3_y_sizes[0];
+  c3_b_y = c3_y_sizes[1];
+  c3_loop_ub = c3_tmp_sizes[0] * c3_tmp_sizes[1] - 1;
+  for (c3_i212 = 0; c3_i212 <= c3_loop_ub; c3_i212++) {
+    c3_y_data[c3_i212] = c3_tmp_data[c3_i212];
+  }
+
+  sf_mex_destroy(&c3_u);
+}
+
+static void c3_q_sf_marshallIn(void *chartInstanceVoid, const mxArray
+  *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
+  c3_outData_sizes[2])
+{
+  const mxArray *c3_point;
+  const char_T *c3_identifier;
+  emlrtMsgIdentifier c3_thisId;
+  int32_T c3_y_sizes[2];
+  real_T c3_y_data[8];
+  int32_T c3_i213;
+  int32_T c3_loop_ub;
+  int32_T c3_i214;
+  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
+    chartInstanceVoid;
+  c3_point = sf_mex_dup(c3_mxArrayInData);
+  c3_identifier = c3_varName;
+  c3_thisId.fIdentifier = c3_identifier;
+  c3_thisId.fParent = NULL;
+  c3_v_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_point), &c3_thisId,
+                        c3_y_data, c3_y_sizes);
+  sf_mex_destroy(&c3_point);
+  c3_outData_sizes[0] = c3_y_sizes[0];
+  c3_outData_sizes[1] = 2;
+  for (c3_i213 = 0; c3_i213 < 2; c3_i213++) {
+    c3_loop_ub = c3_y_sizes[0] - 1;
+    for (c3_i214 = 0; c3_i214 <= c3_loop_ub; c3_i214++) {
+      c3_outData_data[c3_i214 + c3_outData_sizes[0] * c3_i213] =
+        c3_y_data[c3_i214 + c3_y_sizes[0] * c3_i213];
+    }
+  }
+
+  sf_mex_destroy(&c3_mxArrayInData);
+}
+
+static const mxArray *c3_s_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData)
 {
   const mxArray *c3_mxArrayOutData = NULL;
@@ -4051,228 +4370,89 @@ static const mxArray *c3_r_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static const mxArray *c3_s_sf_marshallOut(void *chartInstanceVoid, real_T
-  c3_inData_data[], int32_T c3_inData_sizes[2])
+static const mxArray *c3_t_sf_marshallOut(void *chartInstanceVoid, void
+  *c3_inData)
 {
   const mxArray *c3_mxArrayOutData = NULL;
-  int32_T c3_b_inData_sizes[2];
-  int32_T c3_loop_ub;
-  int32_T c3_i209;
-  int32_T c3_b_loop_ub;
-  int32_T c3_i210;
-  real_T c3_b_inData_data[2];
-  int32_T c3_u_sizes[2];
-  int32_T c3_c_loop_ub;
-  int32_T c3_i211;
-  int32_T c3_d_loop_ub;
-  int32_T c3_i212;
-  real_T c3_u_data[2];
-  const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
-  c3_mxArrayOutData = NULL;
-  c3_b_inData_sizes[0] = c3_inData_sizes[0];
-  c3_b_inData_sizes[1] = c3_inData_sizes[1];
-  c3_loop_ub = c3_inData_sizes[1] - 1;
-  for (c3_i209 = 0; c3_i209 <= c3_loop_ub; c3_i209++) {
-    c3_b_loop_ub = c3_inData_sizes[0] - 1;
-    for (c3_i210 = 0; c3_i210 <= c3_b_loop_ub; c3_i210++) {
-      c3_b_inData_data[c3_i210 + c3_b_inData_sizes[0] * c3_i209] =
-        c3_inData_data[c3_i210 + c3_inData_sizes[0] * c3_i209];
-    }
-  }
-
-  c3_u_sizes[0] = c3_b_inData_sizes[0];
-  c3_u_sizes[1] = c3_b_inData_sizes[1];
-  c3_c_loop_ub = c3_b_inData_sizes[1] - 1;
-  for (c3_i211 = 0; c3_i211 <= c3_c_loop_ub; c3_i211++) {
-    c3_d_loop_ub = c3_b_inData_sizes[0] - 1;
-    for (c3_i212 = 0; c3_i212 <= c3_d_loop_ub; c3_i212++) {
-      c3_u_data[c3_i212 + c3_u_sizes[0] * c3_i211] = c3_b_inData_data[c3_i212 +
-        c3_b_inData_sizes[0] * c3_i211];
-    }
-  }
-
-  c3_y = NULL;
-  sf_mex_assign(&c3_y, sf_mex_create("y", c3_u_data, 0, 0U, 1U, 0U, 2,
-    c3_u_sizes[0], c3_u_sizes[1]), false);
-  sf_mex_assign(&c3_mxArrayOutData, c3_y, false);
-  return c3_mxArrayOutData;
-}
-
-static void c3_r_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
-   int32_T c3_y_sizes[2])
-{
-  int32_T c3_i213;
-  uint32_T c3_uv4[2];
-  int32_T c3_i214;
-  boolean_T c3_bv6[2];
-  int32_T c3_tmp_sizes[2];
-  real_T c3_tmp_data[2];
-  int32_T c3_y;
-  int32_T c3_b_y;
-  int32_T c3_loop_ub;
   int32_T c3_i215;
-  (void)chartInstance;
-  for (c3_i213 = 0; c3_i213 < 2; c3_i213++) {
-    c3_uv4[c3_i213] = 1U + (uint32_T)c3_i213;
-  }
-
-  for (c3_i214 = 0; c3_i214 < 2; c3_i214++) {
-    c3_bv6[c3_i214] = true;
-  }
-
-  sf_mex_import_vs(c3_parentId, sf_mex_dup(c3_u), c3_tmp_data, 1, 0, 0U, 1, 0U,
-                   2, c3_bv6, c3_uv4, c3_tmp_sizes);
-  c3_y_sizes[0] = c3_tmp_sizes[0];
-  c3_y_sizes[1] = c3_tmp_sizes[1];
-  c3_y = c3_y_sizes[0];
-  c3_b_y = c3_y_sizes[1];
-  c3_loop_ub = c3_tmp_sizes[0] * c3_tmp_sizes[1] - 1;
-  for (c3_i215 = 0; c3_i215 <= c3_loop_ub; c3_i215++) {
-    c3_y_data[c3_i215] = c3_tmp_data[c3_i215];
-  }
-
-  sf_mex_destroy(&c3_u);
-}
-
-static void c3_p_sf_marshallIn(void *chartInstanceVoid, const mxArray
-  *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
-  c3_outData_sizes[2])
-{
-  const mxArray *c3_p;
-  const char_T *c3_identifier;
-  emlrtMsgIdentifier c3_thisId;
-  int32_T c3_y_sizes[2];
-  real_T c3_y_data[2];
-  int32_T c3_loop_ub;
   int32_T c3_i216;
-  int32_T c3_b_loop_ub;
   int32_T c3_i217;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
-  c3_p = sf_mex_dup(c3_mxArrayInData);
-  c3_identifier = c3_varName;
-  c3_thisId.fIdentifier = c3_identifier;
-  c3_thisId.fParent = NULL;
-  c3_r_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_p), &c3_thisId, c3_y_data,
-                        c3_y_sizes);
-  sf_mex_destroy(&c3_p);
-  c3_outData_sizes[0] = c3_y_sizes[0];
-  c3_outData_sizes[1] = c3_y_sizes[1];
-  c3_loop_ub = c3_y_sizes[1] - 1;
-  for (c3_i216 = 0; c3_i216 <= c3_loop_ub; c3_i216++) {
-    c3_b_loop_ub = c3_y_sizes[0] - 1;
-    for (c3_i217 = 0; c3_i217 <= c3_b_loop_ub; c3_i217++) {
-      c3_outData_data[c3_i217 + c3_outData_sizes[0] * c3_i216] =
-        c3_y_data[c3_i217 + c3_y_sizes[0] * c3_i216];
-    }
-  }
-
-  sf_mex_destroy(&c3_mxArrayInData);
-}
-
-static const mxArray *c3_t_sf_marshallOut(void *chartInstanceVoid, real_T
-  c3_inData_data[], int32_T c3_inData_sizes[2])
-{
-  const mxArray *c3_mxArrayOutData = NULL;
-  int32_T c3_b_inData_sizes[2];
+  real_T c3_b_inData[8];
   int32_T c3_i218;
-  real_T c3_b_inData_data[2];
-  int32_T c3_u_sizes[2];
   int32_T c3_i219;
-  real_T c3_u_data[2];
+  int32_T c3_i220;
+  real_T c3_u[8];
   const mxArray *c3_y = NULL;
   SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
   chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
     chartInstanceVoid;
   c3_mxArrayOutData = NULL;
-  c3_b_inData_sizes[0] = 1;
-  c3_b_inData_sizes[1] = 2;
-  for (c3_i218 = 0; c3_i218 < 2; c3_i218++) {
-    c3_b_inData_data[c3_b_inData_sizes[0] * c3_i218] =
-      c3_inData_data[c3_inData_sizes[0] * c3_i218];
+  c3_i215 = 0;
+  for (c3_i216 = 0; c3_i216 < 2; c3_i216++) {
+    for (c3_i217 = 0; c3_i217 < 4; c3_i217++) {
+      c3_b_inData[c3_i217 + c3_i215] = (*(real_T (*)[8])c3_inData)[c3_i217 +
+        c3_i215];
+    }
+
+    c3_i215 += 4;
   }
 
-  c3_u_sizes[0] = 1;
-  c3_u_sizes[1] = 2;
+  c3_i218 = 0;
   for (c3_i219 = 0; c3_i219 < 2; c3_i219++) {
-    c3_u_data[c3_u_sizes[0] * c3_i219] = c3_b_inData_data[c3_b_inData_sizes[0] *
-      c3_i219];
+    for (c3_i220 = 0; c3_i220 < 4; c3_i220++) {
+      c3_u[c3_i220 + c3_i218] = c3_b_inData[c3_i220 + c3_i218];
+    }
+
+    c3_i218 += 4;
   }
 
   c3_y = NULL;
-  sf_mex_assign(&c3_y, sf_mex_create("y", c3_u_data, 0, 0U, 1U, 0U, 2,
-    c3_u_sizes[0], c3_u_sizes[1]), false);
+  sf_mex_assign(&c3_y, sf_mex_create("y", c3_u, 0, 0U, 1U, 0U, 2, 4, 2), false);
   sf_mex_assign(&c3_mxArrayOutData, c3_y, false);
   return c3_mxArrayOutData;
 }
 
-static void c3_s_emlrt_marshallIn
+static void c3_w_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
-   int32_T c3_y_sizes[2])
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[8])
 {
-  int32_T c3_i220;
-  uint32_T c3_uv5[2];
+  real_T c3_dv43[8];
   int32_T c3_i221;
-  boolean_T c3_bv7[2];
-  int32_T c3_tmp_sizes[2];
-  real_T c3_tmp_data[2];
-  int32_T c3_y;
-  int32_T c3_b_y;
-  int32_T c3_i222;
   (void)chartInstance;
-  for (c3_i220 = 0; c3_i220 < 2; c3_i220++) {
-    c3_uv5[c3_i220] = 1U + (uint32_T)c3_i220;
-  }
-
-  for (c3_i221 = 0; c3_i221 < 2; c3_i221++) {
-    c3_bv7[c3_i221] = false;
-  }
-
-  sf_mex_import_vs(c3_parentId, sf_mex_dup(c3_u), c3_tmp_data, 1, 0, 0U, 1, 0U,
-                   2, c3_bv7, c3_uv5, c3_tmp_sizes);
-  c3_y_sizes[0] = 1;
-  c3_y_sizes[1] = 2;
-  c3_y = c3_y_sizes[0];
-  c3_b_y = c3_y_sizes[1];
-  for (c3_i222 = 0; c3_i222 < 2; c3_i222++) {
-    c3_y_data[c3_i222] = c3_tmp_data[c3_i222];
+  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv43, 1, 0, 0U, 1, 0U, 2, 4, 2);
+  for (c3_i221 = 0; c3_i221 < 8; c3_i221++) {
+    c3_y[c3_i221] = c3_dv43[c3_i221];
   }
 
   sf_mex_destroy(&c3_u);
 }
 
-static void c3_q_sf_marshallIn(void *chartInstanceVoid, const mxArray
-  *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
-  c3_outData_sizes[2])
+static void c3_r_sf_marshallIn(void *chartInstanceVoid, const mxArray
+  *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
 {
-  const mxArray *c3_Pxel;
+  const mxArray *c3_points;
   const char_T *c3_identifier;
   emlrtMsgIdentifier c3_thisId;
-  int32_T c3_y_sizes[2];
-  real_T c3_y_data[2];
+  real_T c3_y[8];
+  int32_T c3_i222;
   int32_T c3_i223;
+  int32_T c3_i224;
   SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
   chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
     chartInstanceVoid;
-  c3_Pxel = sf_mex_dup(c3_mxArrayInData);
+  c3_points = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
   c3_thisId.fParent = NULL;
-  c3_s_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_Pxel), &c3_thisId,
-                        c3_y_data, c3_y_sizes);
-  sf_mex_destroy(&c3_Pxel);
-  c3_outData_sizes[0] = 1;
-  c3_outData_sizes[1] = 2;
+  c3_w_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_points), &c3_thisId, c3_y);
+  sf_mex_destroy(&c3_points);
+  c3_i222 = 0;
   for (c3_i223 = 0; c3_i223 < 2; c3_i223++) {
-    c3_outData_data[c3_outData_sizes[0] * c3_i223] = c3_y_data[c3_y_sizes[0] *
-      c3_i223];
+    for (c3_i224 = 0; c3_i224 < 4; c3_i224++) {
+      (*(real_T (*)[8])c3_outData)[c3_i224 + c3_i222] = c3_y[c3_i224 + c3_i222];
+    }
+
+    c3_i222 += 4;
   }
 
   sf_mex_destroy(&c3_mxArrayInData);
@@ -4282,21 +4462,264 @@ static const mxArray *c3_u_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData)
 {
   const mxArray *c3_mxArrayOutData = NULL;
-  int32_T c3_i224;
-  real_T c3_b_inData[3];
+  const mxArray *c3_y = NULL;
+  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  (void)c3_inData;
+  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
+    chartInstanceVoid;
+  c3_mxArrayOutData = NULL;
+  c3_y = NULL;
+  sf_mex_assign(&c3_y, sf_mex_createcellmatrix(0, 1), false);
+  sf_mex_assign(&c3_mxArrayOutData, c3_y, false);
+  return c3_mxArrayOutData;
+}
+
+static const mxArray *c3_v_sf_marshallOut(void *chartInstanceVoid, real_T
+  c3_inData_data[], int32_T c3_inData_sizes[2])
+{
+  const mxArray *c3_mxArrayOutData = NULL;
+  int32_T c3_b_inData_sizes[2];
+  int32_T c3_loop_ub;
   int32_T c3_i225;
+  int32_T c3_b_loop_ub;
+  int32_T c3_i226;
+  real_T c3_b_inData_data[2];
+  int32_T c3_u_sizes[2];
+  int32_T c3_c_loop_ub;
+  int32_T c3_i227;
+  int32_T c3_d_loop_ub;
+  int32_T c3_i228;
+  real_T c3_u_data[2];
+  const mxArray *c3_y = NULL;
+  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
+    chartInstanceVoid;
+  c3_mxArrayOutData = NULL;
+  c3_b_inData_sizes[0] = c3_inData_sizes[0];
+  c3_b_inData_sizes[1] = c3_inData_sizes[1];
+  c3_loop_ub = c3_inData_sizes[1] - 1;
+  for (c3_i225 = 0; c3_i225 <= c3_loop_ub; c3_i225++) {
+    c3_b_loop_ub = c3_inData_sizes[0] - 1;
+    for (c3_i226 = 0; c3_i226 <= c3_b_loop_ub; c3_i226++) {
+      c3_b_inData_data[c3_i226 + c3_b_inData_sizes[0] * c3_i225] =
+        c3_inData_data[c3_i226 + c3_inData_sizes[0] * c3_i225];
+    }
+  }
+
+  c3_u_sizes[0] = c3_b_inData_sizes[0];
+  c3_u_sizes[1] = c3_b_inData_sizes[1];
+  c3_c_loop_ub = c3_b_inData_sizes[1] - 1;
+  for (c3_i227 = 0; c3_i227 <= c3_c_loop_ub; c3_i227++) {
+    c3_d_loop_ub = c3_b_inData_sizes[0] - 1;
+    for (c3_i228 = 0; c3_i228 <= c3_d_loop_ub; c3_i228++) {
+      c3_u_data[c3_i228 + c3_u_sizes[0] * c3_i227] = c3_b_inData_data[c3_i228 +
+        c3_b_inData_sizes[0] * c3_i227];
+    }
+  }
+
+  c3_y = NULL;
+  sf_mex_assign(&c3_y, sf_mex_create("y", c3_u_data, 0, 0U, 1U, 0U, 2,
+    c3_u_sizes[0], c3_u_sizes[1]), false);
+  sf_mex_assign(&c3_mxArrayOutData, c3_y, false);
+  return c3_mxArrayOutData;
+}
+
+static void c3_x_emlrt_marshallIn
+  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
+   int32_T c3_y_sizes[2])
+{
+  int32_T c3_i229;
+  uint32_T c3_uv4[2];
+  int32_T c3_i230;
+  boolean_T c3_bv6[2];
+  int32_T c3_tmp_sizes[2];
+  real_T c3_tmp_data[2];
+  int32_T c3_y;
+  int32_T c3_b_y;
+  int32_T c3_loop_ub;
+  int32_T c3_i231;
+  (void)chartInstance;
+  for (c3_i229 = 0; c3_i229 < 2; c3_i229++) {
+    c3_uv4[c3_i229] = 1U + (uint32_T)c3_i229;
+  }
+
+  for (c3_i230 = 0; c3_i230 < 2; c3_i230++) {
+    c3_bv6[c3_i230] = true;
+  }
+
+  sf_mex_import_vs(c3_parentId, sf_mex_dup(c3_u), c3_tmp_data, 1, 0, 0U, 1, 0U,
+                   2, c3_bv6, c3_uv4, c3_tmp_sizes);
+  c3_y_sizes[0] = c3_tmp_sizes[0];
+  c3_y_sizes[1] = c3_tmp_sizes[1];
+  c3_y = c3_y_sizes[0];
+  c3_b_y = c3_y_sizes[1];
+  c3_loop_ub = c3_tmp_sizes[0] * c3_tmp_sizes[1] - 1;
+  for (c3_i231 = 0; c3_i231 <= c3_loop_ub; c3_i231++) {
+    c3_y_data[c3_i231] = c3_tmp_data[c3_i231];
+  }
+
+  sf_mex_destroy(&c3_u);
+}
+
+static void c3_s_sf_marshallIn(void *chartInstanceVoid, const mxArray
+  *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
+  c3_outData_sizes[2])
+{
+  const mxArray *c3_p;
+  const char_T *c3_identifier;
+  emlrtMsgIdentifier c3_thisId;
+  int32_T c3_y_sizes[2];
+  real_T c3_y_data[2];
+  int32_T c3_loop_ub;
+  int32_T c3_i232;
+  int32_T c3_b_loop_ub;
+  int32_T c3_i233;
+  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
+    chartInstanceVoid;
+  c3_p = sf_mex_dup(c3_mxArrayInData);
+  c3_identifier = c3_varName;
+  c3_thisId.fIdentifier = c3_identifier;
+  c3_thisId.fParent = NULL;
+  c3_x_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_p), &c3_thisId, c3_y_data,
+                        c3_y_sizes);
+  sf_mex_destroy(&c3_p);
+  c3_outData_sizes[0] = c3_y_sizes[0];
+  c3_outData_sizes[1] = c3_y_sizes[1];
+  c3_loop_ub = c3_y_sizes[1] - 1;
+  for (c3_i232 = 0; c3_i232 <= c3_loop_ub; c3_i232++) {
+    c3_b_loop_ub = c3_y_sizes[0] - 1;
+    for (c3_i233 = 0; c3_i233 <= c3_b_loop_ub; c3_i233++) {
+      c3_outData_data[c3_i233 + c3_outData_sizes[0] * c3_i232] =
+        c3_y_data[c3_i233 + c3_y_sizes[0] * c3_i232];
+    }
+  }
+
+  sf_mex_destroy(&c3_mxArrayInData);
+}
+
+static const mxArray *c3_w_sf_marshallOut(void *chartInstanceVoid, real_T
+  c3_inData_data[], int32_T c3_inData_sizes[2])
+{
+  const mxArray *c3_mxArrayOutData = NULL;
+  int32_T c3_b_inData_sizes[2];
+  int32_T c3_i234;
+  real_T c3_b_inData_data[2];
+  int32_T c3_u_sizes[2];
+  int32_T c3_i235;
+  real_T c3_u_data[2];
+  const mxArray *c3_y = NULL;
+  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
+    chartInstanceVoid;
+  c3_mxArrayOutData = NULL;
+  c3_b_inData_sizes[0] = 1;
+  c3_b_inData_sizes[1] = 2;
+  for (c3_i234 = 0; c3_i234 < 2; c3_i234++) {
+    c3_b_inData_data[c3_b_inData_sizes[0] * c3_i234] =
+      c3_inData_data[c3_inData_sizes[0] * c3_i234];
+  }
+
+  c3_u_sizes[0] = 1;
+  c3_u_sizes[1] = 2;
+  for (c3_i235 = 0; c3_i235 < 2; c3_i235++) {
+    c3_u_data[c3_u_sizes[0] * c3_i235] = c3_b_inData_data[c3_b_inData_sizes[0] *
+      c3_i235];
+  }
+
+  c3_y = NULL;
+  sf_mex_assign(&c3_y, sf_mex_create("y", c3_u_data, 0, 0U, 1U, 0U, 2,
+    c3_u_sizes[0], c3_u_sizes[1]), false);
+  sf_mex_assign(&c3_mxArrayOutData, c3_y, false);
+  return c3_mxArrayOutData;
+}
+
+static void c3_y_emlrt_marshallIn
+  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
+   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
+   int32_T c3_y_sizes[2])
+{
+  int32_T c3_i236;
+  uint32_T c3_uv5[2];
+  int32_T c3_i237;
+  boolean_T c3_bv7[2];
+  int32_T c3_tmp_sizes[2];
+  real_T c3_tmp_data[2];
+  int32_T c3_y;
+  int32_T c3_b_y;
+  int32_T c3_i238;
+  (void)chartInstance;
+  for (c3_i236 = 0; c3_i236 < 2; c3_i236++) {
+    c3_uv5[c3_i236] = 1U + (uint32_T)c3_i236;
+  }
+
+  for (c3_i237 = 0; c3_i237 < 2; c3_i237++) {
+    c3_bv7[c3_i237] = false;
+  }
+
+  sf_mex_import_vs(c3_parentId, sf_mex_dup(c3_u), c3_tmp_data, 1, 0, 0U, 1, 0U,
+                   2, c3_bv7, c3_uv5, c3_tmp_sizes);
+  c3_y_sizes[0] = 1;
+  c3_y_sizes[1] = 2;
+  c3_y = c3_y_sizes[0];
+  c3_b_y = c3_y_sizes[1];
+  for (c3_i238 = 0; c3_i238 < 2; c3_i238++) {
+    c3_y_data[c3_i238] = c3_tmp_data[c3_i238];
+  }
+
+  sf_mex_destroy(&c3_u);
+}
+
+static void c3_t_sf_marshallIn(void *chartInstanceVoid, const mxArray
+  *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
+  c3_outData_sizes[2])
+{
+  const mxArray *c3_Pxel;
+  const char_T *c3_identifier;
+  emlrtMsgIdentifier c3_thisId;
+  int32_T c3_y_sizes[2];
+  real_T c3_y_data[2];
+  int32_T c3_i239;
+  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
+    chartInstanceVoid;
+  c3_Pxel = sf_mex_dup(c3_mxArrayInData);
+  c3_identifier = c3_varName;
+  c3_thisId.fIdentifier = c3_identifier;
+  c3_thisId.fParent = NULL;
+  c3_y_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_Pxel), &c3_thisId,
+                        c3_y_data, c3_y_sizes);
+  sf_mex_destroy(&c3_Pxel);
+  c3_outData_sizes[0] = 1;
+  c3_outData_sizes[1] = 2;
+  for (c3_i239 = 0; c3_i239 < 2; c3_i239++) {
+    c3_outData_data[c3_outData_sizes[0] * c3_i239] = c3_y_data[c3_y_sizes[0] *
+      c3_i239];
+  }
+
+  sf_mex_destroy(&c3_mxArrayInData);
+}
+
+static const mxArray *c3_x_sf_marshallOut(void *chartInstanceVoid, void
+  *c3_inData)
+{
+  const mxArray *c3_mxArrayOutData = NULL;
+  int32_T c3_i240;
+  real_T c3_b_inData[3];
+  int32_T c3_i241;
   real_T c3_u[3];
   const mxArray *c3_y = NULL;
   SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
   chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
     chartInstanceVoid;
   c3_mxArrayOutData = NULL;
-  for (c3_i224 = 0; c3_i224 < 3; c3_i224++) {
-    c3_b_inData[c3_i224] = (*(real_T (*)[3])c3_inData)[c3_i224];
+  for (c3_i240 = 0; c3_i240 < 3; c3_i240++) {
+    c3_b_inData[c3_i240] = (*(real_T (*)[3])c3_inData)[c3_i240];
   }
 
-  for (c3_i225 = 0; c3_i225 < 3; c3_i225++) {
-    c3_u[c3_i225] = c3_b_inData[c3_i225];
+  for (c3_i241 = 0; c3_i241 < 3; c3_i241++) {
+    c3_u[c3_i241] = c3_b_inData[c3_i241];
   }
 
   c3_y = NULL;
@@ -4305,29 +4728,29 @@ static const mxArray *c3_u_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static void c3_t_emlrt_marshallIn
+static void c3_ab_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
    mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[3])
 {
-  real_T c3_dv40[3];
-  int32_T c3_i226;
+  real_T c3_dv44[3];
+  int32_T c3_i242;
   (void)chartInstance;
-  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv40, 1, 0, 0U, 1, 0U, 1, 3);
-  for (c3_i226 = 0; c3_i226 < 3; c3_i226++) {
-    c3_y[c3_i226] = c3_dv40[c3_i226];
+  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), c3_dv44, 1, 0, 0U, 1, 0U, 1, 3);
+  for (c3_i242 = 0; c3_i242 < 3; c3_i242++) {
+    c3_y[c3_i242] = c3_dv44[c3_i242];
   }
 
   sf_mex_destroy(&c3_u);
 }
 
-static void c3_r_sf_marshallIn(void *chartInstanceVoid, const mxArray
+static void c3_u_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
 {
   const mxArray *c3_P2;
   const char_T *c3_identifier;
   emlrtMsgIdentifier c3_thisId;
   real_T c3_y[3];
-  int32_T c3_i227;
+  int32_T c3_i243;
   SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
   chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
     chartInstanceVoid;
@@ -4335,10 +4758,10 @@ static void c3_r_sf_marshallIn(void *chartInstanceVoid, const mxArray
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
   c3_thisId.fParent = NULL;
-  c3_t_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_P2), &c3_thisId, c3_y);
+  c3_ab_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_P2), &c3_thisId, c3_y);
   sf_mex_destroy(&c3_P2);
-  for (c3_i227 = 0; c3_i227 < 3; c3_i227++) {
-    (*(real_T (*)[3])c3_outData)[c3_i227] = c3_y[c3_i227];
+  for (c3_i243 = 0; c3_i243 < 3; c3_i243++) {
+    (*(real_T (*)[3])c3_outData)[c3_i243] = c3_y[c3_i243];
   }
 
   sf_mex_destroy(&c3_mxArrayInData);
@@ -4496,11 +4919,11 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/mrdivide.p"), "resolved",
                   "resolved", 0);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388492496U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388463696U), "fileTimeLo",
                   "fileTimeLo", 0);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 0);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370042286U), "mFileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370017086U), "mFileTimeLo",
                   "mFileTimeLo", 0);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "mFileTimeHi",
                   "mFileTimeHi", 0);
@@ -4518,7 +4941,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/assert.m"),
                   "resolved", "resolved", 1);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 1);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 1);
@@ -4539,7 +4962,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/rdivide.m"), "resolved",
                   "resolved", 2);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742680U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717480U), "fileTimeLo",
                   "fileTimeLo", 2);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 2);
@@ -4561,7 +4984,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 3);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 3);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 3);
@@ -4583,7 +5006,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalexp_compatible.m"),
                   "resolved", "resolved", 4);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851196U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825996U), "fileTimeLo",
                   "fileTimeLo", 4);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 4);
@@ -4604,7 +5027,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_div.m"), "resolved",
                   "resolved", 5);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
                   "fileTimeLo", 5);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 5);
@@ -4626,7 +5049,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/coder/coder/+coder/+internal/div.p"), "resolved",
                   "resolved", 6);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389340320U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389311520U), "fileTimeLo",
                   "fileTimeLo", 6);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 6);
@@ -4643,9 +5066,9 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 7);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
                   "resolved", "resolved", 7);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1420734410U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464054057U), "fileTimeLo",
                   "fileTimeLo", 7);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 7);
@@ -4658,7 +5081,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_rhs7), "rhs", "rhs", 7);
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs7), "lhs", "lhs", 7);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
                   "context", "context", 8);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("length"), "name", "name", 8);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -4666,7 +5089,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/length.m"), "resolved",
                   "resolved", 8);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1303178606U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1303153406U), "fileTimeLo",
                   "fileTimeLo", 8);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 8);
@@ -4679,7 +5102,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_rhs8), "rhs", "rhs", 8);
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs8), "lhs", "lhs", 8);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
                   "context", "context", 9);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("cos"), "name", "name", 9);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -4687,7 +5110,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/cos.m"), "resolved",
                   "resolved", 9);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343862772U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343837572U), "fileTimeLo",
                   "fileTimeLo", 9);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 9);
@@ -4709,7 +5132,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/eml_scalar_cos.m"),
                   "resolved", "resolved", 10);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851122U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825922U), "fileTimeLo",
                   "fileTimeLo", 10);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 10);
@@ -4724,7 +5147,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs10), "lhs", "lhs",
                   10);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
                   "context", "context", 11);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("sin"), "name", "name", 11);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -4732,7 +5155,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/sin.m"), "resolved",
                   "resolved", 11);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343862786U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343837586U), "fileTimeLo",
                   "fileTimeLo", 11);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 11);
@@ -4756,7 +5179,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/eml_scalar_sin.m"),
                   "resolved", "resolved", 12);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851136U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825936U), "fileTimeLo",
                   "fileTimeLo", 12);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 12);
@@ -4776,9 +5199,9 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 13);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "resolved", "resolved", 13);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1463973006U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464054052U), "fileTimeLo",
                   "fileTimeLo", 13);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 13);
@@ -4793,7 +5216,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs13), "lhs", "lhs",
                   13);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 14);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mrdivide"), "name", "name", 14);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -4801,11 +5224,11 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/mrdivide.p"), "resolved",
                   "resolved", 14);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388492496U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388463696U), "fileTimeLo",
                   "fileTimeLo", 14);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 14);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370042286U), "mFileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370017086U), "mFileTimeLo",
                   "mFileTimeLo", 14);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "mFileTimeHi",
                   "mFileTimeHi", 14);
@@ -4816,7 +5239,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs14), "lhs", "lhs",
                   14);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 15);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("round"), "name", "name", 15);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -4824,7 +5247,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/round.m"), "resolved",
                   "resolved", 15);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742654U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717454U), "fileTimeLo",
                   "fileTimeLo", 15);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 15);
@@ -4848,7 +5271,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 16);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 16);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 16);
@@ -4872,7 +5295,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/eml_scalar_round.m"),
                   "resolved", "resolved", 17);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1307683638U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1307658438U), "fileTimeLo",
                   "fileTimeLo", 17);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 17);
@@ -4887,7 +5310,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs17), "lhs", "lhs",
                   17);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 18);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("eml_mtimes_helper"), "name",
                   "name", 18);
@@ -4896,7 +5319,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/eml_mtimes_helper.m"),
                   "resolved", "resolved", 18);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1383909694U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1383880894U), "fileTimeLo",
                   "fileTimeLo", 18);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 18);
@@ -4920,7 +5343,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 19);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 19);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 19);
@@ -4944,7 +5367,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_class.m"),
                   "resolved", "resolved", 20);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323202978U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323174178U), "fileTimeLo",
                   "fileTimeLo", 20);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 20);
@@ -4968,7 +5391,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalar_eg.m"), "resolved",
                   "resolved", 21);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
                   "fileTimeLo", 21);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 21);
@@ -4992,7 +5415,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/coder/coder/+coder/+internal/scalarEg.p"),
                   "resolved", "resolved", 22);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389340320U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389311520U), "fileTimeLo",
                   "fileTimeLo", 22);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 22);
@@ -5016,7 +5439,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/blas/eml_xgemm.m"),
                   "resolved", "resolved", 23);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013090U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987890U), "fileTimeLo",
                   "fileTimeLo", 23);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 23);
@@ -5040,7 +5463,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/coder/coder/+coder/+internal/+blas/inline.p"),
                   "resolved", "resolved", 24);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389340322U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389311522U), "fileTimeLo",
                   "fileTimeLo", 24);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 24);
@@ -5064,7 +5487,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/coder/coder/+coder/+internal/+blas/xgemm.p"),
                   "resolved", "resolved", 25);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389340322U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389311522U), "fileTimeLo",
                   "fileTimeLo", 25);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 25);
@@ -5088,7 +5511,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/coder/coder/+coder/+internal/+blas/use_refblas.p"),
                   "resolved", "resolved", 26);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389340322U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389311522U), "fileTimeLo",
                   "fileTimeLo", 26);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 26);
@@ -5112,7 +5535,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/coder/coder/+coder/+internal/+blas/threshold.p"),
                   "resolved", "resolved", 27);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389340322U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389311522U), "fileTimeLo",
                   "fileTimeLo", 27);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 27);
@@ -5136,7 +5559,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_switch_helper.m"),
                   "resolved", "resolved", 28);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1381882700U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1381857500U), "fileTimeLo",
                   "fileTimeLo", 28);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 28);
@@ -5160,7 +5583,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/coder/coder/+coder/+internal/scalarEg.p"),
                   "resolved", "resolved", 29);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389340320U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389311520U), "fileTimeLo",
                   "fileTimeLo", 29);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 29);
@@ -5184,7 +5607,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/coder/coder/+coder/+internal/+refblas/xgemm.p"),
                   "resolved", "resolved", 30);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389340322U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389311522U), "fileTimeLo",
                   "fileTimeLo", 30);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 30);
@@ -5199,15 +5622,15 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs30), "lhs", "lhs",
                   30);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 31);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("XYtoIJ"), "name", "name", 31);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 31);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
                   "resolved", "resolved", 31);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1463947193U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464054052U), "fileTimeLo",
                   "fileTimeLo", 31);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 31);
@@ -5222,7 +5645,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs31), "lhs", "lhs",
                   31);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
                   "context", "context", 32);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mrdivide"), "name", "name", 32);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5230,11 +5653,11 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/mrdivide.p"), "resolved",
                   "resolved", 32);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388492496U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388463696U), "fileTimeLo",
                   "fileTimeLo", 32);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 32);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370042286U), "mFileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370017086U), "mFileTimeLo",
                   "mFileTimeLo", 32);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "mFileTimeHi",
                   "mFileTimeHi", 32);
@@ -5245,7 +5668,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs32), "lhs", "lhs",
                   32);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
                   "context", "context", 33);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("round"), "name", "name", 33);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5253,7 +5676,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/round.m"), "resolved",
                   "resolved", 33);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742654U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717454U), "fileTimeLo",
                   "fileTimeLo", 33);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 33);
@@ -5268,7 +5691,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs33), "lhs", "lhs",
                   33);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 34);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("cos"), "name", "name", 34);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5276,7 +5699,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/cos.m"), "resolved",
                   "resolved", 34);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343862772U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343837572U), "fileTimeLo",
                   "fileTimeLo", 34);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 34);
@@ -5291,7 +5714,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs34), "lhs", "lhs",
                   34);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 35);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("sin"), "name", "name", 35);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5299,7 +5722,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/sin.m"), "resolved",
                   "resolved", 35);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343862786U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343837586U), "fileTimeLo",
                   "fileTimeLo", 35);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 35);
@@ -5314,15 +5737,15 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs35), "lhs", "lhs",
                   35);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 36);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("clipLine"), "name", "name", 36);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 36);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "resolved", "resolved", 36);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1423855490U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464054052U), "fileTimeLo",
                   "fileTimeLo", 36);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 36);
@@ -5337,7 +5760,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs36), "lhs", "lhs",
                   36);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 37);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("hypot"), "name", "name", 37);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5345,7 +5768,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/hypot.m"), "resolved",
                   "resolved", 37);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343862780U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343837580U), "fileTimeLo",
                   "fileTimeLo", 37);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 37);
@@ -5369,7 +5792,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalar_eg.m"), "resolved",
                   "resolved", 38);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
                   "fileTimeLo", 38);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 38);
@@ -5393,7 +5816,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalexp_alloc.m"),
                   "resolved", "resolved", 39);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
                   "fileTimeLo", 39);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 39);
@@ -5417,7 +5840,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/coder/coder/+coder/+internal/scalexpAlloc.p"),
                   "resolved", "resolved", 40);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389340320U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389311520U), "fileTimeLo",
                   "fileTimeLo", 40);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 40);
@@ -5441,7 +5864,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/eml_scalar_hypot.m"),
                   "resolved", "resolved", 41);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851126U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825926U), "fileTimeLo",
                   "fileTimeLo", 41);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 41);
@@ -5465,7 +5888,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalar_eg.m"), "resolved",
                   "resolved", 42);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
                   "fileTimeLo", 42);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 42);
@@ -5489,7 +5912,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_dlapy2.m"), "resolved",
                   "resolved", 43);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1350443054U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1350417854U), "fileTimeLo",
                   "fileTimeLo", 43);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 43);
@@ -5504,16 +5927,16 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs43), "lhs", "lhs",
                   43);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 44);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("intersectLines"), "name",
                   "name", 44);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 44);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines."
-    "m"), "resolved", "resolved", 44);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1423855492U), "fileTimeLo",
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+                  "resolved", "resolved", 44);
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464054052U), "fileTimeLo",
                   "fileTimeLo", 44);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 44);
@@ -5528,15 +5951,15 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs44), "lhs", "lhs",
                   44);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines."
-    "m"), "context", "context", 45);
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+                  "context", "context", 45);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("max"), "name", "name", 45);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 45);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/datafun/max.m"), "resolved",
                   "resolved", 45);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1311287716U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1311262516U), "fileTimeLo",
                   "fileTimeLo", 45);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 45);
@@ -5560,7 +5983,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_min_or_max.m"),
                   "resolved", "resolved", 46);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1378328384U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1378303184U), "fileTimeLo",
                   "fileTimeLo", 46);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 46);
@@ -5584,7 +6007,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalar_eg.m"), "resolved",
                   "resolved", 47);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
                   "fileTimeLo", 47);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 47);
@@ -5608,7 +6031,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalexp_alloc.m"),
                   "resolved", "resolved", 48);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
                   "fileTimeLo", 48);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 48);
@@ -5632,7 +6055,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_class.m"),
                   "resolved", "resolved", 49);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323202978U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323174178U), "fileTimeLo",
                   "fileTimeLo", 49);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 49);
@@ -5656,7 +6079,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalar_eg.m"), "resolved",
                   "resolved", 50);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
                   "fileTimeLo", 50);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 50);
@@ -5680,7 +6103,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 51);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 51);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 51);
@@ -5695,15 +6118,15 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs51), "lhs", "lhs",
                   51);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines."
-    "m"), "context", "context", 52);
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+                  "context", "context", 52);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("bsxfun"), "name", "name", 52);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("function_handle"),
                   "dominantType", "dominantType", 52);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/bsxfun.m"), "resolved",
                   "resolved", 52);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1356573894U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1356545094U), "fileTimeLo",
                   "fileTimeLo", 52);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 52);
@@ -5727,7 +6150,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_class.m"),
                   "resolved", "resolved", 53);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323202978U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323174178U), "fileTimeLo",
                   "fileTimeLo", 53);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 53);
@@ -5750,7 +6173,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/datafun/min.m"), "resolved",
                   "resolved", 54);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1311287718U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1311262518U), "fileTimeLo",
                   "fileTimeLo", 54);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 54);
@@ -5774,7 +6197,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_min_or_max.m"),
                   "resolved", "resolved", 55);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1378328384U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1378303184U), "fileTimeLo",
                   "fileTimeLo", 55);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 55);
@@ -5797,7 +6220,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/datafun/max.m"), "resolved",
                   "resolved", 56);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1311287716U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1311262516U), "fileTimeLo",
                   "fileTimeLo", 56);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 56);
@@ -5821,7 +6244,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_minus.m"),
                   "resolved", "resolved", 57);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
                   "fileTimeLo", 57);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 57);
@@ -5845,7 +6268,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/indexMinus.m"),
                   "resolved", "resolved", 58);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615560U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590360U), "fileTimeLo",
                   "fileTimeLo", 58);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 58);
@@ -5869,7 +6292,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalar_eg.m"), "resolved",
                   "resolved", 59);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
                   "fileTimeLo", 59);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 59);
@@ -5893,7 +6316,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_class.m"),
                   "resolved", "resolved", 60);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323202978U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323174178U), "fileTimeLo",
                   "fileTimeLo", 60);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 60);
@@ -5917,7 +6340,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_plus.m"),
                   "resolved", "resolved", 61);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
                   "fileTimeLo", 61);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 61);
@@ -5941,7 +6364,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/indexPlus.m"),
                   "resolved", "resolved", 62);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615560U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590360U), "fileTimeLo",
                   "fileTimeLo", 62);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 62);
@@ -5965,7 +6388,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_plus.m"),
                   "resolved", "resolved", 63);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
                   "fileTimeLo", 63);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 63);
@@ -6266,7 +6689,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/indexPlus.m"),
                   "resolved", "resolved", 64);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615560U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590360U), "fileTimeLo",
                   "fileTimeLo", 64);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 64);
@@ -6281,15 +6704,15 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs64), "lhs", "lhs",
                   64);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines."
-    "m"), "context", "context", 65);
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+                  "context", "context", 65);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("abs"), "name", "name", 65);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 65);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/abs.m"), "resolved",
                   "resolved", 65);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742652U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717452U), "fileTimeLo",
                   "fileTimeLo", 65);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 65);
@@ -6313,7 +6736,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 66);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 66);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 66);
@@ -6337,7 +6760,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/eml_scalar_abs.m"),
                   "resolved", "resolved", 67);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851112U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825912U), "fileTimeLo",
                   "fileTimeLo", 67);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 67);
@@ -6352,15 +6775,15 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs67), "lhs", "lhs",
                   67);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines."
-    "m"), "context", "context", 68);
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+                  "context", "context", 68);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("all"), "name", "name", 68);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("logical"), "dominantType",
                   "dominantType", 68);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/all.m"), "resolved",
                   "resolved", 68);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614814U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589614U), "fileTimeLo",
                   "fileTimeLo", 68);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 68);
@@ -6384,7 +6807,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/assert.m"),
                   "resolved", "resolved", 69);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 69);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 69);
@@ -6408,7 +6831,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 70);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 70);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 70);
@@ -6432,7 +6855,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/allOrAny.m"),
                   "resolved", "resolved", 71);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615558U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590358U), "fileTimeLo",
                   "fileTimeLo", 71);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 71);
@@ -6456,7 +6879,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/assert.m"),
                   "resolved", "resolved", 72);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 72);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 72);
@@ -6479,7 +6902,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/isequal.m"), "resolved",
                   "resolved", 73);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851158U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825958U), "fileTimeLo",
                   "fileTimeLo", 73);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 73);
@@ -6503,7 +6926,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_isequal_core.m"),
                   "resolved", "resolved", 74);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851186U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825986U), "fileTimeLo",
                   "fileTimeLo", 74);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 74);
@@ -6527,7 +6950,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/constNonSingletonDim.m"),
                   "resolved", "resolved", 75);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615560U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590360U), "fileTimeLo",
                   "fileTimeLo", 75);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 75);
@@ -6542,8 +6965,8 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs75), "lhs", "lhs",
                   75);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines."
-    "m"), "context", "context", 76);
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+                  "context", "context", 76);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("eml_li_find"), "name", "name",
                   76);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(""), "dominantType",
@@ -6551,7 +6974,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_li_find.m"), "resolved",
                   "resolved", 76);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851186U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825986U), "fileTimeLo",
                   "fileTimeLo", 76);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 76);
@@ -6575,7 +6998,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_class.m"),
                   "resolved", "resolved", 77);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323202978U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323174178U), "fileTimeLo",
                   "fileTimeLo", 77);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 77);
@@ -6599,7 +7022,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_class.m"),
                   "resolved", "resolved", 78);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323202978U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323174178U), "fileTimeLo",
                   "fileTimeLo", 78);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 78);
@@ -6623,7 +7046,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_plus.m"),
                   "resolved", "resolved", 79);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
                   "fileTimeLo", 79);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 79);
@@ -6647,7 +7070,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_plus.m"),
                   "resolved", "resolved", 80);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
                   "fileTimeLo", 80);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 80);
@@ -6662,15 +7085,15 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs80), "lhs", "lhs",
                   80);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines."
-    "m"), "context", "context", 81);
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+                  "context", "context", 81);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("rdivide"), "name", "name", 81);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 81);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/rdivide.m"), "resolved",
                   "resolved", 81);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742680U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717480U), "fileTimeLo",
                   "fileTimeLo", 81);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 81);
@@ -6685,7 +7108,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs81), "lhs", "lhs",
                   81);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 82);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("isfinite"), "name", "name", 82);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -6693,7 +7116,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/isfinite.m"), "resolved",
                   "resolved", 82);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742656U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717456U), "fileTimeLo",
                   "fileTimeLo", 82);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 82);
@@ -6717,7 +7140,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 83);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 83);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 83);
@@ -6740,7 +7163,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/isinf.m"), "resolved",
                   "resolved", 84);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742656U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717456U), "fileTimeLo",
                   "fileTimeLo", 84);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 84);
@@ -6764,7 +7187,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 85);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 85);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 85);
@@ -6787,7 +7210,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/isnan.m"), "resolved",
                   "resolved", 86);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742658U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717458U), "fileTimeLo",
                   "fileTimeLo", 86);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 86);
@@ -6811,7 +7234,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 87);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 87);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 87);
@@ -6826,7 +7249,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs87), "lhs", "lhs",
                   87);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 88);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("eml_li_find"), "name", "name",
                   88);
@@ -6835,7 +7258,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_li_find.m"), "resolved",
                   "resolved", 88);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851186U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825986U), "fileTimeLo",
                   "fileTimeLo", 88);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 88);
@@ -6859,7 +7282,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_int_forloop_overflow_check.m"),
                   "resolved", "resolved", 89);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
                   "fileTimeLo", 89);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 89);
@@ -6882,7 +7305,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/intmax.m"), "resolved",
                   "resolved", 90);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1362294282U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1362265482U), "fileTimeLo",
                   "fileTimeLo", 90);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 90);
@@ -6906,7 +7329,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_switch_helper.m"),
                   "resolved", "resolved", 91);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1381882700U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1381857500U), "fileTimeLo",
                   "fileTimeLo", 91);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 91);
@@ -6930,7 +7353,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_int_forloop_overflow_check.m"),
                   "resolved", "resolved", 92);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
                   "fileTimeLo", 92);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 92);
@@ -6945,16 +7368,16 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs92), "lhs", "lhs",
                   92);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 93);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("linePosition"), "name", "name",
                   93);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 93);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
                   "resolved", "resolved", 93);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1423855492U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464054052U), "fileTimeLo",
                   "fileTimeLo", 93);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 93);
@@ -6969,7 +7392,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs93), "lhs", "lhs",
                   93);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
                   "context", "context", 94);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("bsxfun"), "name", "name", 94);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("function_handle"),
@@ -6977,7 +7400,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/bsxfun.m"), "resolved",
                   "resolved", 94);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1356573894U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1356545094U), "fileTimeLo",
                   "fileTimeLo", 94);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 94);
@@ -7000,7 +7423,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/datafun/min.m"), "resolved",
                   "resolved", 95);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1311287718U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1311262518U), "fileTimeLo",
                   "fileTimeLo", 95);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 95);
@@ -7024,7 +7447,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_int_forloop_overflow_check.m"),
                   "resolved", "resolved", 96);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
                   "fileTimeLo", 96);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 96);
@@ -7047,7 +7470,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/intmin.m"), "resolved",
                   "resolved", 97);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1362294282U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1362265482U), "fileTimeLo",
                   "fileTimeLo", 97);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 97);
@@ -7071,7 +7494,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_switch_helper.m"),
                   "resolved", "resolved", 98);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1381882700U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1381857500U), "fileTimeLo",
                   "fileTimeLo", 98);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 98);
@@ -7095,7 +7518,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_minus.m"),
                   "resolved", "resolved", 99);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
                   "fileTimeLo", 99);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 99);
@@ -7119,7 +7542,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/indexMinus.m"),
                   "resolved", "resolved", 100);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615560U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590360U), "fileTimeLo",
                   "fileTimeLo", 100);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 100);
@@ -7134,7 +7557,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs100), "lhs", "lhs",
                   100);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
                   "context", "context", 101);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("eps"), "name", "name", 101);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(""), "dominantType",
@@ -7142,7 +7565,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/eps.m"), "resolved",
                   "resolved", 101);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1326760396U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1326731596U), "fileTimeLo",
                   "fileTimeLo", 101);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 101);
@@ -7165,7 +7588,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_eps.m"), "resolved",
                   "resolved", 102);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1326760396U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1326731596U), "fileTimeLo",
                   "fileTimeLo", 102);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 102);
@@ -7189,7 +7612,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_float_model.m"),
                   "resolved", "resolved", 103);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1326760396U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1326731596U), "fileTimeLo",
                   "fileTimeLo", 103);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 103);
@@ -7204,7 +7627,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs103), "lhs", "lhs",
                   103);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
                   "context", "context", 104);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("eml_li_find"), "name", "name",
                   104);
@@ -7213,7 +7636,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_li_find.m"), "resolved",
                   "resolved", 104);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851186U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825986U), "fileTimeLo",
                   "fileTimeLo", 104);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 104);
@@ -7228,7 +7651,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs104), "lhs", "lhs",
                   104);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
                   "context", "context", 105);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("rdivide"), "name", "name", 105);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(""), "dominantType",
@@ -7236,7 +7659,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/rdivide.m"), "resolved",
                   "resolved", 105);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742680U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717480U), "fileTimeLo",
                   "fileTimeLo", 105);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 105);
@@ -7259,7 +7682,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/rdivide.m"), "resolved",
                   "resolved", 106);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742680U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717480U), "fileTimeLo",
                   "fileTimeLo", 106);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 106);
@@ -7282,7 +7705,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/isequal.m"), "resolved",
                   "resolved", 107);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851158U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825958U), "fileTimeLo",
                   "fileTimeLo", 107);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 107);
@@ -7305,7 +7728,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/isnan.m"), "resolved",
                   "resolved", 108);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742658U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717458U), "fileTimeLo",
                   "fileTimeLo", 108);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 108);
@@ -7320,7 +7743,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs108), "lhs", "lhs",
                   108);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 109);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("sort"), "name", "name", 109);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -7328,7 +7751,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/datafun/sort.m"), "resolved",
                   "resolved", 109);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742656U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717456U), "fileTimeLo",
                   "fileTimeLo", 109);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 109);
@@ -7352,7 +7775,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 110);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 110);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 110);
@@ -7376,7 +7799,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_sort.m"), "resolved",
                   "resolved", 111);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1314769012U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1314743812U), "fileTimeLo",
                   "fileTimeLo", 111);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 111);
@@ -7400,7 +7823,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_nonsingleton_dim.m"),
                   "resolved", "resolved", 112);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1307683642U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1307658442U), "fileTimeLo",
                   "fileTimeLo", 112);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 112);
@@ -7424,7 +7847,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_class.m"),
                   "resolved", "resolved", 113);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323202978U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323174178U), "fileTimeLo",
                   "fileTimeLo", 113);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 113);
@@ -7448,7 +7871,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_assert_valid_dim.m"),
                   "resolved", "resolved", 114);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
                   "fileTimeLo", 114);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 114);
@@ -7472,7 +7895,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/assertValidDim.m"),
                   "resolved", "resolved", 115);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615560U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590360U), "fileTimeLo",
                   "fileTimeLo", 115);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 115);
@@ -7496,7 +7919,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 116);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 116);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 116);
@@ -7519,7 +7942,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/floor.m"), "resolved",
                   "resolved", 117);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742654U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717454U), "fileTimeLo",
                   "fileTimeLo", 117);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 117);
@@ -7543,7 +7966,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 118);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 118);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 118);
@@ -7567,7 +7990,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/eml_scalar_floor.m"),
                   "resolved", "resolved", 119);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851126U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825926U), "fileTimeLo",
                   "fileTimeLo", 119);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 119);
@@ -7590,7 +8013,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/intmax.m"), "resolved",
                   "resolved", 120);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1362294282U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1362265482U), "fileTimeLo",
                   "fileTimeLo", 120);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 120);
@@ -7614,7 +8037,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalar_eg.m"), "resolved",
                   "resolved", 121);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
                   "fileTimeLo", 121);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 121);
@@ -7638,7 +8061,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_class.m"),
                   "resolved", "resolved", 122);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323202978U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323174178U), "fileTimeLo",
                   "fileTimeLo", 122);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 122);
@@ -7662,7 +8085,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_matrix_vstride.m"),
                   "resolved", "resolved", 123);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1360314750U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1360285950U), "fileTimeLo",
                   "fileTimeLo", 123);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 123);
@@ -7686,7 +8109,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/prodsize.m"),
                   "resolved", "resolved", 124);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1360314988U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1360286188U), "fileTimeLo",
                   "fileTimeLo", 124);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 124);
@@ -7710,7 +8133,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_int_forloop_overflow_check.m"),
                   "resolved", "resolved", 125);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
                   "fileTimeLo", 125);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 125);
@@ -7734,7 +8157,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_minus.m"),
                   "resolved", "resolved", 126);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
                   "fileTimeLo", 126);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 126);
@@ -7758,7 +8181,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_times.m"),
                   "resolved", "resolved", 127);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
                   "fileTimeLo", 127);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 127);
@@ -8018,7 +8441,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/indexTimes.m"),
                   "resolved", "resolved", 128);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615560U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590360U), "fileTimeLo",
                   "fileTimeLo", 128);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 128);
@@ -8042,7 +8465,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_matrix_npages.m"),
                   "resolved", "resolved", 129);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1360314750U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1360285950U), "fileTimeLo",
                   "fileTimeLo", 129);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 129);
@@ -8066,7 +8489,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/prodsize.m"),
                   "resolved", "resolved", 130);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1360314988U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1360286188U), "fileTimeLo",
                   "fileTimeLo", 130);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 130);
@@ -8090,7 +8513,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_int_forloop_overflow_check.m"),
                   "resolved", "resolved", 131);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
                   "fileTimeLo", 131);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 131);
@@ -8114,7 +8537,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_plus.m"),
                   "resolved", "resolved", 132);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
                   "fileTimeLo", 132);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 132);
@@ -8138,7 +8561,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_plus.m"),
                   "resolved", "resolved", 133);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
                   "fileTimeLo", 133);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 133);
@@ -8162,7 +8585,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_sort_idx.m"), "resolved",
                   "resolved", 134);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1305350404U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1305325204U), "fileTimeLo",
                   "fileTimeLo", 134);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 134);
@@ -8186,7 +8609,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_class.m"),
                   "resolved", "resolved", 135);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323202978U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323174178U), "fileTimeLo",
                   "fileTimeLo", 135);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 135);
@@ -8210,7 +8633,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_plus.m"),
                   "resolved", "resolved", 136);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
                   "fileTimeLo", 136);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 136);
@@ -8234,7 +8657,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_int_forloop_overflow_check.m"),
                   "resolved", "resolved", 137);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
                   "fileTimeLo", 137);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 137);
@@ -8258,7 +8681,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_minus.m"),
                   "resolved", "resolved", 138);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
                   "fileTimeLo", 138);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 138);
@@ -8282,7 +8705,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_plus.m"),
                   "resolved", "resolved", 139);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
                   "fileTimeLo", 139);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 139);
@@ -8306,7 +8729,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_sort_le.m"), "resolved",
                   "resolved", 140);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1292222910U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1292194110U), "fileTimeLo",
                   "fileTimeLo", 140);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 140);
@@ -8330,7 +8753,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_relop.m"), "resolved",
                   "resolved", 141);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1342483582U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1342458382U), "fileTimeLo",
                   "fileTimeLo", 141);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 141);
@@ -8353,7 +8776,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/isnan.m"), "resolved",
                   "resolved", 142);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742658U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717458U), "fileTimeLo",
                   "fileTimeLo", 142);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 142);
@@ -8377,7 +8800,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_times.m"),
                   "resolved", "resolved", 143);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
                   "fileTimeLo", 143);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 143);
@@ -8401,7 +8824,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/indexTimes.m"),
                   "resolved", "resolved", 144);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615560U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590360U), "fileTimeLo",
                   "fileTimeLo", 144);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 144);
@@ -8425,7 +8848,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_minus.m"),
                   "resolved", "resolved", 145);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
                   "fileTimeLo", 145);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 145);
@@ -8440,7 +8863,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs145), "lhs", "lhs",
                   145);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 146);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mrdivide"), "name", "name",
                   146);
@@ -8449,11 +8872,11 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/mrdivide.p"), "resolved",
                   "resolved", 146);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388492496U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388463696U), "fileTimeLo",
                   "fileTimeLo", 146);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 146);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370042286U), "mFileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370017086U), "mFileTimeLo",
                   "mFileTimeLo", 146);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "mFileTimeHi",
                   "mFileTimeHi", 146);
@@ -8464,7 +8887,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs146), "lhs", "lhs",
                   146);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 147);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mean"), "name", "name", 147);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -8472,7 +8895,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/datafun/mean.m"), "resolved",
                   "resolved", 147);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1383909684U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1383880884U), "fileTimeLo",
                   "fileTimeLo", 147);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 147);
@@ -8496,7 +8919,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/assert.m"),
                   "resolved", "resolved", 148);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 148);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 148);
@@ -8520,7 +8943,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 149);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 149);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 149);
@@ -8543,7 +8966,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/isequal.m"), "resolved",
                   "resolved", 150);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851158U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825958U), "fileTimeLo",
                   "fileTimeLo", 150);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 150);
@@ -8567,7 +8990,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/constNonSingletonDim.m"),
                   "resolved", "resolved", 151);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615560U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590360U), "fileTimeLo",
                   "fileTimeLo", 151);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 151);
@@ -8590,7 +9013,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/datafun/sum.m"), "resolved",
                   "resolved", 152);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742658U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717458U), "fileTimeLo",
                   "fileTimeLo", 152);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 152);
@@ -8614,7 +9037,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 153);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 153);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 153);
@@ -8638,7 +9061,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_assert_valid_dim.m"),
                   "resolved", "resolved", 154);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
                   "fileTimeLo", 154);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 154);
@@ -8662,7 +9085,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/assertValidDim.m"),
                   "resolved", "resolved", 155);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615560U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590360U), "fileTimeLo",
                   "fileTimeLo", 155);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 155);
@@ -8686,7 +9109,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 156);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 156);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 156);
@@ -8709,7 +9132,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/floor.m"), "resolved",
                   "resolved", 157);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742654U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717454U), "fileTimeLo",
                   "fileTimeLo", 157);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 157);
@@ -8733,7 +9156,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 158);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 158);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 158);
@@ -8757,7 +9180,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/eml_scalar_floor.m"),
                   "resolved", "resolved", 159);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851126U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825926U), "fileTimeLo",
                   "fileTimeLo", 159);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 159);
@@ -8781,7 +9204,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_class.m"),
                   "resolved", "resolved", 160);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323202978U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323174178U), "fileTimeLo",
                   "fileTimeLo", 160);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 160);
@@ -8805,7 +9228,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalar_eg.m"), "resolved",
                   "resolved", 161);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
                   "fileTimeLo", 161);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 161);
@@ -8828,7 +9251,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/rdivide.m"), "resolved",
                   "resolved", 162);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742680U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717480U), "fileTimeLo",
                   "fileTimeLo", 162);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 162);
@@ -8843,16 +9266,16 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs162), "lhs", "lhs",
                   162);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 163);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("laserRange"), "name", "name",
                   163);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 163);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"),
                   "resolved", "resolved", 163);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1424807781U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464054055U), "fileTimeLo",
                   "fileTimeLo", 163);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 163);
@@ -8867,7 +9290,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs163), "lhs", "lhs",
                   163);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"),
                   "context", "context", 164);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("all"), "name", "name", 164);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("logical"), "dominantType",
@@ -8875,7 +9298,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/all.m"), "resolved",
                   "resolved", 164);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614814U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589614U), "fileTimeLo",
                   "fileTimeLo", 164);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 164);
@@ -8890,7 +9313,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs164), "lhs", "lhs",
                   164);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 165);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("isinf"), "name", "name", 165);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -8898,7 +9321,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/isinf.m"), "resolved",
                   "resolved", 165);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742656U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717456U), "fileTimeLo",
                   "fileTimeLo", 165);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 165);
@@ -8913,15 +9336,15 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs165), "lhs", "lhs",
                   165);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 166);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("IJtoXY"), "name", "name", 166);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 166);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"),
                   "resolved", "resolved", 166);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1463947193U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464054052U), "fileTimeLo",
                   "fileTimeLo", 166);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 166);
@@ -8936,7 +9359,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs166), "lhs", "lhs",
                   166);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"),
                   "context", "context", 167);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mrdivide"), "name", "name",
                   167);
@@ -8945,11 +9368,11 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/mrdivide.p"), "resolved",
                   "resolved", 167);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388492496U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388463696U), "fileTimeLo",
                   "fileTimeLo", 167);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 167);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370042286U), "mFileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370017086U), "mFileTimeLo",
                   "mFileTimeLo", 167);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "mFileTimeHi",
                   "mFileTimeHi", 167);
@@ -8960,7 +9383,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs167), "lhs", "lhs",
                   167);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 168);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mpower"), "name", "name", 168);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -8968,7 +9391,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/mpower.m"), "resolved",
                   "resolved", 168);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742678U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717478U), "fileTimeLo",
                   "fileTimeLo", 168);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 168);
@@ -8992,7 +9415,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 169);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 169);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 169);
@@ -9016,7 +9439,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/ismatrix.m"), "resolved",
                   "resolved", 170);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1331337258U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1331308458U), "fileTimeLo",
                   "fileTimeLo", 170);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 170);
@@ -9039,7 +9462,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/power.m"), "resolved",
                   "resolved", 171);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742680U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717480U), "fileTimeLo",
                   "fileTimeLo", 171);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 171);
@@ -9063,7 +9486,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 172);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
                   "fileTimeLo", 172);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 172);
@@ -9087,7 +9510,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalar_eg.m"), "resolved",
                   "resolved", 173);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
                   "fileTimeLo", 173);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 173);
@@ -9111,7 +9534,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalexp_alloc.m"),
                   "resolved", "resolved", 174);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
                   "fileTimeLo", 174);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 174);
@@ -9134,7 +9557,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/floor.m"), "resolved",
                   "resolved", 175);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742654U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717454U), "fileTimeLo",
                   "fileTimeLo", 175);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 175);
@@ -9158,7 +9581,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalar_eg.m"), "resolved",
                   "resolved", 176);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
                   "fileTimeLo", 176);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 176);
@@ -9173,7 +9596,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs176), "lhs", "lhs",
                   176);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 177);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("sqrt"), "name", "name", 177);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -9181,7 +9604,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/sqrt.m"), "resolved",
                   "resolved", 177);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343862786U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343837586U), "fileTimeLo",
                   "fileTimeLo", 177);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 177);
@@ -9205,7 +9628,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_error.m"), "resolved",
                   "resolved", 178);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343862758U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343837558U), "fileTimeLo",
                   "fileTimeLo", 178);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 178);
@@ -9229,7 +9652,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/eml_scalar_sqrt.m"),
                   "resolved", "resolved", 179);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851138U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825938U), "fileTimeLo",
                   "fileTimeLo", 179);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 179);
@@ -9358,21 +9781,21 @@ static void c3_eml_scalar_eg
 static void c3_eml_xgemm(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *
   chartInstance, real_T c3_A[9], real_T c3_B[3], real_T c3_C[3], real_T c3_b_C[3])
 {
-  int32_T c3_i228;
-  int32_T c3_i229;
+  int32_T c3_i244;
+  int32_T c3_i245;
   real_T c3_b_A[9];
-  int32_T c3_i230;
+  int32_T c3_i246;
   real_T c3_b_B[3];
-  for (c3_i228 = 0; c3_i228 < 3; c3_i228++) {
-    c3_b_C[c3_i228] = c3_C[c3_i228];
+  for (c3_i244 = 0; c3_i244 < 3; c3_i244++) {
+    c3_b_C[c3_i244] = c3_C[c3_i244];
   }
 
-  for (c3_i229 = 0; c3_i229 < 9; c3_i229++) {
-    c3_b_A[c3_i229] = c3_A[c3_i229];
+  for (c3_i245 = 0; c3_i245 < 9; c3_i245++) {
+    c3_b_A[c3_i245] = c3_A[c3_i245];
   }
 
-  for (c3_i230 = 0; c3_i230 < 3; c3_i230++) {
-    c3_b_B[c3_i230] = c3_B[c3_i230];
+  for (c3_i246 = 0; c3_i246 < 3; c3_i246++) {
+    c3_b_B[c3_i246] = c3_B[c3_i246];
   }
 
   c3_b_eml_xgemm(chartInstance, c3_b_A, c3_b_B, c3_b_C);
@@ -9431,12 +9854,12 @@ static void c3_eml_li_find
   int32_T c3_k;
   int32_T c3_tmp_sizes[2];
   int32_T c3_iv0[2];
-  int32_T c3_i231;
-  int32_T c3_i232;
+  int32_T c3_i247;
+  int32_T c3_i248;
   int32_T c3_loop_ub;
-  int32_T c3_i233;
+  int32_T c3_i249;
   int32_T c3_tmp_data[1];
-  int32_T c3_i234;
+  int32_T c3_i250;
   (void)chartInstance;
   c3_b_x = c3_x;
   c3_k = 0;
@@ -9448,15 +9871,15 @@ static void c3_eml_li_find
   c3_iv0[0] = 1;
   c3_iv0[1] = c3_k;
   c3_tmp_sizes[1] = c3_iv0[1];
-  c3_i231 = c3_tmp_sizes[0];
-  c3_i232 = c3_tmp_sizes[1];
+  c3_i247 = c3_tmp_sizes[0];
+  c3_i248 = c3_tmp_sizes[1];
   c3_loop_ub = c3_k - 1;
-  for (c3_i233 = 0; c3_i233 <= c3_loop_ub; c3_i233++) {
-    c3_tmp_data[c3_i233] = 0;
+  for (c3_i249 = 0; c3_i249 <= c3_loop_ub; c3_i249++) {
+    c3_tmp_data[c3_i249] = 0;
   }
 
-  for (c3_i234 = 0; c3_i234 < 2; c3_i234++) {
-    c3_y_sizes[c3_i234] = c3_tmp_sizes[c3_i234];
+  for (c3_i250 = 0; c3_i250 < 2; c3_i250++) {
+    c3_y_sizes[c3_i250] = c3_tmp_sizes[c3_i250];
   }
 
   if (c3_x) {
@@ -9468,31 +9891,31 @@ static void c3_eml_li_find
 static void c3_isfinite(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   *chartInstance, real_T c3_x[4], boolean_T c3_b[4])
 {
-  int32_T c3_i235;
-  int32_T c3_i236;
-  int32_T c3_i237;
+  int32_T c3_i251;
+  int32_T c3_i252;
+  int32_T c3_i253;
   boolean_T c3_b_b[4];
-  int32_T c3_i238;
-  int32_T c3_i239;
+  int32_T c3_i254;
+  int32_T c3_i255;
   (void)chartInstance;
-  for (c3_i235 = 0; c3_i235 < 4; c3_i235++) {
-    c3_b[c3_i235] = muDoubleScalarIsInf(c3_x[c3_i235]);
+  for (c3_i251 = 0; c3_i251 < 4; c3_i251++) {
+    c3_b[c3_i251] = muDoubleScalarIsInf(c3_x[c3_i251]);
   }
 
-  for (c3_i236 = 0; c3_i236 < 4; c3_i236++) {
-    c3_b[c3_i236] = !c3_b[c3_i236];
+  for (c3_i252 = 0; c3_i252 < 4; c3_i252++) {
+    c3_b[c3_i252] = !c3_b[c3_i252];
   }
 
-  for (c3_i237 = 0; c3_i237 < 4; c3_i237++) {
-    c3_b_b[c3_i237] = muDoubleScalarIsNaN(c3_x[c3_i237]);
+  for (c3_i253 = 0; c3_i253 < 4; c3_i253++) {
+    c3_b_b[c3_i253] = muDoubleScalarIsNaN(c3_x[c3_i253]);
   }
 
-  for (c3_i238 = 0; c3_i238 < 4; c3_i238++) {
-    c3_b_b[c3_i238] = !c3_b_b[c3_i238];
+  for (c3_i254 = 0; c3_i254 < 4; c3_i254++) {
+    c3_b_b[c3_i254] = !c3_b_b[c3_i254];
   }
 
-  for (c3_i239 = 0; c3_i239 < 4; c3_i239++) {
-    c3_b[c3_i239] = (c3_b[c3_i239] && c3_b_b[c3_i239]);
+  for (c3_i255 = 0; c3_i255 < 4; c3_i255++) {
+    c3_b[c3_i255] = (c3_b[c3_i255] && c3_b_b[c3_i255]);
   }
 }
 
@@ -9510,10 +9933,10 @@ static void c3_b_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   int32_T c3_csz[2];
   int32_T c3_cv_sizes;
   int32_T c3_loop_ub;
-  int32_T c3_i240;
+  int32_T c3_i256;
   real_T c3_cv_data[4];
   int32_T c3_b_loop_ub;
-  int32_T c3_i241;
+  int32_T c3_i257;
   int32_T c3_av_sizes;
   int32_T c3_nc1;
   int32_T c3_b_nc1;
@@ -9521,7 +9944,7 @@ static void c3_b_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   int32_T c3_b_b;
   real_T c3_b_a;
   int32_T c3_c_b;
-  int32_T c3_i242;
+  int32_T c3_i258;
   int32_T c3_d_b;
   int32_T c3_e_b;
   int32_T c3_ck;
@@ -9538,7 +9961,7 @@ static void c3_b_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   real_T c3_av_data[4];
   real_T c3_bv;
   int32_T c3_c_loop_ub;
-  int32_T c3_i243;
+  int32_T c3_i259;
   int32_T c3_c_nc1;
   int32_T c3_j_b;
   int32_T c3_k_b;
@@ -9554,8 +9977,8 @@ static void c3_b_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   c3_c_eml_scalar_eg(chartInstance);
   c3_cv_sizes = c3_csz[0];
   c3_loop_ub = c3_csz[0] - 1;
-  for (c3_i240 = 0; c3_i240 <= c3_loop_ub; c3_i240++) {
-    c3_cv_data[c3_i240] = 0.0;
+  for (c3_i256 = 0; c3_i256 <= c3_loop_ub; c3_i256++) {
+    c3_cv_data[c3_i256] = 0.0;
   }
 
   *c3_c_sizes = c3_cv_sizes;
@@ -9565,8 +9988,8 @@ static void c3_b_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
     c3_csz[1] = 1;
     c3_cv_sizes = c3_csz[0];
     c3_b_loop_ub = c3_csz[0] - 1;
-    for (c3_i241 = 0; c3_i241 <= c3_b_loop_ub; c3_i241++) {
-      c3_cv_data[c3_i241] = 0.0;
+    for (c3_i257 = 0; c3_i257 <= c3_b_loop_ub; c3_i257++) {
+      c3_cv_data[c3_i257] = 0.0;
     }
 
     c3_av_sizes = c3_cv_sizes;
@@ -9576,15 +9999,15 @@ static void c3_b_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
     c3_b_b = c3_nc1;
     c3_b_a = c3_a;
     c3_c_b = c3_b_b;
-    c3_i242 = (int32_T)c3_b_a - c3_c_b;
-    c3_d_b = c3_i242;
+    c3_i258 = (int32_T)c3_b_a - c3_c_b;
+    c3_d_b = c3_i258;
     c3_e_b = c3_d_b;
     if (0 > c3_e_b) {
     } else {
       c3_eml_switch_helper(chartInstance);
     }
 
-    for (c3_ck = 0; c3_ck <= c3_i242; c3_ck += c3_b_nc1) {
+    for (c3_ck = 0; c3_ck <= c3_i258; c3_ck += c3_b_nc1) {
       c3_b_ck = c3_ck;
       c3_b_na1 = c3_na1;
       c3_f_b = c3_b_na1;
@@ -9613,8 +10036,8 @@ static void c3_b_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
       c3_bv = c3_b;
       c3_cv_sizes = c3_av_sizes;
       c3_c_loop_ub = c3_av_sizes - 1;
-      for (c3_i243 = 0; c3_i243 <= c3_c_loop_ub; c3_i243++) {
-        c3_cv_data[c3_i243] = c3_av_data[c3_i243] - c3_bv;
+      for (c3_i259 = 0; c3_i259 <= c3_c_loop_ub; c3_i259++) {
+        c3_cv_data[c3_i259] = c3_av_data[c3_i259] - c3_bv;
       }
 
       c3_c_nc1 = c3_nc1;
@@ -9650,14 +10073,14 @@ static void c3_check_forloop_overflow_error
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance,
    boolean_T c3_overflow)
 {
-  int32_T c3_i244;
+  int32_T c3_i260;
   static char_T c3_cv0[34] = { 'C', 'o', 'd', 'e', 'r', ':', 't', 'o', 'o', 'l',
     'b', 'o', 'x', ':', 'i', 'n', 't', '_', 'f', 'o', 'r', 'l', 'o', 'o', 'p',
     '_', 'o', 'v', 'e', 'r', 'f', 'l', 'o', 'w' };
 
   char_T c3_u[34];
   const mxArray *c3_y = NULL;
-  int32_T c3_i245;
+  int32_T c3_i261;
   static char_T c3_cv1[23] = { 'c', 'o', 'd', 'e', 'r', '.', 'i', 'n', 't', 'e',
     'r', 'n', 'a', 'l', '.', 'i', 'n', 'd', 'e', 'x', 'I', 'n', 't' };
 
@@ -9665,14 +10088,14 @@ static void c3_check_forloop_overflow_error
   const mxArray *c3_b_y = NULL;
   (void)chartInstance;
   (void)c3_overflow;
-  for (c3_i244 = 0; c3_i244 < 34; c3_i244++) {
-    c3_u[c3_i244] = c3_cv0[c3_i244];
+  for (c3_i260 = 0; c3_i260 < 34; c3_i260++) {
+    c3_u[c3_i260] = c3_cv0[c3_i260];
   }
 
   c3_y = NULL;
   sf_mex_assign(&c3_y, sf_mex_create("y", c3_u, 10, 0U, 1U, 0U, 2, 1, 34), false);
-  for (c3_i245 = 0; c3_i245 < 23; c3_i245++) {
-    c3_b_u[c3_i245] = c3_cv1[c3_i245];
+  for (c3_i261 = 0; c3_i261 < 23; c3_i261++) {
+    c3_b_u[c3_i261] = c3_cv1[c3_i261];
   }
 
   c3_b_y = NULL;
@@ -9691,10 +10114,10 @@ static void c3_c_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   int32_T c3_csz[2];
   int32_T c3_cv_sizes;
   int32_T c3_loop_ub;
-  int32_T c3_i246;
+  int32_T c3_i262;
   real_T c3_cv_data[4];
   int32_T c3_b_loop_ub;
-  int32_T c3_i247;
+  int32_T c3_i263;
   int32_T c3_av_sizes;
   int32_T c3_nc1;
   int32_T c3_b_nc1;
@@ -9702,7 +10125,7 @@ static void c3_c_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   int32_T c3_b_b;
   real_T c3_b_a;
   int32_T c3_c_b;
-  int32_T c3_i248;
+  int32_T c3_i264;
   int32_T c3_d_b;
   int32_T c3_e_b;
   int32_T c3_ck;
@@ -9719,7 +10142,7 @@ static void c3_c_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   real_T c3_av_data[4];
   real_T c3_bv;
   int32_T c3_c_loop_ub;
-  int32_T c3_i249;
+  int32_T c3_i265;
   int32_T c3_c_nc1;
   int32_T c3_j_b;
   int32_T c3_k_b;
@@ -9735,8 +10158,8 @@ static void c3_c_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   c3_c_eml_scalar_eg(chartInstance);
   c3_cv_sizes = c3_csz[0];
   c3_loop_ub = c3_csz[0] - 1;
-  for (c3_i246 = 0; c3_i246 <= c3_loop_ub; c3_i246++) {
-    c3_cv_data[c3_i246] = 0.0;
+  for (c3_i262 = 0; c3_i262 <= c3_loop_ub; c3_i262++) {
+    c3_cv_data[c3_i262] = 0.0;
   }
 
   *c3_c_sizes = c3_cv_sizes;
@@ -9746,8 +10169,8 @@ static void c3_c_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
     c3_csz[1] = 1;
     c3_cv_sizes = c3_csz[0];
     c3_b_loop_ub = c3_csz[0] - 1;
-    for (c3_i247 = 0; c3_i247 <= c3_b_loop_ub; c3_i247++) {
-      c3_cv_data[c3_i247] = 0.0;
+    for (c3_i263 = 0; c3_i263 <= c3_b_loop_ub; c3_i263++) {
+      c3_cv_data[c3_i263] = 0.0;
     }
 
     c3_av_sizes = c3_cv_sizes;
@@ -9757,15 +10180,15 @@ static void c3_c_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
     c3_b_b = c3_nc1;
     c3_b_a = c3_a;
     c3_c_b = c3_b_b;
-    c3_i248 = (int32_T)c3_b_a - c3_c_b;
-    c3_d_b = c3_i248;
+    c3_i264 = (int32_T)c3_b_a - c3_c_b;
+    c3_d_b = c3_i264;
     c3_e_b = c3_d_b;
     if (0 > c3_e_b) {
     } else {
       c3_eml_switch_helper(chartInstance);
     }
 
-    for (c3_ck = 0; c3_ck <= c3_i248; c3_ck += c3_b_nc1) {
+    for (c3_ck = 0; c3_ck <= c3_i264; c3_ck += c3_b_nc1) {
       c3_b_ck = c3_ck;
       c3_b_na1 = c3_na1;
       c3_f_b = c3_b_na1;
@@ -9794,8 +10217,8 @@ static void c3_c_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
       c3_bv = c3_b;
       c3_cv_sizes = c3_av_sizes;
       c3_c_loop_ub = c3_av_sizes - 1;
-      for (c3_i249 = 0; c3_i249 <= c3_c_loop_ub; c3_i249++) {
-        c3_cv_data[c3_i249] = c3_av_data[c3_i249] * c3_bv;
+      for (c3_i265 = 0; c3_i265 <= c3_c_loop_ub; c3_i265++) {
+        c3_cv_data[c3_i265] = c3_av_data[c3_i265] * c3_bv;
       }
 
       c3_c_nc1 = c3_nc1;
@@ -9835,10 +10258,10 @@ static void c3_d_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   int32_T c3_csz[2];
   int32_T c3_cv_sizes;
   int32_T c3_loop_ub;
-  int32_T c3_i250;
+  int32_T c3_i266;
   real_T c3_cv_data[4];
   int32_T c3_b_loop_ub;
-  int32_T c3_i251;
+  int32_T c3_i267;
   int32_T c3_av_sizes;
   int32_T c3_nc1;
   int32_T c3_b_nc1;
@@ -9846,7 +10269,7 @@ static void c3_d_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   int32_T c3_b_b;
   real_T c3_b_a;
   int32_T c3_c_b;
-  int32_T c3_i252;
+  int32_T c3_i268;
   int32_T c3_d_b;
   int32_T c3_e_b;
   int32_T c3_ck;
@@ -9866,7 +10289,7 @@ static void c3_d_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   real_T c3_b_y;
   real_T c3_c_y;
   int32_T c3_c_loop_ub;
-  int32_T c3_i253;
+  int32_T c3_i269;
   int32_T c3_c_nc1;
   int32_T c3_j_b;
   int32_T c3_k_b;
@@ -9882,8 +10305,8 @@ static void c3_d_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   c3_c_eml_scalar_eg(chartInstance);
   c3_cv_sizes = c3_csz[0];
   c3_loop_ub = c3_csz[0] - 1;
-  for (c3_i250 = 0; c3_i250 <= c3_loop_ub; c3_i250++) {
-    c3_cv_data[c3_i250] = 0.0;
+  for (c3_i266 = 0; c3_i266 <= c3_loop_ub; c3_i266++) {
+    c3_cv_data[c3_i266] = 0.0;
   }
 
   *c3_c_sizes = c3_cv_sizes;
@@ -9893,8 +10316,8 @@ static void c3_d_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
     c3_csz[1] = 1;
     c3_cv_sizes = c3_csz[0];
     c3_b_loop_ub = c3_csz[0] - 1;
-    for (c3_i251 = 0; c3_i251 <= c3_b_loop_ub; c3_i251++) {
-      c3_cv_data[c3_i251] = 0.0;
+    for (c3_i267 = 0; c3_i267 <= c3_b_loop_ub; c3_i267++) {
+      c3_cv_data[c3_i267] = 0.0;
     }
 
     c3_av_sizes = c3_cv_sizes;
@@ -9904,15 +10327,15 @@ static void c3_d_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
     c3_b_b = c3_nc1;
     c3_b_a = c3_a;
     c3_c_b = c3_b_b;
-    c3_i252 = (int32_T)c3_b_a - c3_c_b;
-    c3_d_b = c3_i252;
+    c3_i268 = (int32_T)c3_b_a - c3_c_b;
+    c3_d_b = c3_i268;
     c3_e_b = c3_d_b;
     if (0 > c3_e_b) {
     } else {
       c3_eml_switch_helper(chartInstance);
     }
 
-    for (c3_ck = 0; c3_ck <= c3_i252; c3_ck += c3_b_nc1) {
+    for (c3_ck = 0; c3_ck <= c3_i268; c3_ck += c3_b_nc1) {
       c3_b_ck = c3_ck;
       c3_b_na1 = c3_na1;
       c3_f_b = c3_b_na1;
@@ -9944,8 +10367,8 @@ static void c3_d_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
       c3_c_y = c3_b_y;
       c3_cv_sizes = c3_av_sizes;
       c3_c_loop_ub = c3_av_sizes - 1;
-      for (c3_i253 = 0; c3_i253 <= c3_c_loop_ub; c3_i253++) {
-        c3_cv_data[c3_i253] = c3_av_data[c3_i253] / c3_c_y;
+      for (c3_i269 = 0; c3_i269 <= c3_c_loop_ub; c3_i269++) {
+        c3_cv_data[c3_i269] = c3_av_data[c3_i269] / c3_c_y;
       }
 
       c3_c_nc1 = c3_nc1;
@@ -9987,7 +10410,7 @@ static void c3_eml_sort(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   int32_T c3_x;
   int32_T c3_b_x;
   boolean_T c3_b7;
-  int32_T c3_i254;
+  int32_T c3_i270;
   static char_T c3_cv2[53] = { 'C', 'o', 'd', 'e', 'r', ':', 'M', 'A', 'T', 'L',
     'A', 'B', ':', 'g', 'e', 't', 'd', 'i', 'm', 'a', 'r', 'g', '_', 'd', 'i',
     'm', 'e', 'n', 's', 'i', 'o', 'n', 'M', 'u', 's', 't', 'B', 'e', 'P', 'o',
@@ -9995,28 +10418,28 @@ static void c3_eml_sort(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
 
   char_T c3_u[53];
   const mxArray *c3_y = NULL;
-  int32_T c3_i255;
-  real_T c3_d1;
+  int32_T c3_i271;
+  real_T c3_d2;
   real_T c3_vlen;
-  real_T c3_dv41[2];
+  real_T c3_dv45[2];
   int32_T c3_tmp_sizes;
   int32_T c3_loop_ub;
-  int32_T c3_i256;
+  int32_T c3_i272;
   real_T c3_tmp_data[4];
   int32_T c3_vwork_sizes;
   int32_T c3_iidx_sizes;
   int32_T c3_b_loop_ub;
-  int32_T c3_i257;
+  int32_T c3_i273;
   int32_T c3_iidx_data[4];
   int32_T c3_d_dim;
   int32_T c3_e_dim;
   int32_T c3_vstride;
-  int32_T c3_i258;
+  int32_T c3_i274;
   int32_T c3_b;
   int32_T c3_b_b;
   boolean_T c3_overflow;
   int32_T c3_k;
-  real_T c3_d2;
+  real_T c3_d3;
   real_T c3_a;
   real_T c3_b_a;
   int32_T c3_c;
@@ -10027,7 +10450,7 @@ static void c3_eml_sort(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   int32_T c3_vspread;
   int32_T c3_f_dim;
   int32_T c3_g_dim;
-  int32_T c3_i259;
+  int32_T c3_i275;
   int32_T c3_e_a;
   int32_T c3_f_a;
   int32_T c3_i2;
@@ -10048,7 +10471,7 @@ static void c3_eml_sort(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   int32_T c3_l_a;
   int32_T c3_ix;
   real_T c3_b_vlen;
-  int32_T c3_i260;
+  int32_T c3_i276;
   int32_T c3_b_k;
   real_T c3_c_k;
   real_T c3_vwork_data[4];
@@ -10058,10 +10481,10 @@ static void c3_eml_sort(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   int32_T c3_j_b;
   int32_T c3_b_vwork_sizes;
   int32_T c3_c_loop_ub;
-  int32_T c3_i261;
+  int32_T c3_i277;
   real_T c3_b_vwork_data[4];
   real_T c3_c_vlen;
-  int32_T c3_i262;
+  int32_T c3_i278;
   int32_T c3_d_k;
   int32_T c3_o_a;
   int32_T c3_k_b;
@@ -10079,8 +10502,8 @@ static void c3_eml_sort(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   c3_b7 = (c3_c_dim == c3_b_x);
   if (c3_b7) {
   } else {
-    for (c3_i254 = 0; c3_i254 < 53; c3_i254++) {
-      c3_u[c3_i254] = c3_cv2[c3_i254];
+    for (c3_i270 = 0; c3_i270 < 53; c3_i270++) {
+      c3_u[c3_i270] = c3_cv2[c3_i270];
     }
 
     c3_y = NULL;
@@ -10092,38 +10515,38 @@ static void c3_eml_sort(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   }
 
   c3_eml_switch_helper(chartInstance);
-  c3_i255 = c3_dim;
-  if (c3_i255 <= 1) {
-    c3_d1 = (real_T)c3_x_sizes;
+  c3_i271 = c3_dim;
+  if (c3_i271 <= 1) {
+    c3_d2 = (real_T)c3_x_sizes;
   } else {
-    c3_d1 = 1.0;
+    c3_d2 = 1.0;
   }
 
-  c3_vlen = c3_d1;
-  c3_dv41[0] = c3_vlen;
-  c3_dv41[1] = 1.0;
-  c3_tmp_sizes = (int32_T)c3_dv41[0];
-  c3_loop_ub = (int32_T)c3_dv41[0] - 1;
-  for (c3_i256 = 0; c3_i256 <= c3_loop_ub; c3_i256++) {
-    c3_tmp_data[c3_i256] = 0.0;
+  c3_vlen = c3_d2;
+  c3_dv45[0] = c3_vlen;
+  c3_dv45[1] = 1.0;
+  c3_tmp_sizes = (int32_T)c3_dv45[0];
+  c3_loop_ub = (int32_T)c3_dv45[0] - 1;
+  for (c3_i272 = 0; c3_i272 <= c3_loop_ub; c3_i272++) {
+    c3_tmp_data[c3_i272] = 0.0;
   }
 
   c3_vwork_sizes = c3_tmp_sizes;
   *c3_y_sizes = c3_x_sizes;
-  c3_dv41[0] = (real_T)c3_x_sizes;
-  c3_dv41[1] = 1.0;
-  c3_iidx_sizes = (int32_T)c3_dv41[0];
-  c3_b_loop_ub = (int32_T)c3_dv41[0] - 1;
-  for (c3_i257 = 0; c3_i257 <= c3_b_loop_ub; c3_i257++) {
-    c3_iidx_data[c3_i257] = 0;
+  c3_dv45[0] = (real_T)c3_x_sizes;
+  c3_dv45[1] = 1.0;
+  c3_iidx_sizes = (int32_T)c3_dv45[0];
+  c3_b_loop_ub = (int32_T)c3_dv45[0] - 1;
+  for (c3_i273 = 0; c3_i273 <= c3_b_loop_ub; c3_i273++) {
+    c3_iidx_data[c3_i273] = 0;
   }
 
   *c3_idx_sizes = c3_iidx_sizes;
   c3_d_dim = c3_dim;
   c3_e_dim = c3_d_dim - 1;
   c3_vstride = 1;
-  c3_i258 = c3_e_dim;
-  c3_b = c3_i258;
+  c3_i274 = c3_e_dim;
+  c3_b = c3_i274;
   c3_b_b = c3_b;
   if (1 > c3_b_b) {
     c3_overflow = false;
@@ -10137,9 +10560,9 @@ static void c3_eml_sort(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   }
 
   c3_k = 1;
-  while (c3_k <= c3_i258) {
-    c3_d2 = (real_T)c3_x_sizes;
-    c3_vstride *= (int32_T)c3_d2;
+  while (c3_k <= c3_i274) {
+    c3_d3 = (real_T)c3_x_sizes;
+    c3_vstride *= (int32_T)c3_d3;
     c3_k = 2;
   }
 
@@ -10153,8 +10576,8 @@ static void c3_eml_sort(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   c3_vspread = c3_d_a * c3_d_b;
   c3_f_dim = c3_dim;
   c3_g_dim = c3_f_dim + 1;
-  c3_i259 = c3_g_dim;
-  c3_e_a = c3_i259;
+  c3_i275 = c3_g_dim;
+  c3_e_a = c3_i275;
   c3_f_a = c3_e_a;
   if (c3_f_a > 2) {
   } else {
@@ -10194,8 +10617,8 @@ static void c3_eml_sort(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
       c3_i2 = c3_l_a;
       c3_ix = c3_i1;
       c3_b_vlen = c3_vlen;
-      c3_i260 = (int32_T)c3_b_vlen - 1;
-      for (c3_b_k = 0; c3_b_k <= c3_i260; c3_b_k++) {
+      c3_i276 = (int32_T)c3_b_vlen - 1;
+      for (c3_b_k = 0; c3_b_k <= c3_i276; c3_b_k++) {
         c3_c_k = 1.0 + (real_T)c3_b_k;
         c3_vwork_data[_SFD_EML_ARRAY_BOUNDS_CHECK("", (int32_T)c3_c_k, 1,
           c3_vwork_sizes, 1, 0) - 1] = c3_x_data[_SFD_EML_ARRAY_BOUNDS_CHECK("",
@@ -10209,16 +10632,16 @@ static void c3_eml_sort(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
 
       c3_b_vwork_sizes = c3_vwork_sizes;
       c3_c_loop_ub = c3_vwork_sizes - 1;
-      for (c3_i261 = 0; c3_i261 <= c3_c_loop_ub; c3_i261++) {
-        c3_b_vwork_data[c3_i261] = c3_vwork_data[c3_i261];
+      for (c3_i277 = 0; c3_i277 <= c3_c_loop_ub; c3_i277++) {
+        c3_b_vwork_data[c3_i277] = c3_vwork_data[c3_i277];
       }
 
       c3_eml_sort_idx(chartInstance, c3_b_vwork_data, c3_b_vwork_sizes,
                       c3_iidx_data, &c3_iidx_sizes);
       c3_ix = c3_i1;
       c3_c_vlen = c3_vlen;
-      c3_i262 = (int32_T)c3_c_vlen - 1;
-      for (c3_d_k = 0; c3_d_k <= c3_i262; c3_d_k++) {
+      c3_i278 = (int32_T)c3_c_vlen - 1;
+      for (c3_d_k = 0; c3_d_k <= c3_i278; c3_d_k++) {
         c3_c_k = 1.0 + (real_T)c3_d_k;
         c3_y_data[_SFD_EML_ARRAY_BOUNDS_CHECK("", c3_ix, 1, *c3_y_sizes, 1, 0) -
           1] = c3_vwork_data[_SFD_EML_ARRAY_BOUNDS_CHECK("",
@@ -10244,10 +10667,10 @@ static void c3_eml_sort_idx
    c3_x_data[], int32_T c3_x_sizes, int32_T c3_idx_data[], int32_T *c3_idx_sizes)
 {
   int32_T c3_n;
-  real_T c3_dv42[2];
+  real_T c3_dv46[2];
   int32_T c3_idx0_sizes;
   int32_T c3_loop_ub;
-  int32_T c3_i263;
+  int32_T c3_i279;
   int32_T c3_idx0_data[4];
   int32_T c3_a;
   int32_T c3_b_a;
@@ -10265,7 +10688,7 @@ static void c3_eml_sort_idx
   int32_T c3_c_k;
   int32_T c3_c_a;
   int32_T c3_d_a;
-  int32_T c3_i264;
+  int32_T c3_i280;
   int32_T c3_e_b;
   int32_T c3_f_b;
   int32_T c3_d_k;
@@ -10290,7 +10713,7 @@ static void c3_eml_sort_idx
   int32_T c3_l_a;
   int32_T c3_c_c;
   int32_T c3_b_loop_ub;
-  int32_T c3_i265;
+  int32_T c3_i281;
   int32_T c3_i;
   int32_T c3_m_a;
   int32_T c3_n_a;
@@ -10355,12 +10778,12 @@ static void c3_eml_sort_idx
   boolean_T guard1 = false;
   boolean_T guard2 = false;
   c3_n = c3_x_sizes;
-  c3_dv42[0] = (real_T)c3_x_sizes;
-  c3_dv42[1] = 1.0;
-  c3_idx0_sizes = (int32_T)c3_dv42[0];
-  c3_loop_ub = (int32_T)c3_dv42[0] - 1;
-  for (c3_i263 = 0; c3_i263 <= c3_loop_ub; c3_i263++) {
-    c3_idx0_data[c3_i263] = 0;
+  c3_dv46[0] = (real_T)c3_x_sizes;
+  c3_dv46[1] = 1.0;
+  c3_idx0_sizes = (int32_T)c3_dv46[0];
+  c3_loop_ub = (int32_T)c3_dv46[0] - 1;
+  for (c3_i279 = 0; c3_i279 <= c3_loop_ub; c3_i279++) {
+    c3_idx0_data[c3_i279] = 0;
   }
 
   *c3_idx_sizes = c3_idx0_sizes;
@@ -10410,15 +10833,15 @@ static void c3_eml_sort_idx
 
     c3_c_a = c3_n;
     c3_d_a = c3_c_a - 1;
-    c3_i264 = c3_d_a;
-    c3_e_b = c3_i264;
+    c3_i280 = c3_d_a;
+    c3_e_b = c3_i280;
     c3_f_b = c3_e_b;
     if (1 > c3_f_b) {
     } else {
       c3_eml_switch_helper(chartInstance);
     }
 
-    for (c3_d_k = 1; c3_d_k <= c3_i264; c3_d_k += 2) {
+    for (c3_d_k = 1; c3_d_k <= c3_i280; c3_d_k += 2) {
       c3_b_k = c3_d_k;
       c3_e_a = c3_b_k;
       c3_f_a = c3_e_a;
@@ -10467,8 +10890,8 @@ static void c3_eml_sort_idx
 
     c3_idx0_sizes = c3_n;
     c3_b_loop_ub = c3_n - 1;
-    for (c3_i265 = 0; c3_i265 <= c3_b_loop_ub; c3_i265++) {
-      c3_idx0_data[c3_i265] = 1;
+    for (c3_i281 = 0; c3_i281 <= c3_b_loop_ub; c3_i281++) {
+      c3_idx0_data[c3_i281] = 1;
     }
 
     c3_i = 2;
@@ -10678,27 +11101,27 @@ static real_T c3_mpower(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
 static void c3_eml_error(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *
   chartInstance)
 {
-  int32_T c3_i266;
+  int32_T c3_i282;
   static char_T c3_cv3[30] = { 'C', 'o', 'd', 'e', 'r', ':', 't', 'o', 'o', 'l',
     'b', 'o', 'x', ':', 'E', 'l', 'F', 'u', 'n', 'D', 'o', 'm', 'a', 'i', 'n',
     'E', 'r', 'r', 'o', 'r' };
 
   char_T c3_u[30];
   const mxArray *c3_y = NULL;
-  int32_T c3_i267;
+  int32_T c3_i283;
   static char_T c3_cv4[4] = { 's', 'q', 'r', 't' };
 
   char_T c3_b_u[4];
   const mxArray *c3_b_y = NULL;
   (void)chartInstance;
-  for (c3_i266 = 0; c3_i266 < 30; c3_i266++) {
-    c3_u[c3_i266] = c3_cv3[c3_i266];
+  for (c3_i282 = 0; c3_i282 < 30; c3_i282++) {
+    c3_u[c3_i282] = c3_cv3[c3_i282];
   }
 
   c3_y = NULL;
   sf_mex_assign(&c3_y, sf_mex_create("y", c3_u, 10, 0U, 1U, 0U, 2, 1, 30), false);
-  for (c3_i267 = 0; c3_i267 < 4; c3_i267++) {
-    c3_b_u[c3_i267] = c3_cv4[c3_i267];
+  for (c3_i283 = 0; c3_i283 < 4; c3_i283++) {
+    c3_b_u[c3_i283] = c3_cv4[c3_i283];
   }
 
   c3_b_y = NULL;
@@ -10709,7 +11132,7 @@ static void c3_eml_error(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct 
     2U, 14, c3_y, 14, c3_b_y));
 }
 
-static const mxArray *c3_v_sf_marshallOut(void *chartInstanceVoid, void
+static const mxArray *c3_y_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData)
 {
   const mxArray *c3_mxArrayOutData = NULL;
@@ -10726,20 +11149,20 @@ static const mxArray *c3_v_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static int32_T c3_u_emlrt_marshallIn
+static int32_T c3_bb_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
    mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId)
 {
   int32_T c3_y;
-  int32_T c3_i268;
+  int32_T c3_i284;
   (void)chartInstance;
-  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), &c3_i268, 1, 6, 0U, 0, 0U, 0);
-  c3_y = c3_i268;
+  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), &c3_i284, 1, 6, 0U, 0, 0U, 0);
+  c3_y = c3_i284;
   sf_mex_destroy(&c3_u);
   return c3_y;
 }
 
-static void c3_s_sf_marshallIn(void *chartInstanceVoid, const mxArray
+static void c3_v_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData)
 {
   const mxArray *c3_b_sfEvent;
@@ -10753,14 +11176,14 @@ static void c3_s_sf_marshallIn(void *chartInstanceVoid, const mxArray
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
   c3_thisId.fParent = NULL;
-  c3_y = c3_u_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_b_sfEvent),
+  c3_y = c3_bb_emlrt_marshallIn(chartInstance, sf_mex_dup(c3_b_sfEvent),
     &c3_thisId);
   sf_mex_destroy(&c3_b_sfEvent);
   *(int32_T *)c3_outData = c3_y;
   sf_mex_destroy(&c3_mxArrayInData);
 }
 
-static uint8_T c3_v_emlrt_marshallIn
+static uint8_T c3_cb_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
    mxArray *c3_b_is_active_c3_PC_Quadcopter_SimulationPathPlanner, const char_T *
    c3_identifier)
@@ -10769,13 +11192,13 @@ static uint8_T c3_v_emlrt_marshallIn
   emlrtMsgIdentifier c3_thisId;
   c3_thisId.fIdentifier = c3_identifier;
   c3_thisId.fParent = NULL;
-  c3_y = c3_w_emlrt_marshallIn(chartInstance, sf_mex_dup
+  c3_y = c3_db_emlrt_marshallIn(chartInstance, sf_mex_dup
     (c3_b_is_active_c3_PC_Quadcopter_SimulationPathPlanner), &c3_thisId);
   sf_mex_destroy(&c3_b_is_active_c3_PC_Quadcopter_SimulationPathPlanner);
   return c3_y;
 }
 
-static uint8_T c3_w_emlrt_marshallIn
+static uint8_T c3_db_emlrt_marshallIn
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
    mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId)
 {
@@ -10792,16 +11215,16 @@ static void c3_b_eml_xgemm
   (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, real_T
    c3_A[9], real_T c3_B[3], real_T c3_C[3])
 {
-  int32_T c3_i269;
-  int32_T c3_i270;
-  int32_T c3_i271;
+  int32_T c3_i285;
+  int32_T c3_i286;
+  int32_T c3_i287;
   (void)chartInstance;
-  for (c3_i269 = 0; c3_i269 < 3; c3_i269++) {
-    c3_C[c3_i269] = 0.0;
-    c3_i270 = 0;
-    for (c3_i271 = 0; c3_i271 < 3; c3_i271++) {
-      c3_C[c3_i269] += c3_A[c3_i270 + c3_i269] * c3_B[c3_i271];
-      c3_i270 += 3;
+  for (c3_i285 = 0; c3_i285 < 3; c3_i285++) {
+    c3_C[c3_i285] = 0.0;
+    c3_i286 = 0;
+    for (c3_i287 = 0; c3_i287 < 3; c3_i287++) {
+      c3_C[c3_i285] += c3_A[c3_i286 + c3_i285] * c3_B[c3_i287];
+      c3_i286 += 3;
     }
   }
 }
@@ -10835,10 +11258,10 @@ extern void utFree(void*);
 
 void sf_c3_PC_Quadcopter_SimulationPathPlanner_get_check_sum(mxArray *plhs[])
 {
-  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(2482874423U);
-  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(1197299377U);
-  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(655693628U);
-  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(2203579110U);
+  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(4029390308U);
+  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(2579763474U);
+  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(592107315U);
+  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(3913247837U);
 }
 
 mxArray *sf_c3_PC_Quadcopter_SimulationPathPlanner_get_autoinheritance_info(void)
@@ -10850,14 +11273,14 @@ mxArray *sf_c3_PC_Quadcopter_SimulationPathPlanner_get_autoinheritance_info(void
     autoinheritanceFields);
 
   {
-    mxArray *mxChecksum = mxCreateString("MId26Yuz4T6mplnaF74W5F");
+    mxArray *mxChecksum = mxCreateString("u67pBcag2DP2kgykYX4eRG");
     mxSetField(mxAutoinheritanceInfo,0,"checksum",mxChecksum);
   }
 
   {
     const char *dataFields[] = { "size", "type", "complexity" };
 
-    mxArray *mxData = mxCreateStructMatrix(1,2,3,dataFields);
+    mxArray *mxData = mxCreateStructMatrix(1,3,3,dataFields);
 
     {
       mxArray *mxSize = mxCreateDoubleMatrix(1,2,mxREAL);
@@ -10896,6 +11319,25 @@ mxArray *sf_c3_PC_Quadcopter_SimulationPathPlanner_get_autoinheritance_info(void
     }
 
     mxSetField(mxData,1,"complexity",mxCreateDoubleScalar(0));
+
+    {
+      mxArray *mxSize = mxCreateDoubleMatrix(1,2,mxREAL);
+      double *pr = mxGetPr(mxSize);
+      pr[0] = (double)(1);
+      pr[1] = (double)(1);
+      mxSetField(mxData,2,"size",mxSize);
+    }
+
+    {
+      const char *typeFields[] = { "base", "fixpt" };
+
+      mxArray *mxType = mxCreateStructMatrix(1,1,2,typeFields);
+      mxSetField(mxType,0,"base",mxCreateDoubleScalar(10));
+      mxSetField(mxType,0,"fixpt",mxCreateDoubleMatrix(0,0,mxREAL));
+      mxSetField(mxData,2,"type",mxType);
+    }
+
+    mxSetField(mxData,2,"complexity",mxCreateDoubleScalar(0));
     mxSetField(mxAutoinheritanceInfo,0,"inputs",mxData);
   }
 
@@ -10976,10 +11418,10 @@ static const mxArray
 
   mxArray *mxInfo = mxCreateStructMatrix(1, 1, 2, infoFields);
   const char *infoEncStr[] = {
-    "100 S1x3'type','srcId','name','auxInfo'{{M[1],M[5],T\"r\",},{M[1],M[8],T\"theta\",},{M[8],M[0],T\"is_active_c3_PC_Quadcopter_SimulationPathPlanner\",}}"
+    "100 S1x6'type','srcId','name','auxInfo'{{M[1],M[5],T\"r\",},{M[1],M[8],T\"theta\",},{M[4],M[0],T\"prev_r\",S'l','i','p'{{M1x2[74 80],M[0],}}},{M[4],M[0],T\"prev_t\",S'l','i','p'{{M1x2[51 57],M[0],}}},{M[4],M[0],T\"prev_theta\",S'l','i','p'{{M1x2[97 107],M[0],}}},{M[8],M[0],T\"is_active_c3_PC_Quadcopter_SimulationPathPlanner\",}}"
   };
 
-  mxArray *mxVarInfo = sf_mex_decode_encoded_mx_struct_array(infoEncStr, 3, 10);
+  mxArray *mxVarInfo = sf_mex_decode_encoded_mx_struct_array(infoEncStr, 6, 10);
   mxArray *mxChecksum = mxCreateDoubleMatrix(1, 4, mxREAL);
   sf_c3_PC_Quadcopter_SimulationPathPlanner_get_check_sum(&mxChecksum);
   mxSetField(mxInfo, 0, infoFields[0], mxChecksum);
@@ -11007,7 +11449,7 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
            1,
            1,
            0,
-           4,
+           5,
            0,
            0,
            0,
@@ -11037,6 +11479,7 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
           _SFD_SET_DATA_PROPS(1,2,0,1,"r");
           _SFD_SET_DATA_PROPS(2,1,1,0,"yq");
           _SFD_SET_DATA_PROPS(3,2,0,1,"theta");
+          _SFD_SET_DATA_PROPS(4,1,1,0,"t");
           _SFD_STATE_INFO(0,0,2);
           _SFD_CH_SUBSTATE_COUNT(0);
           _SFD_CH_SUBSTATE_DECOMP(0);
@@ -11051,8 +11494,22 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
         _SFD_CV_INIT_TRANS(0,0,NULL,NULL,0,NULL);
 
         /* Initialization of MATLAB Function Model Coverage */
-        _SFD_CV_INIT_EML(0,1,1,0,0,0,0,0,0,0,0);
-        _SFD_CV_INIT_EML_FCN(0,0,"eML_blk_kernel",0,-1,878);
+        _SFD_CV_INIT_EML(0,1,1,2,0,0,0,0,0,2,1);
+        _SFD_CV_INIT_EML_FCN(0,0,"eML_blk_kernel",0,-1,1344);
+        _SFD_CV_INIT_EML_IF(0,1,0,114,132,-1,160);
+        _SFD_CV_INIT_EML_IF(0,1,1,257,311,1280,1340);
+
+        {
+          static int condStart[] = { 261, 280 };
+
+          static int condEnd[] = { 276, 310 };
+
+          static int pfixExpr[] = { 0, 1, -2 };
+
+          _SFD_CV_INIT_EML_MCDC(0,1,0,261,310,2,0,&(condStart[0]),&(condEnd[0]),
+                                3,&(pfixExpr[0]));
+        }
+
         _SFD_CV_INIT_SCRIPT(0,1,4,0,0,0,0,0,0,0);
         _SFD_CV_INIT_SCRIPT_FCN(0,0,"se2",1148,-1,1631);
         _SFD_CV_INIT_SCRIPT_IF(0,0,1179,1196,1256,1534);
@@ -11206,32 +11663,37 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
         _SFD_CV_INIT_SCRIPT(7,1,0,0,0,0,0,0,0,0);
         _SFD_CV_INIT_SCRIPT_FCN(7,0,"IJtoXY",0,-1,175);
         _SFD_SET_DATA_COMPILED_PROPS(0,SF_DOUBLE,0,NULL,0,0,0,0.0,1.0,0,0,
-          (MexFcnForType)c3_b_sf_marshallOut,(MexInFcnForType)NULL);
+          (MexFcnForType)c3_e_sf_marshallOut,(MexInFcnForType)NULL);
 
         {
           unsigned int dimVector[1];
           dimVector[0]= 361;
           _SFD_SET_DATA_COMPILED_PROPS(1,SF_DOUBLE,1,&(dimVector[0]),0,0,0,0.0,
-            1.0,0,0,(MexFcnForType)c3_sf_marshallOut,(MexInFcnForType)
-            c3_sf_marshallIn);
+            1.0,0,0,(MexFcnForType)c3_d_sf_marshallOut,(MexInFcnForType)
+            c3_d_sf_marshallIn);
         }
 
         _SFD_SET_DATA_COMPILED_PROPS(2,SF_DOUBLE,0,NULL,0,0,0,0.0,1.0,0,0,
-          (MexFcnForType)c3_b_sf_marshallOut,(MexInFcnForType)NULL);
+          (MexFcnForType)c3_e_sf_marshallOut,(MexInFcnForType)NULL);
 
         {
           unsigned int dimVector[1];
           dimVector[0]= 361;
           _SFD_SET_DATA_COMPILED_PROPS(3,SF_DOUBLE,1,&(dimVector[0]),0,0,0,0.0,
-            1.0,0,0,(MexFcnForType)c3_sf_marshallOut,(MexInFcnForType)
-            c3_sf_marshallIn);
+            1.0,0,0,(MexFcnForType)c3_d_sf_marshallOut,(MexInFcnForType)
+            c3_d_sf_marshallIn);
         }
+
+        _SFD_SET_DATA_COMPILED_PROPS(4,SF_DOUBLE,0,NULL,0,0,0,0.0,1.0,0,0,
+          (MexFcnForType)c3_e_sf_marshallOut,(MexInFcnForType)NULL);
 
         {
           real_T *c3_xq;
           real_T *c3_yq;
+          real_T *c3_t;
           real_T (*c3_r)[361];
           real_T (*c3_theta)[361];
+          c3_t = (real_T *)ssGetInputPortSignal(chartInstance->S, 2);
           c3_theta = (real_T (*)[361])ssGetOutputPortSignal(chartInstance->S, 2);
           c3_yq = (real_T *)ssGetInputPortSignal(chartInstance->S, 1);
           c3_r = (real_T (*)[361])ssGetOutputPortSignal(chartInstance->S, 1);
@@ -11240,6 +11702,7 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
           _SFD_SET_DATA_VALUE_PTR(1U, *c3_r);
           _SFD_SET_DATA_VALUE_PTR(2U, c3_yq);
           _SFD_SET_DATA_VALUE_PTR(3U, *c3_theta);
+          _SFD_SET_DATA_VALUE_PTR(4U, c3_t);
         }
       }
     } else {
@@ -11252,7 +11715,7 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
 
 static const char* sf_get_instance_specialization(void)
 {
-  return "TMbW3TT2FI281gZHr2GGzD";
+  return "VXUkA6vcKhFDyZYfTRNdZG";
 }
 
 static void sf_opaque_initialize_c3_PC_Quadcopter_SimulationPathPlanner(void
@@ -11424,8 +11887,9 @@ static void mdlSetWorkWidths_c3_PC_Quadcopter_SimulationPathPlanner(SimStruct *S
     if (chartIsInlinable) {
       ssSetInputPortOptimOpts(S, 0, SS_REUSABLE_AND_LOCAL);
       ssSetInputPortOptimOpts(S, 1, SS_REUSABLE_AND_LOCAL);
+      ssSetInputPortOptimOpts(S, 2, SS_REUSABLE_AND_LOCAL);
       sf_mark_chart_expressionable_inputs(S,sf_get_instance_specialization(),
-        infoStruct,3,2);
+        infoStruct,3,3);
       sf_mark_chart_reusable_outputs(S,sf_get_instance_specialization(),
         infoStruct,3,2);
     }
@@ -11439,7 +11903,7 @@ static void mdlSetWorkWidths_c3_PC_Quadcopter_SimulationPathPlanner(SimStruct *S
 
     {
       unsigned int inPortIdx;
-      for (inPortIdx=0; inPortIdx < 2; ++inPortIdx) {
+      for (inPortIdx=0; inPortIdx < 3; ++inPortIdx) {
         ssSetInputPortOptimizeInIR(S, inPortIdx, 1U);
       }
     }
@@ -11450,10 +11914,10 @@ static void mdlSetWorkWidths_c3_PC_Quadcopter_SimulationPathPlanner(SimStruct *S
   }
 
   ssSetOptions(S,ssGetOptions(S)|SS_OPTION_WORKS_WITH_CODE_REUSE);
-  ssSetChecksum0(S,(763957182U));
-  ssSetChecksum1(S,(770824228U));
-  ssSetChecksum2(S,(2429932465U));
-  ssSetChecksum3(S,(2468549056U));
+  ssSetChecksum0(S,(641294621U));
+  ssSetChecksum1(S,(2879803027U));
+  ssSetChecksum2(S,(1004586639U));
+  ssSetChecksum3(S,(1483202817U));
   ssSetmdlDerivatives(S, NULL);
   ssSetExplicitFCSSCtrl(S,1);
   ssSupportsMultipleExecInstances(S,1);

@@ -1,0 +1,44 @@
+CC     = "C:\Program Files\MATLAB\R2014a\sys\lcc64\lcc64\bin\lcc64.exe"
+LD     = "C:\Program Files\MATLAB\R2014a\sys\lcc64\lcc64\bin\lcclnk64.exe"
+LIBCMD = "C:\Program Files\MATLAB\R2014a\sys\lcc64\lcc64\bin\lcclib64.exe"
+CFLAGS = -dll -noregistrylookup  -c -Zp8 -DLCC_WIN64 -DMATLAB_MEX_FILE -DMX_COMPAT_32 -nodeclspec 
+LDFLAGS = -s -dll -L"C:\Program Files\MATLAB\R2014a\sys\lcc64\lcc64\lib64" -entry LibMain -map sfun.map 
+LIBFLAGS = 
+
+OBJECTS = \
+	"PC_Quadcopter_SimulationPathPlanner_sfun.obj"\
+	"c1_PC_Quadcopter_SimulationPathPlanner.obj"\
+	"c2_PC_Quadcopter_SimulationPathPlanner.obj"\
+	"c3_PC_Quadcopter_SimulationPathPlanner.obj"\
+	"PC_Quadcopter_SimulationPathPlanner_sfun_registry.obj"\
+	"lccstub.obj"\
+	"PC_Quadcopter_SimulationPathPlanner_sfun.def"\
+	"C:\Program Files\MATLAB\R2014a\extern\lib\win64\microsoft\sf_runtime.lib"\
+	"C:\Program Files\MATLAB\R2014a\extern\lib\win64\microsoft\libmwblas.lib"\
+	"C:\Program Files\MATLAB\R2014a\extern\lib\win64\microsoft\libmx.lib"\
+	"C:\Program Files\MATLAB\R2014a\extern\lib\win64\microsoft\libmex.lib"\
+	"C:\Program Files\MATLAB\R2014a\extern\lib\win64\microsoft\libmat.lib"\
+	"C:\Program Files\MATLAB\R2014a\extern\lib\win64\microsoft\libfixedpoint.lib"\
+	"C:\Program Files\MATLAB\R2014a\extern\lib\win64\microsoft\libut.lib"\
+	"C:\Program Files\MATLAB\R2014a\extern\lib\win64\microsoft\libmwmathutil.lib"\
+	"C:\Program Files\MATLAB\R2014a\extern\lib\win64\microsoft\libemlrt.lib"\
+	"C:\Program Files\MATLAB\R2014a\extern\lib\win64\microsoft\libmwsl_log_load_blocks.lib"\
+	"C:\Program Files\MATLAB\R2014a\lib\win64\libippmwipt.lib"\
+
+INCLUDE_PATH= -I"C:\Program Files\MATLAB\R2014a\sys\lcc64\lcc64\include64"  -I"C:\Program Files\MATLAB\R2014a\extern\include"  -I"C:\Program Files\MATLAB\R2014a\simulink\include"  -I"C:\Program Files\MATLAB\R2014a\stateflow\c\mex\include"  -I"C:\Program Files\MATLAB\R2014a\rtw\c\src"  -I"C:\Users\jpacker\stash\Quad-Sim\Quadcopter Dynamic Modeling and Simulation\slprj\_sfprj\PC_Quadcopter_SimulationPathPlanner\_self\sfun\src" 
+ 
+
+PC_Quadcopter_SimulationPathPlanner_sfun.mexw64 : $(MAKEFILE) $(OBJECTS)
+	$(LD) $(LDFLAGS) -o PC_Quadcopter_SimulationPathPlanner_sfun.mexw64 @PC_Quadcopter_SimulationPathPlanner_sfun.lmko
+PC_Quadcopter_SimulationPathPlanner_sfun.obj :	"PC_Quadcopter_SimulationPathPlanner_sfun.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "PC_Quadcopter_SimulationPathPlanner_sfun.c"
+c1_PC_Quadcopter_SimulationPathPlanner.obj :	"c1_PC_Quadcopter_SimulationPathPlanner.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "c1_PC_Quadcopter_SimulationPathPlanner.c"
+c2_PC_Quadcopter_SimulationPathPlanner.obj :	"c2_PC_Quadcopter_SimulationPathPlanner.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "c2_PC_Quadcopter_SimulationPathPlanner.c"
+c3_PC_Quadcopter_SimulationPathPlanner.obj :	"c3_PC_Quadcopter_SimulationPathPlanner.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "c3_PC_Quadcopter_SimulationPathPlanner.c"
+PC_Quadcopter_SimulationPathPlanner_sfun_registry.obj :	"PC_Quadcopter_SimulationPathPlanner_sfun_registry.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "PC_Quadcopter_SimulationPathPlanner_sfun_registry.c"
+lccstub.obj :	"C:\Program Files\MATLAB\R2014a\sys\lcc64\lcc64\mex\lccstub.c"
+	$(CC) $(CFLAGS) $(INCLUDE_PATH) "C:\Program Files\MATLAB\R2014a\sys\lcc64\lcc64\mex\lccstub.c"

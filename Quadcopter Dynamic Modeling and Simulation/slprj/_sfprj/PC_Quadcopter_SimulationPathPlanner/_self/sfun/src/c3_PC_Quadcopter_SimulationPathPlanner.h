@@ -37,6 +37,12 @@ typedef struct {
   boolean_T c3_isStable;
   boolean_T c3_doneDoubleBufferReInit;
   uint8_T c3_is_active_c3_PC_Quadcopter_SimulationPathPlanner;
+  real_T c3_prev_t;
+  boolean_T c3_prev_t_not_empty;
+  real_T c3_prev_r[361];
+  boolean_T c3_prev_r_not_empty;
+  real_T c3_prev_theta[361];
+  boolean_T c3_prev_theta_not_empty;
 } SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct;
 
 #endif                                 /*typedef_SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct*/
