@@ -2,12 +2,12 @@
 
 #include <stddef.h>
 #include "blas.h"
-#include "PC_Quadcopter_SimulationPathPlanner_sfun.h"
-#include "c3_PC_Quadcopter_SimulationPathPlanner.h"
+#include "AutoFollow_Simulation_sfun.h"
+#include "c3_AutoFollow_Simulation.h"
 #include "mwmathutil.h"
 #define CHARTINSTANCE_CHARTNUMBER      (chartInstance->chartNumber)
 #define CHARTINSTANCE_INSTANCENUMBER   (chartInstance->instanceNumber)
-#include "PC_Quadcopter_SimulationPathPlanner_sfun_debug_macros.h"
+#include "AutoFollow_Simulation_sfun_debug_macros.h"
 #define _SF_MEX_LISTEN_FOR_CTRL_C(S)   sf_mex_listen_for_ctrl_c(sfGlobalDebugInstanceStruct,S);
 
 /* Type Definitions */
@@ -55,103 +55,94 @@ static const char * c3_i_debug_family_names[34] = { "N", "R", "C", "i", "P1",
   "rangeMax", "Xmax", "Ymax", "nargin", "nargout", "Tl", "map", "p" };
 
 /* Function Declarations */
-static void initialize_c3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance);
-static void initialize_params_c3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance);
-static void enable_c3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance);
-static void disable_c3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance);
-static void c3_update_debugger_state_c3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance);
-static const mxArray *get_sim_state_c3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance);
-static void set_sim_state_c3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_st);
-static void finalize_c3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance);
-static void sf_gateway_c3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance);
-static void c3_chartstep_c3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance);
-static void initSimStructsc3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance);
-static void c3_se2(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-                   *chartInstance, real_T c3_a[3], real_T c3_t[9]);
-static void c3_laserScanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, real_T
-   c3_Tl[9], real_T c3_map[10000], real_T c3_p[722]);
-static void c3_XYtoIJ(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-                      *chartInstance, real_T c3_x, real_T c3_y, real_T c3_Xmax,
-                      real_T c3_Ymax, real_T c3_R, real_T c3_C, real_T *c3_i,
-                      real_T *c3_j);
-static void c3_clipLine(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-  *chartInstance, real_T c3_line[4], real_T c3_edge[4]);
-static void c3_intersectLines
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, real_T
-   c3_line1[4], real_T c3_line2[4], real_T c3_point[2]);
-static void c3_laserRange(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
+static void initialize_c3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance);
+static void initialize_params_c3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance);
+static void enable_c3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance);
+static void disable_c3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance);
+static void c3_update_debugger_state_c3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance);
+static const mxArray *get_sim_state_c3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance);
+static void set_sim_state_c3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance, const mxArray *c3_st);
+static void finalize_c3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance);
+static void sf_gateway_c3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance);
+static void c3_chartstep_c3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance);
+static void initSimStructsc3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance);
+static void c3_se2(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+                   real_T c3_a[3], real_T c3_t[9]);
+static void c3_laserScanner(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, real_T c3_Tl[9], real_T c3_map[10000], real_T c3_p[722]);
+static void c3_XYtoIJ(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+                      real_T c3_x, real_T c3_y, real_T c3_Xmax, real_T c3_Ymax,
+                      real_T c3_R, real_T c3_C, real_T *c3_i, real_T *c3_j);
+static void c3_clipLine(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_line[4], real_T c3_edge[4]);
+static void c3_intersectLines(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, real_T c3_line1[4], real_T c3_line2[4], real_T c3_point[2]);
+static void c3_laserRange(SFc3_AutoFollow_SimulationInstanceStruct
   *chartInstance, real_T c3_p1[2], real_T c3_p2[2], real_T c3_map[10000], real_T
   c3_p_data[], int32_T c3_p_sizes[2]);
 static void init_script_number_translation(uint32_T c3_machineNumber, uint32_T
   c3_chartNumber, uint32_T c3_instanceNumber);
-static void c3_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_load, const char_T *c3_identifier, c3_s2aqkGCuE38RBomNVWBcX1B
-   *c3_y);
-static void c3_b_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
-   c3_s2aqkGCuE38RBomNVWBcX1B *c3_y);
-static void c3_c_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[10000]);
+static void c3_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_load, const char_T *c3_identifier,
+  c3_s2aqkGCuE38RBomNVWBcX1B *c3_y);
+static void c3_b_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  c3_s2aqkGCuE38RBomNVWBcX1B *c3_y);
+static void c3_c_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[10000]);
 static const mxArray *c3_sf_marshallOut(void *chartInstanceVoid, void *c3_inData);
-static void c3_d_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_b_prev_theta, const char_T *c3_identifier, real_T c3_y[361]);
-static void c3_e_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[361]);
+static void c3_d_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_b_prev_theta, const char_T *c3_identifier,
+  real_T c3_y[361]);
+static void c3_e_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[361]);
 static void c3_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_b_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static void c3_f_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_b_prev_r, const char_T *c3_identifier, real_T c3_y[361]);
-static void c3_g_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[361]);
+static void c3_f_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_b_prev_r, const char_T *c3_identifier,
+  real_T c3_y[361]);
+static void c3_g_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[361]);
 static void c3_b_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_c_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static real_T c3_h_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_b_prev_t, const char_T *c3_identifier);
-static real_T c3_i_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId);
+static real_T c3_h_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_b_prev_t, const char_T *c3_identifier);
+static real_T c3_i_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId);
 static void c3_c_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_d_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static void c3_j_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_theta, const char_T *c3_identifier, real_T c3_y[361]);
-static void c3_k_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[361]);
+static void c3_j_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_theta, const char_T *c3_identifier, real_T
+  c3_y[361]);
+static void c3_k_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[361]);
 static void c3_d_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_e_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static real_T c3_l_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId);
+static real_T c3_l_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId);
 static void c3_e_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_f_sf_marshallOut(void *chartInstanceVoid, void
@@ -160,16 +151,16 @@ static void c3_f_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_g_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static void c3_m_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[722]);
+static void c3_m_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[722]);
 static void c3_g_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_h_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static void c3_n_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[9]);
+static void c3_n_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[9]);
 static void c3_h_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_i_sf_marshallOut(void *chartInstanceVoid, void
@@ -178,65 +169,61 @@ static void c3_i_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_j_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static void c3_o_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[3]);
+static void c3_o_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[3]);
 static void c3_j_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_k_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static void c3_p_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[4]);
+static void c3_p_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[4]);
 static void c3_k_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_l_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static void c3_q_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[2]);
+static void c3_q_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[2]);
 static void c3_l_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_m_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static void c3_r_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[4]);
+static void c3_r_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[4]);
 static void c3_m_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_n_sf_marshallOut(void *chartInstanceVoid, real_T
   c3_inData_data[], int32_T c3_inData_sizes[2]);
-static void c3_s_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
-   int32_T c3_y_sizes[2]);
+static void c3_s_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y_data[], int32_T c3_y_sizes[2]);
 static void c3_n_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
   c3_outData_sizes[2]);
 static const mxArray *c3_o_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static boolean_T c3_t_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId);
+static boolean_T c3_t_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct *
+  chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId);
 static void c3_o_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_p_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
 static const mxArray *c3_q_sf_marshallOut(void *chartInstanceVoid, real_T
   c3_inData_data[], int32_T *c3_inData_sizes);
-static void c3_u_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
-   int32_T *c3_y_sizes);
+static void c3_u_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y_data[], int32_T *c3_y_sizes);
 static void c3_p_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
   *c3_outData_sizes);
 static const mxArray *c3_r_sf_marshallOut(void *chartInstanceVoid, real_T
   c3_inData_data[], int32_T c3_inData_sizes[2]);
-static void c3_v_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
-   int32_T c3_y_sizes[2]);
+static void c3_v_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y_data[], int32_T c3_y_sizes[2]);
 static void c3_q_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
   c3_outData_sizes[2]);
@@ -244,36 +231,34 @@ static const mxArray *c3_s_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
 static const mxArray *c3_t_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static void c3_w_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[8]);
+static void c3_w_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[8]);
 static void c3_r_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static const mxArray *c3_u_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
 static const mxArray *c3_v_sf_marshallOut(void *chartInstanceVoid, real_T
   c3_inData_data[], int32_T c3_inData_sizes[2]);
-static void c3_x_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
-   int32_T c3_y_sizes[2]);
+static void c3_x_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y_data[], int32_T c3_y_sizes[2]);
 static void c3_s_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
   c3_outData_sizes[2]);
 static const mxArray *c3_w_sf_marshallOut(void *chartInstanceVoid, real_T
   c3_inData_data[], int32_T c3_inData_sizes[2]);
-static void c3_y_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
-   int32_T c3_y_sizes[2]);
+static void c3_y_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y_data[], int32_T c3_y_sizes[2]);
 static void c3_t_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, real_T c3_outData_data[], int32_T
   c3_outData_sizes[2]);
 static const mxArray *c3_x_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static void c3_ab_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[3]);
+static void c3_ab_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[3]);
 static void c3_u_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
 static void c3_info_helper(const mxArray **c3_info);
@@ -281,109 +266,103 @@ static const mxArray *c3_emlrt_marshallOut(const char * c3_u);
 static const mxArray *c3_b_emlrt_marshallOut(const uint32_T c3_u);
 static void c3_b_info_helper(const mxArray **c3_info);
 static void c3_c_info_helper(const mxArray **c3_info);
-static void c3_eml_scalar_eg
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance);
-static void c3_eml_xgemm(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *
-  chartInstance, real_T c3_A[9], real_T c3_B[3], real_T c3_C[3], real_T c3_b_C[3]);
-static real_T c3_hypot(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-  *chartInstance, real_T c3_x, real_T c3_y);
-static void c3_b_eml_scalar_eg
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance);
-static real_T c3_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-  *chartInstance, real_T c3_a, real_T c3_b);
-static void c3_c_eml_scalar_eg
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance);
-static void c3_eml_li_find
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance,
-   boolean_T c3_x, int32_T c3_y_data[], int32_T c3_y_sizes[2]);
-static void c3_isfinite(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-  *chartInstance, real_T c3_x[4], boolean_T c3_b[4]);
-static void c3_eml_switch_helper
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance);
-static void c3_b_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-  *chartInstance, real_T c3_a_data[], int32_T c3_a_sizes, real_T c3_b, real_T
-  c3_c_data[], int32_T *c3_c_sizes);
+static void c3_eml_scalar_eg(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance);
+static void c3_eml_xgemm(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_A[9], real_T c3_B[3], real_T c3_C[3], real_T c3_b_C[3]);
+static real_T c3_hypot(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_x, real_T c3_y);
+static void c3_b_eml_scalar_eg(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance);
+static real_T c3_bsxfun(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_a, real_T c3_b);
+static void c3_c_eml_scalar_eg(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance);
+static void c3_eml_li_find(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, boolean_T c3_x, int32_T c3_y_data[], int32_T c3_y_sizes[2]);
+static void c3_isfinite(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_x[4], boolean_T c3_b[4]);
+static void c3_eml_switch_helper(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance);
+static void c3_b_bsxfun(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_a_data[], int32_T c3_a_sizes, real_T c3_b, real_T c3_c_data[],
+  int32_T *c3_c_sizes);
 static void c3_check_forloop_overflow_error
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance,
-   boolean_T c3_overflow);
-static void c3_c_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-  *chartInstance, real_T c3_a_data[], int32_T c3_a_sizes, real_T c3_b, real_T
-  c3_c_data[], int32_T *c3_c_sizes);
-static void c3_d_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-  *chartInstance, real_T c3_a_data[], int32_T c3_a_sizes, real_T c3_b, real_T
-  c3_c_data[], int32_T *c3_c_sizes);
-static void c3_eml_sort(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-  *chartInstance, real_T c3_x_data[], int32_T c3_x_sizes, real_T c3_y_data[],
-  int32_T *c3_y_sizes, int32_T c3_idx_data[], int32_T *c3_idx_sizes);
-static void c3_eml_sort_idx
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, real_T
-   c3_x_data[], int32_T c3_x_sizes, int32_T c3_idx_data[], int32_T *c3_idx_sizes);
-static real_T c3_mean(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-                      *chartInstance, real_T c3_x[2]);
-static boolean_T c3_all(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-  *chartInstance, boolean_T c3_x[2]);
-static real_T c3_mpower(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-  *chartInstance, real_T c3_a);
-static void c3_eml_error(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *
-  chartInstance);
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance, boolean_T
+   c3_overflow);
+static void c3_c_bsxfun(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_a_data[], int32_T c3_a_sizes, real_T c3_b, real_T c3_c_data[],
+  int32_T *c3_c_sizes);
+static void c3_d_bsxfun(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_a_data[], int32_T c3_a_sizes, real_T c3_b, real_T c3_c_data[],
+  int32_T *c3_c_sizes);
+static void c3_eml_sort(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_x_data[], int32_T c3_x_sizes, real_T c3_y_data[], int32_T
+  *c3_y_sizes, int32_T c3_idx_data[], int32_T *c3_idx_sizes);
+static void c3_eml_sort_idx(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, real_T c3_x_data[], int32_T c3_x_sizes, int32_T c3_idx_data[],
+  int32_T *c3_idx_sizes);
+static real_T c3_mean(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+                      real_T c3_x[2]);
+static boolean_T c3_all(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  boolean_T c3_x[2]);
+static real_T c3_mpower(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_a);
+static void c3_eml_error(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance);
 static const mxArray *c3_y_sf_marshallOut(void *chartInstanceVoid, void
   *c3_inData);
-static int32_T c3_bb_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId);
+static int32_T c3_bb_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId);
 static void c3_v_sf_marshallIn(void *chartInstanceVoid, const mxArray
   *c3_mxArrayInData, const char_T *c3_varName, void *c3_outData);
-static uint8_T c3_cb_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_b_is_active_c3_PC_Quadcopter_SimulationPathPlanner, const char_T *
-   c3_identifier);
-static uint8_T c3_db_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId);
-static void c3_b_eml_xgemm
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, real_T
-   c3_A[9], real_T c3_B[3], real_T c3_C[3]);
-static void init_dsm_address_info
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance);
+static uint8_T c3_cb_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_b_is_active_c3_AutoFollow_Simulation, const
+  char_T *c3_identifier);
+static uint8_T c3_db_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId);
+static void c3_b_eml_xgemm(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, real_T c3_A[9], real_T c3_B[3], real_T c3_C[3]);
+static void init_dsm_address_info(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance);
 
 /* Function Definitions */
-static void initialize_c3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance)
+static void initialize_c3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance)
 {
   chartInstance->c3_sfEvent = CALL_EVENT;
   _sfTime_ = sf_get_time(chartInstance->S);
   chartInstance->c3_prev_t_not_empty = false;
   chartInstance->c3_prev_r_not_empty = false;
   chartInstance->c3_prev_theta_not_empty = false;
-  chartInstance->c3_is_active_c3_PC_Quadcopter_SimulationPathPlanner = 0U;
+  chartInstance->c3_is_active_c3_AutoFollow_Simulation = 0U;
 }
 
-static void initialize_params_c3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance)
+static void initialize_params_c3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance)
 {
   (void)chartInstance;
 }
 
-static void enable_c3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance)
+static void enable_c3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance)
 {
   _sfTime_ = sf_get_time(chartInstance->S);
 }
 
-static void disable_c3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance)
+static void disable_c3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance)
 {
   _sfTime_ = sf_get_time(chartInstance->S);
 }
 
-static void c3_update_debugger_state_c3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance)
+static void c3_update_debugger_state_c3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance)
 {
   (void)chartInstance;
 }
 
-static const mxArray *get_sim_state_c3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance)
+static const mxArray *get_sim_state_c3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance)
 {
   const mxArray *c3_st;
   const mxArray *c3_y = NULL;
@@ -467,8 +446,7 @@ static const mxArray *get_sim_state_c3_PC_Quadcopter_SimulationPathPlanner
   }
 
   sf_mex_setcell(c3_y, 4, c3_f_y);
-  c3_b_hoistedGlobal =
-    chartInstance->c3_is_active_c3_PC_Quadcopter_SimulationPathPlanner;
+  c3_b_hoistedGlobal = chartInstance->c3_is_active_c3_AutoFollow_Simulation;
   c3_f_u = c3_b_hoistedGlobal;
   c3_g_y = NULL;
   sf_mex_assign(&c3_g_y, sf_mex_create("y", &c3_f_u, 3, 0U, 0U, 0U, 0), false);
@@ -477,9 +455,8 @@ static const mxArray *get_sim_state_c3_PC_Quadcopter_SimulationPathPlanner
   return c3_st;
 }
 
-static void set_sim_state_c3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_st)
+static void set_sim_state_c3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance, const mxArray *c3_st)
 {
   const mxArray *c3_u;
   real_T c3_dv0[361];
@@ -522,22 +499,22 @@ static void set_sim_state_c3_PC_Quadcopter_SimulationPathPlanner
     chartInstance->c3_prev_theta[c3_i7] = c3_dv3[c3_i7];
   }
 
-  chartInstance->c3_is_active_c3_PC_Quadcopter_SimulationPathPlanner =
-    c3_cb_emlrt_marshallIn(chartInstance, sf_mex_dup(sf_mex_getcell(c3_u, 5)),
-    "is_active_c3_PC_Quadcopter_SimulationPathPlanner");
+  chartInstance->c3_is_active_c3_AutoFollow_Simulation = c3_cb_emlrt_marshallIn
+    (chartInstance, sf_mex_dup(sf_mex_getcell(c3_u, 5)),
+     "is_active_c3_AutoFollow_Simulation");
   sf_mex_destroy(&c3_u);
-  c3_update_debugger_state_c3_PC_Quadcopter_SimulationPathPlanner(chartInstance);
+  c3_update_debugger_state_c3_AutoFollow_Simulation(chartInstance);
   sf_mex_destroy(&c3_st);
 }
 
-static void finalize_c3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance)
+static void finalize_c3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance)
 {
   (void)chartInstance;
 }
 
-static void sf_gateway_c3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance)
+static void sf_gateway_c3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance)
 {
   int32_T c3_i8;
   int32_T c3_i9;
@@ -556,11 +533,10 @@ static void sf_gateway_c3_PC_Quadcopter_SimulationPathPlanner
   _SFD_CC_CALL(CHART_ENTER_SFUNCTION_TAG, 2U, chartInstance->c3_sfEvent);
   _SFD_DATA_RANGE_CHECK(*c3_xq, 0U);
   chartInstance->c3_sfEvent = CALL_EVENT;
-  c3_chartstep_c3_PC_Quadcopter_SimulationPathPlanner(chartInstance);
+  c3_chartstep_c3_AutoFollow_Simulation(chartInstance);
   _SFD_SYMBOL_SCOPE_POP();
-  _SFD_CHECK_FOR_STATE_INCONSISTENCY
-    (_PC_Quadcopter_SimulationPathPlannerMachineNumber_,
-     chartInstance->chartNumber, chartInstance->instanceNumber);
+  _SFD_CHECK_FOR_STATE_INCONSISTENCY(_AutoFollow_SimulationMachineNumber_,
+    chartInstance->chartNumber, chartInstance->instanceNumber);
   for (c3_i8 = 0; c3_i8 < 361; c3_i8++) {
     _SFD_DATA_RANGE_CHECK((*c3_r)[c3_i8], 1U);
   }
@@ -573,8 +549,8 @@ static void sf_gateway_c3_PC_Quadcopter_SimulationPathPlanner
   _SFD_DATA_RANGE_CHECK(*c3_t, 4U);
 }
 
-static void c3_chartstep_c3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance)
+static void c3_chartstep_c3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance)
 {
   real_T c3_hoistedGlobal;
   real_T c3_b_hoistedGlobal;
@@ -793,14 +769,14 @@ static void c3_chartstep_c3_PC_Quadcopter_SimulationPathPlanner
   _SFD_CC_CALL(EXIT_OUT_OF_FUNCTION_TAG, 2U, chartInstance->c3_sfEvent);
 }
 
-static void initSimStructsc3_PC_Quadcopter_SimulationPathPlanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance)
+static void initSimStructsc3_AutoFollow_Simulation
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance)
 {
   (void)chartInstance;
 }
 
-static void c3_se2(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-                   *chartInstance, real_T c3_a[3], real_T c3_t[9])
+static void c3_se2(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+                   real_T c3_a[3], real_T c3_t[9])
 {
   uint32_T c3_debug_family_var_map[10];
   real_T c3_x;
@@ -892,9 +868,8 @@ static void c3_se2(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   _SFD_SYMBOL_SCOPE_POP();
 }
 
-static void c3_laserScanner
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, real_T
-   c3_Tl[9], real_T c3_map[10000], real_T c3_p[722])
+static void c3_laserScanner(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, real_T c3_Tl[9], real_T c3_map[10000], real_T c3_p[722])
 {
   uint32_T c3_debug_family_var_map[34];
   real_T c3_N;
@@ -1335,10 +1310,9 @@ static void c3_laserScanner
   _SFD_SYMBOL_SCOPE_POP();
 }
 
-static void c3_XYtoIJ(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-                      *chartInstance, real_T c3_x, real_T c3_y, real_T c3_Xmax,
-                      real_T c3_Ymax, real_T c3_R, real_T c3_C, real_T *c3_i,
-                      real_T *c3_j)
+static void c3_XYtoIJ(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+                      real_T c3_x, real_T c3_y, real_T c3_Xmax, real_T c3_Ymax,
+                      real_T c3_R, real_T c3_C, real_T *c3_i, real_T *c3_j)
 {
   uint32_T c3_debug_family_var_map[10];
   real_T c3_nargin = 6.0;
@@ -1404,8 +1378,8 @@ static void c3_XYtoIJ(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   _SFD_SYMBOL_SCOPE_POP();
 }
 
-static void c3_clipLine(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-  *chartInstance, real_T c3_line[4], real_T c3_edge[4])
+static void c3_clipLine(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_line[4], real_T c3_edge[4])
 {
   uint32_T c3_debug_family_var_map[28];
   real_T c3_nLines;
@@ -2164,9 +2138,8 @@ static void c3_clipLine(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   _SFD_SYMBOL_SCOPE_POP();
 }
 
-static void c3_intersectLines
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, real_T
-   c3_line1[4], real_T c3_line2[4], real_T c3_point[2])
+static void c3_intersectLines(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, real_T c3_line1[4], real_T c3_line2[4], real_T c3_point[2])
 {
   uint32_T c3_debug_family_var_map[26];
   real_T c3_tol;
@@ -2535,7 +2508,7 @@ static void c3_intersectLines
   _SFD_SYMBOL_SCOPE_POP();
 }
 
-static void c3_laserRange(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
+static void c3_laserRange(SFc3_AutoFollow_SimulationInstanceStruct
   *chartInstance, real_T c3_p1[2], real_T c3_p2[2], real_T c3_map[10000], real_T
   c3_p_data[], int32_T c3_p_sizes[2])
 {
@@ -2953,10 +2926,9 @@ static void init_script_number_translation(uint32_T c3_machineNumber, uint32_T
     "C:\\Users\\jpacker\\stash\\Quad-Sim\\Quadcopter Dynamic Modeling and Simulation\\Lidar\\assignment6\\IJtoXY.m"));
 }
 
-static void c3_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_load, const char_T *c3_identifier, c3_s2aqkGCuE38RBomNVWBcX1B
-   *c3_y)
+static void c3_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_load, const char_T *c3_identifier,
+  c3_s2aqkGCuE38RBomNVWBcX1B *c3_y)
 {
   emlrtMsgIdentifier c3_thisId;
   c3_thisId.fIdentifier = c3_identifier;
@@ -2965,10 +2937,9 @@ static void c3_emlrt_marshallIn
   sf_mex_destroy(&c3_load);
 }
 
-static void c3_b_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
-   c3_s2aqkGCuE38RBomNVWBcX1B *c3_y)
+static void c3_b_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  c3_s2aqkGCuE38RBomNVWBcX1B *c3_y)
 {
   emlrtMsgIdentifier c3_thisId;
   static const char * c3_fieldNames[1] = { "map" };
@@ -2981,9 +2952,9 @@ static void c3_b_emlrt_marshallIn
   sf_mex_destroy(&c3_u);
 }
 
-static void c3_c_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[10000])
+static void c3_c_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[10000])
 {
   real_T c3_dv33[10000];
   int32_T c3_i131;
@@ -3005,9 +2976,8 @@ static const mxArray *c3_sf_marshallOut(void *chartInstanceVoid, void *c3_inData
   int32_T c3_i133;
   real_T c3_u[361];
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   for (c3_i132 = 0; c3_i132 < 361; c3_i132++) {
     c3_b_inData[c3_i132] = (*(real_T (*)[361])c3_inData)[c3_i132];
@@ -3028,9 +2998,9 @@ static const mxArray *c3_sf_marshallOut(void *chartInstanceVoid, void *c3_inData
   return c3_mxArrayOutData;
 }
 
-static void c3_d_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_b_prev_theta, const char_T *c3_identifier, real_T c3_y[361])
+static void c3_d_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_b_prev_theta, const char_T *c3_identifier,
+  real_T c3_y[361])
 {
   emlrtMsgIdentifier c3_thisId;
   c3_thisId.fIdentifier = c3_identifier;
@@ -3040,9 +3010,9 @@ static void c3_d_emlrt_marshallIn
   sf_mex_destroy(&c3_b_prev_theta);
 }
 
-static void c3_e_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[361])
+static void c3_e_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[361])
 {
   real_T c3_dv34[361];
   int32_T c3_i134;
@@ -3068,9 +3038,8 @@ static void c3_sf_marshallIn(void *chartInstanceVoid, const mxArray
   emlrtMsgIdentifier c3_thisId;
   real_T c3_y[361];
   int32_T c3_i135;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_b_prev_theta = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -3094,9 +3063,8 @@ static const mxArray *c3_b_sf_marshallOut(void *chartInstanceVoid, void
   int32_T c3_i137;
   real_T c3_u[361];
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   for (c3_i136 = 0; c3_i136 < 361; c3_i136++) {
     c3_b_inData[c3_i136] = (*(real_T (*)[361])c3_inData)[c3_i136];
@@ -3117,9 +3085,9 @@ static const mxArray *c3_b_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static void c3_f_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_b_prev_r, const char_T *c3_identifier, real_T c3_y[361])
+static void c3_f_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_b_prev_r, const char_T *c3_identifier,
+  real_T c3_y[361])
 {
   emlrtMsgIdentifier c3_thisId;
   c3_thisId.fIdentifier = c3_identifier;
@@ -3128,9 +3096,9 @@ static void c3_f_emlrt_marshallIn
   sf_mex_destroy(&c3_b_prev_r);
 }
 
-static void c3_g_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[361])
+static void c3_g_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[361])
 {
   real_T c3_dv35[361];
   int32_T c3_i138;
@@ -3156,9 +3124,8 @@ static void c3_b_sf_marshallIn(void *chartInstanceVoid, const mxArray
   emlrtMsgIdentifier c3_thisId;
   real_T c3_y[361];
   int32_T c3_i139;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_b_prev_r = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -3178,9 +3145,8 @@ static const mxArray *c3_c_sf_marshallOut(void *chartInstanceVoid, void
   const mxArray *c3_mxArrayOutData = NULL;
   real_T c3_u;
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   c3_u = *(real_T *)c3_inData;
   c3_y = NULL;
@@ -3194,9 +3160,8 @@ static const mxArray *c3_c_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static real_T c3_h_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_b_prev_t, const char_T *c3_identifier)
+static real_T c3_h_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_b_prev_t, const char_T *c3_identifier)
 {
   real_T c3_y;
   emlrtMsgIdentifier c3_thisId;
@@ -3208,9 +3173,8 @@ static real_T c3_h_emlrt_marshallIn
   return c3_y;
 }
 
-static real_T c3_i_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId)
+static real_T c3_i_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId)
 {
   real_T c3_y;
   real_T c3_d0;
@@ -3233,9 +3197,8 @@ static void c3_c_sf_marshallIn(void *chartInstanceVoid, const mxArray
   const char_T *c3_identifier;
   emlrtMsgIdentifier c3_thisId;
   real_T c3_y;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_b_prev_t = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -3256,9 +3219,8 @@ static const mxArray *c3_d_sf_marshallOut(void *chartInstanceVoid, void
   int32_T c3_i141;
   real_T c3_u[361];
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   for (c3_i140 = 0; c3_i140 < 361; c3_i140++) {
     c3_b_inData[c3_i140] = (*(real_T (*)[361])c3_inData)[c3_i140];
@@ -3274,9 +3236,9 @@ static const mxArray *c3_d_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static void c3_j_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_theta, const char_T *c3_identifier, real_T c3_y[361])
+static void c3_j_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_theta, const char_T *c3_identifier, real_T
+  c3_y[361])
 {
   emlrtMsgIdentifier c3_thisId;
   c3_thisId.fIdentifier = c3_identifier;
@@ -3285,9 +3247,9 @@ static void c3_j_emlrt_marshallIn
   sf_mex_destroy(&c3_theta);
 }
 
-static void c3_k_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[361])
+static void c3_k_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[361])
 {
   real_T c3_dv36[361];
   int32_T c3_i142;
@@ -3308,9 +3270,8 @@ static void c3_d_sf_marshallIn(void *chartInstanceVoid, const mxArray
   emlrtMsgIdentifier c3_thisId;
   real_T c3_y[361];
   int32_T c3_i143;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_theta = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -3330,9 +3291,8 @@ static const mxArray *c3_e_sf_marshallOut(void *chartInstanceVoid, void
   const mxArray *c3_mxArrayOutData = NULL;
   real_T c3_u;
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   c3_u = *(real_T *)c3_inData;
   c3_y = NULL;
@@ -3341,9 +3301,8 @@ static const mxArray *c3_e_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static real_T c3_l_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId)
+static real_T c3_l_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId)
 {
   real_T c3_y;
   real_T c3_d1;
@@ -3361,9 +3320,8 @@ static void c3_e_sf_marshallIn(void *chartInstanceVoid, const mxArray
   const char_T *c3_identifier;
   emlrtMsgIdentifier c3_thisId;
   real_T c3_y;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_nargout = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -3387,9 +3345,8 @@ static const mxArray *c3_f_sf_marshallOut(void *chartInstanceVoid, void
   int32_T c3_i149;
   real_T c3_u[10000];
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   c3_i144 = 0;
   for (c3_i145 = 0; c3_i145 < 100; c3_i145++) {
@@ -3427,9 +3384,8 @@ static void c3_f_sf_marshallIn(void *chartInstanceVoid, const mxArray
   int32_T c3_i150;
   int32_T c3_i151;
   int32_T c3_i152;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_map = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -3462,9 +3418,8 @@ static const mxArray *c3_g_sf_marshallOut(void *chartInstanceVoid, void
   int32_T c3_i158;
   real_T c3_u[722];
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   c3_i153 = 0;
   for (c3_i154 = 0; c3_i154 < 2; c3_i154++) {
@@ -3491,9 +3446,9 @@ static const mxArray *c3_g_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static void c3_m_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[722])
+static void c3_m_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[722])
 {
   real_T c3_dv37[722];
   int32_T c3_i159;
@@ -3517,9 +3472,8 @@ static void c3_g_sf_marshallIn(void *chartInstanceVoid, const mxArray
   int32_T c3_i160;
   int32_T c3_i161;
   int32_T c3_i162;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_p = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -3551,9 +3505,8 @@ static const mxArray *c3_h_sf_marshallOut(void *chartInstanceVoid, void
   int32_T c3_i168;
   real_T c3_u[9];
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   c3_i163 = 0;
   for (c3_i164 = 0; c3_i164 < 3; c3_i164++) {
@@ -3580,9 +3533,9 @@ static const mxArray *c3_h_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static void c3_n_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[9])
+static void c3_n_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[9])
 {
   real_T c3_dv38[9];
   int32_T c3_i169;
@@ -3605,9 +3558,8 @@ static void c3_h_sf_marshallIn(void *chartInstanceVoid, const mxArray
   int32_T c3_i170;
   int32_T c3_i171;
   int32_T c3_i172;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_Tl = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -3635,9 +3587,8 @@ static const mxArray *c3_i_sf_marshallOut(void *chartInstanceVoid, void
   int32_T c3_i173;
   real_T c3_b_u[10000];
   const mxArray *c3_b_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   c3_u = *(c3_s2aqkGCuE38RBomNVWBcX1B *)c3_inData;
   c3_y = NULL;
@@ -3661,9 +3612,8 @@ static void c3_i_sf_marshallIn(void *chartInstanceVoid, const mxArray
   const char_T *c3_identifier;
   emlrtMsgIdentifier c3_thisId;
   c3_s2aqkGCuE38RBomNVWBcX1B c3_y;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_load = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -3683,9 +3633,8 @@ static const mxArray *c3_j_sf_marshallOut(void *chartInstanceVoid, void
   int32_T c3_i175;
   real_T c3_u[3];
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   for (c3_i174 = 0; c3_i174 < 3; c3_i174++) {
     c3_b_inData[c3_i174] = (*(real_T (*)[3])c3_inData)[c3_i174];
@@ -3701,9 +3650,9 @@ static const mxArray *c3_j_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static void c3_o_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[3])
+static void c3_o_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[3])
 {
   real_T c3_dv39[3];
   int32_T c3_i176;
@@ -3724,9 +3673,8 @@ static void c3_j_sf_marshallIn(void *chartInstanceVoid, const mxArray
   emlrtMsgIdentifier c3_thisId;
   real_T c3_y[3];
   int32_T c3_i177;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_a = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -3753,9 +3701,8 @@ static const mxArray *c3_k_sf_marshallOut(void *chartInstanceVoid, void
   int32_T c3_i183;
   real_T c3_u[4];
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   c3_i178 = 0;
   for (c3_i179 = 0; c3_i179 < 2; c3_i179++) {
@@ -3782,9 +3729,9 @@ static const mxArray *c3_k_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static void c3_p_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[4])
+static void c3_p_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[4])
 {
   real_T c3_dv40[4];
   int32_T c3_i184;
@@ -3807,9 +3754,8 @@ static void c3_k_sf_marshallIn(void *chartInstanceVoid, const mxArray
   int32_T c3_i185;
   int32_T c3_i186;
   int32_T c3_i187;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_R = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -3837,9 +3783,8 @@ static const mxArray *c3_l_sf_marshallOut(void *chartInstanceVoid, void
   int32_T c3_i189;
   real_T c3_u[2];
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   for (c3_i188 = 0; c3_i188 < 2; c3_i188++) {
     c3_b_inData[c3_i188] = (*(real_T (*)[2])c3_inData)[c3_i188];
@@ -3855,9 +3800,9 @@ static const mxArray *c3_l_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static void c3_q_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[2])
+static void c3_q_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[2])
 {
   real_T c3_dv41[2];
   int32_T c3_i190;
@@ -3878,9 +3823,8 @@ static void c3_l_sf_marshallIn(void *chartInstanceVoid, const mxArray
   emlrtMsgIdentifier c3_thisId;
   real_T c3_y[2];
   int32_T c3_i191;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_point = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -3903,9 +3847,8 @@ static const mxArray *c3_m_sf_marshallOut(void *chartInstanceVoid, void
   int32_T c3_i193;
   real_T c3_u[4];
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   for (c3_i192 = 0; c3_i192 < 4; c3_i192++) {
     c3_b_inData[c3_i192] = (*(real_T (*)[4])c3_inData)[c3_i192];
@@ -3921,9 +3864,9 @@ static const mxArray *c3_m_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static void c3_r_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[4])
+static void c3_r_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[4])
 {
   real_T c3_dv42[4];
   int32_T c3_i194;
@@ -3944,9 +3887,8 @@ static void c3_m_sf_marshallIn(void *chartInstanceVoid, const mxArray
   emlrtMsgIdentifier c3_thisId;
   real_T c3_y[4];
   int32_T c3_i195;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_line2 = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -3973,9 +3915,8 @@ static const mxArray *c3_n_sf_marshallOut(void *chartInstanceVoid, real_T
   int32_T c3_i197;
   real_T c3_u_data[1];
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   c3_b_inData_sizes[0] = 1;
   c3_b_inData_sizes[1] = c3_inData_sizes[1];
@@ -4000,10 +3941,9 @@ static const mxArray *c3_n_sf_marshallOut(void *chartInstanceVoid, real_T
   return c3_mxArrayOutData;
 }
 
-static void c3_s_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
-   int32_T c3_y_sizes[2])
+static void c3_s_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y_data[], int32_T c3_y_sizes[2])
 {
   int32_T c3_i198;
   uint32_T c3_uv0[2];
@@ -4051,9 +3991,8 @@ static void c3_n_sf_marshallIn(void *chartInstanceVoid, const mxArray
   real_T c3_y_data[1];
   int32_T c3_loop_ub;
   int32_T c3_i201;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_denom = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -4078,9 +4017,8 @@ static const mxArray *c3_o_sf_marshallOut(void *chartInstanceVoid, void
   const mxArray *c3_mxArrayOutData = NULL;
   boolean_T c3_u;
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   c3_u = *(boolean_T *)c3_inData;
   c3_y = NULL;
@@ -4089,9 +4027,8 @@ static const mxArray *c3_o_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static boolean_T c3_t_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId)
+static boolean_T c3_t_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct *
+  chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId)
 {
   boolean_T c3_y;
   boolean_T c3_b6;
@@ -4109,9 +4046,8 @@ static void c3_o_sf_marshallIn(void *chartInstanceVoid, const mxArray
   const char_T *c3_identifier;
   emlrtMsgIdentifier c3_thisId;
   boolean_T c3_y;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_inds = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -4127,10 +4063,9 @@ static const mxArray *c3_p_sf_marshallOut(void *chartInstanceVoid, void
 {
   const mxArray *c3_mxArrayOutData = NULL;
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
   (void)c3_inData;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   c3_y = NULL;
   sf_mex_assign(&c3_y, sf_mex_createcellmatrix(0, 1), false);
@@ -4151,9 +4086,8 @@ static const mxArray *c3_q_sf_marshallOut(void *chartInstanceVoid, real_T
   int32_T c3_i203;
   real_T c3_u_data[4];
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   c3_b_inData_sizes = *c3_inData_sizes;
   c3_loop_ub = *c3_inData_sizes - 1;
@@ -4174,10 +4108,9 @@ static const mxArray *c3_q_sf_marshallOut(void *chartInstanceVoid, real_T
   return c3_mxArrayOutData;
 }
 
-static void c3_u_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
-   int32_T *c3_y_sizes)
+static void c3_u_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y_data[], int32_T *c3_y_sizes)
 {
   static uint32_T c3_uv1[1] = { 4U };
 
@@ -4214,9 +4147,8 @@ static void c3_p_sf_marshallIn(void *chartInstanceVoid, const mxArray
   real_T c3_y_data[4];
   int32_T c3_loop_ub;
   int32_T c3_i205;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_pos = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -4248,9 +4180,8 @@ static const mxArray *c3_r_sf_marshallOut(void *chartInstanceVoid, real_T
   int32_T c3_i209;
   real_T c3_u_data[8];
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   c3_b_inData_sizes[0] = c3_inData_sizes[0];
   c3_b_inData_sizes[1] = 2;
@@ -4279,10 +4210,9 @@ static const mxArray *c3_r_sf_marshallOut(void *chartInstanceVoid, real_T
   return c3_mxArrayOutData;
 }
 
-static void c3_v_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
-   int32_T c3_y_sizes[2])
+static void c3_v_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y_data[], int32_T c3_y_sizes[2])
 {
   int32_T c3_i210;
   uint32_T c3_uv3[2];
@@ -4331,9 +4261,8 @@ static void c3_q_sf_marshallIn(void *chartInstanceVoid, const mxArray
   int32_T c3_i213;
   int32_T c3_loop_ub;
   int32_T c3_i214;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_point = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -4359,10 +4288,9 @@ static const mxArray *c3_s_sf_marshallOut(void *chartInstanceVoid, void
 {
   const mxArray *c3_mxArrayOutData = NULL;
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
   (void)c3_inData;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   c3_y = NULL;
   sf_mex_assign(&c3_y, sf_mex_createcellmatrix(0, 1), false);
@@ -4383,9 +4311,8 @@ static const mxArray *c3_t_sf_marshallOut(void *chartInstanceVoid, void
   int32_T c3_i220;
   real_T c3_u[8];
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   c3_i215 = 0;
   for (c3_i216 = 0; c3_i216 < 2; c3_i216++) {
@@ -4412,9 +4339,9 @@ static const mxArray *c3_t_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static void c3_w_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[8])
+static void c3_w_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[8])
 {
   real_T c3_dv43[8];
   int32_T c3_i221;
@@ -4437,9 +4364,8 @@ static void c3_r_sf_marshallIn(void *chartInstanceVoid, const mxArray
   int32_T c3_i222;
   int32_T c3_i223;
   int32_T c3_i224;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_points = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -4463,10 +4389,9 @@ static const mxArray *c3_u_sf_marshallOut(void *chartInstanceVoid, void
 {
   const mxArray *c3_mxArrayOutData = NULL;
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
   (void)c3_inData;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   c3_y = NULL;
   sf_mex_assign(&c3_y, sf_mex_createcellmatrix(0, 1), false);
@@ -4491,9 +4416,8 @@ static const mxArray *c3_v_sf_marshallOut(void *chartInstanceVoid, real_T
   int32_T c3_i228;
   real_T c3_u_data[2];
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   c3_b_inData_sizes[0] = c3_inData_sizes[0];
   c3_b_inData_sizes[1] = c3_inData_sizes[1];
@@ -4524,10 +4448,9 @@ static const mxArray *c3_v_sf_marshallOut(void *chartInstanceVoid, real_T
   return c3_mxArrayOutData;
 }
 
-static void c3_x_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
-   int32_T c3_y_sizes[2])
+static void c3_x_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y_data[], int32_T c3_y_sizes[2])
 {
   int32_T c3_i229;
   uint32_T c3_uv4[2];
@@ -4575,9 +4498,8 @@ static void c3_s_sf_marshallIn(void *chartInstanceVoid, const mxArray
   int32_T c3_i232;
   int32_T c3_b_loop_ub;
   int32_T c3_i233;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_p = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -4610,9 +4532,8 @@ static const mxArray *c3_w_sf_marshallOut(void *chartInstanceVoid, real_T
   int32_T c3_i235;
   real_T c3_u_data[2];
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   c3_b_inData_sizes[0] = 1;
   c3_b_inData_sizes[1] = 2;
@@ -4635,10 +4556,9 @@ static const mxArray *c3_w_sf_marshallOut(void *chartInstanceVoid, real_T
   return c3_mxArrayOutData;
 }
 
-static void c3_y_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y_data[],
-   int32_T c3_y_sizes[2])
+static void c3_y_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y_data[], int32_T c3_y_sizes[2])
 {
   int32_T c3_i236;
   uint32_T c3_uv5[2];
@@ -4681,9 +4601,8 @@ static void c3_t_sf_marshallIn(void *chartInstanceVoid, const mxArray
   int32_T c3_y_sizes[2];
   real_T c3_y_data[2];
   int32_T c3_i239;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_Pxel = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -4710,9 +4629,8 @@ static const mxArray *c3_x_sf_marshallOut(void *chartInstanceVoid, void
   int32_T c3_i241;
   real_T c3_u[3];
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   for (c3_i240 = 0; c3_i240 < 3; c3_i240++) {
     c3_b_inData[c3_i240] = (*(real_T (*)[3])c3_inData)[c3_i240];
@@ -4728,9 +4646,9 @@ static const mxArray *c3_x_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static void c3_ab_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId, real_T c3_y[3])
+static void c3_ab_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId,
+  real_T c3_y[3])
 {
   real_T c3_dv44[3];
   int32_T c3_i242;
@@ -4751,9 +4669,8 @@ static void c3_u_sf_marshallIn(void *chartInstanceVoid, const mxArray
   emlrtMsgIdentifier c3_thisId;
   real_T c3_y[3];
   int32_T c3_i243;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_P2 = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -4767,9 +4684,7 @@ static void c3_u_sf_marshallIn(void *chartInstanceVoid, const mxArray
   sf_mex_destroy(&c3_mxArrayInData);
 }
 
-const mxArray
-  *sf_c3_PC_Quadcopter_SimulationPathPlanner_get_eml_resolved_functions_info
-  (void)
+const mxArray *sf_c3_AutoFollow_Simulation_get_eml_resolved_functions_info(void)
 {
   const mxArray *c3_nameCaptureInfo = NULL;
   c3_nameCaptureInfo = NULL;
@@ -9772,14 +9687,14 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_destroy(&c3_lhs179);
 }
 
-static void c3_eml_scalar_eg
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance)
+static void c3_eml_scalar_eg(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance)
 {
   (void)chartInstance;
 }
 
-static void c3_eml_xgemm(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *
-  chartInstance, real_T c3_A[9], real_T c3_B[3], real_T c3_C[3], real_T c3_b_C[3])
+static void c3_eml_xgemm(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_A[9], real_T c3_B[3], real_T c3_C[3], real_T c3_b_C[3])
 {
   int32_T c3_i244;
   int32_T c3_i245;
@@ -9801,8 +9716,8 @@ static void c3_eml_xgemm(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct 
   c3_b_eml_xgemm(chartInstance, c3_b_A, c3_b_B, c3_b_C);
 }
 
-static real_T c3_hypot(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-  *chartInstance, real_T c3_x, real_T c3_y)
+static real_T c3_hypot(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_x, real_T c3_y)
 {
   real_T c3_b_x;
   real_T c3_b_y;
@@ -9821,14 +9736,14 @@ static real_T c3_hypot(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   return muDoubleScalarHypot(c3_a, c3_b);
 }
 
-static void c3_b_eml_scalar_eg
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance)
+static void c3_b_eml_scalar_eg(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance)
 {
   (void)chartInstance;
 }
 
-static real_T c3_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-  *chartInstance, real_T c3_a, real_T c3_b)
+static real_T c3_bsxfun(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_a, real_T c3_b)
 {
   real_T c3_av;
   real_T c3_bv;
@@ -9840,15 +9755,14 @@ static real_T c3_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   return c3_cv;
 }
 
-static void c3_c_eml_scalar_eg
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance)
+static void c3_c_eml_scalar_eg(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance)
 {
   (void)chartInstance;
 }
 
-static void c3_eml_li_find
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance,
-   boolean_T c3_x, int32_T c3_y_data[], int32_T c3_y_sizes[2])
+static void c3_eml_li_find(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, boolean_T c3_x, int32_T c3_y_data[], int32_T c3_y_sizes[2])
 {
   boolean_T c3_b_x;
   int32_T c3_k;
@@ -9888,8 +9802,8 @@ static void c3_eml_li_find
   }
 }
 
-static void c3_isfinite(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-  *chartInstance, real_T c3_x[4], boolean_T c3_b[4])
+static void c3_isfinite(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_x[4], boolean_T c3_b[4])
 {
   int32_T c3_i251;
   int32_T c3_i252;
@@ -9919,15 +9833,15 @@ static void c3_isfinite(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   }
 }
 
-static void c3_eml_switch_helper
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance)
+static void c3_eml_switch_helper(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance)
 {
   (void)chartInstance;
 }
 
-static void c3_b_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-  *chartInstance, real_T c3_a_data[], int32_T c3_a_sizes, real_T c3_b, real_T
-  c3_c_data[], int32_T *c3_c_sizes)
+static void c3_b_bsxfun(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_a_data[], int32_T c3_a_sizes, real_T c3_b, real_T c3_c_data[],
+  int32_T *c3_c_sizes)
 {
   int32_T c3_na1;
   int32_T c3_csz[2];
@@ -10070,8 +9984,8 @@ static void c3_b_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
 }
 
 static void c3_check_forloop_overflow_error
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance,
-   boolean_T c3_overflow)
+  (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance, boolean_T
+   c3_overflow)
 {
   int32_T c3_i260;
   static char_T c3_cv0[34] = { 'C', 'o', 'd', 'e', 'r', ':', 't', 'o', 'o', 'l',
@@ -10106,9 +10020,9 @@ static void c3_check_forloop_overflow_error
     2U, 14, c3_y, 14, c3_b_y));
 }
 
-static void c3_c_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-  *chartInstance, real_T c3_a_data[], int32_T c3_a_sizes, real_T c3_b, real_T
-  c3_c_data[], int32_T *c3_c_sizes)
+static void c3_c_bsxfun(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_a_data[], int32_T c3_a_sizes, real_T c3_b, real_T c3_c_data[],
+  int32_T *c3_c_sizes)
 {
   int32_T c3_na1;
   int32_T c3_csz[2];
@@ -10250,9 +10164,9 @@ static void c3_c_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   }
 }
 
-static void c3_d_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-  *chartInstance, real_T c3_a_data[], int32_T c3_a_sizes, real_T c3_b, real_T
-  c3_c_data[], int32_T *c3_c_sizes)
+static void c3_d_bsxfun(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_a_data[], int32_T c3_a_sizes, real_T c3_b, real_T c3_c_data[],
+  int32_T *c3_c_sizes)
 {
   int32_T c3_na1;
   int32_T c3_csz[2];
@@ -10400,9 +10314,9 @@ static void c3_d_bsxfun(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   }
 }
 
-static void c3_eml_sort(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-  *chartInstance, real_T c3_x_data[], int32_T c3_x_sizes, real_T c3_y_data[],
-  int32_T *c3_y_sizes, int32_T c3_idx_data[], int32_T *c3_idx_sizes)
+static void c3_eml_sort(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_x_data[], int32_T c3_x_sizes, real_T c3_y_data[], int32_T
+  *c3_y_sizes, int32_T c3_idx_data[], int32_T *c3_idx_sizes)
 {
   int32_T c3_dim;
   int32_T c3_b_dim;
@@ -10662,9 +10576,9 @@ static void c3_eml_sort(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   }
 }
 
-static void c3_eml_sort_idx
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, real_T
-   c3_x_data[], int32_T c3_x_sizes, int32_T c3_idx_data[], int32_T *c3_idx_sizes)
+static void c3_eml_sort_idx(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, real_T c3_x_data[], int32_T c3_x_sizes, int32_T c3_idx_data[],
+  int32_T *c3_idx_sizes)
 {
   int32_T c3_n;
   real_T c3_dv46[2];
@@ -11042,8 +10956,8 @@ static void c3_eml_sort_idx
   }
 }
 
-static real_T c3_mean(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-                      *chartInstance, real_T c3_x[2])
+static real_T c3_mean(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+                      real_T c3_x[2])
 {
   real_T c3_b_y;
   real_T c3_b_x;
@@ -11058,8 +10972,8 @@ static real_T c3_mean(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   return c3_d_x / 2.0;
 }
 
-static boolean_T c3_all(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-  *chartInstance, boolean_T c3_x[2])
+static boolean_T c3_all(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  boolean_T c3_x[2])
 {
   boolean_T c3_y;
   int32_T c3_k;
@@ -11082,8 +10996,8 @@ static boolean_T c3_all(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   return c3_y;
 }
 
-static real_T c3_mpower(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
-  *chartInstance, real_T c3_a)
+static real_T c3_mpower(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_a)
 {
   real_T c3_b_a;
   real_T c3_c_a;
@@ -11098,8 +11012,7 @@ static real_T c3_mpower(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct
   return c3_d_a * c3_d_a;
 }
 
-static void c3_eml_error(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *
-  chartInstance)
+static void c3_eml_error(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance)
 {
   int32_T c3_i282;
   static char_T c3_cv3[30] = { 'C', 'o', 'd', 'e', 'r', ':', 't', 'o', 'o', 'l',
@@ -11138,9 +11051,8 @@ static const mxArray *c3_y_sf_marshallOut(void *chartInstanceVoid, void
   const mxArray *c3_mxArrayOutData = NULL;
   int32_T c3_u;
   const mxArray *c3_y = NULL;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_mxArrayOutData = NULL;
   c3_u = *(int32_T *)c3_inData;
   c3_y = NULL;
@@ -11149,9 +11061,8 @@ static const mxArray *c3_y_sf_marshallOut(void *chartInstanceVoid, void
   return c3_mxArrayOutData;
 }
 
-static int32_T c3_bb_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId)
+static int32_T c3_bb_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId)
 {
   int32_T c3_y;
   int32_T c3_i284;
@@ -11169,9 +11080,8 @@ static void c3_v_sf_marshallIn(void *chartInstanceVoid, const mxArray
   const char_T *c3_identifier;
   emlrtMsgIdentifier c3_thisId;
   int32_T c3_y;
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    chartInstanceVoid;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)chartInstanceVoid;
   c3_b_sfEvent = sf_mex_dup(c3_mxArrayInData);
   c3_identifier = c3_varName;
   c3_thisId.fIdentifier = c3_identifier;
@@ -11183,24 +11093,22 @@ static void c3_v_sf_marshallIn(void *chartInstanceVoid, const mxArray
   sf_mex_destroy(&c3_mxArrayInData);
 }
 
-static uint8_T c3_cb_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_b_is_active_c3_PC_Quadcopter_SimulationPathPlanner, const char_T *
-   c3_identifier)
+static uint8_T c3_cb_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_b_is_active_c3_AutoFollow_Simulation, const
+  char_T *c3_identifier)
 {
   uint8_T c3_y;
   emlrtMsgIdentifier c3_thisId;
   c3_thisId.fIdentifier = c3_identifier;
   c3_thisId.fParent = NULL;
   c3_y = c3_db_emlrt_marshallIn(chartInstance, sf_mex_dup
-    (c3_b_is_active_c3_PC_Quadcopter_SimulationPathPlanner), &c3_thisId);
-  sf_mex_destroy(&c3_b_is_active_c3_PC_Quadcopter_SimulationPathPlanner);
+    (c3_b_is_active_c3_AutoFollow_Simulation), &c3_thisId);
+  sf_mex_destroy(&c3_b_is_active_c3_AutoFollow_Simulation);
   return c3_y;
 }
 
-static uint8_T c3_db_emlrt_marshallIn
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, const
-   mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId)
+static uint8_T c3_db_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId)
 {
   uint8_T c3_y;
   uint8_T c3_u0;
@@ -11211,9 +11119,8 @@ static uint8_T c3_db_emlrt_marshallIn
   return c3_y;
 }
 
-static void c3_b_eml_xgemm
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance, real_T
-   c3_A[9], real_T c3_B[3], real_T c3_C[3])
+static void c3_b_eml_xgemm(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance, real_T c3_A[9], real_T c3_B[3], real_T c3_C[3])
 {
   int32_T c3_i285;
   int32_T c3_i286;
@@ -11229,8 +11136,8 @@ static void c3_b_eml_xgemm
   }
 }
 
-static void init_dsm_address_info
-  (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance)
+static void init_dsm_address_info(SFc3_AutoFollow_SimulationInstanceStruct
+  *chartInstance)
 {
   (void)chartInstance;
 }
@@ -11256,7 +11163,7 @@ extern void utFree(void*);
 
 #endif
 
-void sf_c3_PC_Quadcopter_SimulationPathPlanner_get_check_sum(mxArray *plhs[])
+void sf_c3_AutoFollow_Simulation_get_check_sum(mxArray *plhs[])
 {
   ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(4029390308U);
   ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(2579763474U);
@@ -11264,7 +11171,7 @@ void sf_c3_PC_Quadcopter_SimulationPathPlanner_get_check_sum(mxArray *plhs[])
   ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(3913247837U);
 }
 
-mxArray *sf_c3_PC_Quadcopter_SimulationPathPlanner_get_autoinheritance_info(void)
+mxArray *sf_c3_AutoFollow_Simulation_get_autoinheritance_info(void)
 {
   const char *autoinheritanceFields[] = { "checksum", "inputs", "parameters",
     "outputs", "locals" };
@@ -11398,32 +11305,30 @@ mxArray *sf_c3_PC_Quadcopter_SimulationPathPlanner_get_autoinheritance_info(void
   return(mxAutoinheritanceInfo);
 }
 
-mxArray *sf_c3_PC_Quadcopter_SimulationPathPlanner_third_party_uses_info(void)
+mxArray *sf_c3_AutoFollow_Simulation_third_party_uses_info(void)
 {
   mxArray * mxcell3p = mxCreateCellMatrix(1,0);
   return(mxcell3p);
 }
 
-mxArray *sf_c3_PC_Quadcopter_SimulationPathPlanner_updateBuildInfo_args_info
-  (void)
+mxArray *sf_c3_AutoFollow_Simulation_updateBuildInfo_args_info(void)
 {
   mxArray *mxBIArgs = mxCreateCellMatrix(1,0);
   return mxBIArgs;
 }
 
-static const mxArray
-  *sf_get_sim_state_info_c3_PC_Quadcopter_SimulationPathPlanner(void)
+static const mxArray *sf_get_sim_state_info_c3_AutoFollow_Simulation(void)
 {
   const char *infoFields[] = { "chartChecksum", "varInfo" };
 
   mxArray *mxInfo = mxCreateStructMatrix(1, 1, 2, infoFields);
   const char *infoEncStr[] = {
-    "100 S1x6'type','srcId','name','auxInfo'{{M[1],M[5],T\"r\",},{M[1],M[8],T\"theta\",},{M[4],M[0],T\"prev_r\",S'l','i','p'{{M1x2[74 80],M[0],}}},{M[4],M[0],T\"prev_t\",S'l','i','p'{{M1x2[51 57],M[0],}}},{M[4],M[0],T\"prev_theta\",S'l','i','p'{{M1x2[97 107],M[0],}}},{M[8],M[0],T\"is_active_c3_PC_Quadcopter_SimulationPathPlanner\",}}"
+    "100 S1x6'type','srcId','name','auxInfo'{{M[1],M[5],T\"r\",},{M[1],M[8],T\"theta\",},{M[4],M[0],T\"prev_r\",S'l','i','p'{{M1x2[74 80],M[0],}}},{M[4],M[0],T\"prev_t\",S'l','i','p'{{M1x2[51 57],M[0],}}},{M[4],M[0],T\"prev_theta\",S'l','i','p'{{M1x2[97 107],M[0],}}},{M[8],M[0],T\"is_active_c3_AutoFollow_Simulation\",}}"
   };
 
   mxArray *mxVarInfo = sf_mex_decode_encoded_mx_struct_array(infoEncStr, 6, 10);
   mxArray *mxChecksum = mxCreateDoubleMatrix(1, 4, mxREAL);
-  sf_c3_PC_Quadcopter_SimulationPathPlanner_get_check_sum(&mxChecksum);
+  sf_c3_AutoFollow_Simulation_get_check_sum(&mxChecksum);
   mxSetField(mxInfo, 0, infoFields[0], mxChecksum);
   mxSetField(mxInfo, 0, infoFields[1], mxVarInfo);
   return mxInfo;
@@ -11433,10 +11338,10 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
   fullDebuggerInitialization)
 {
   if (!sim_mode_is_rtw_gen(S)) {
-    SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+    SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
     ChartRunTimeInfo * crtInfo = (ChartRunTimeInfo *)(ssGetUserData(S));
     ChartInfoStruct * chartInfo = (ChartInfoStruct *)(crtInfo->instanceInfo);
-    chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
+    chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)
       chartInfo->chartInstance;
     if (ssIsFirstInitCond(S) && fullDebuggerInitialization==1) {
       /* do this only if simulation is starting */
@@ -11444,7 +11349,7 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
         unsigned int chartAlreadyPresent;
         chartAlreadyPresent = sf_debug_initialize_chart
           (sfGlobalDebugInstanceStruct,
-           _PC_Quadcopter_SimulationPathPlannerMachineNumber_,
+           _AutoFollow_SimulationMachineNumber_,
            3,
            1,
            1,
@@ -11460,17 +11365,15 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
            (void *)S);
 
         /* Each instance must initialize ist own list of scripts */
-        init_script_number_translation
-          (_PC_Quadcopter_SimulationPathPlannerMachineNumber_,
-           chartInstance->chartNumber,chartInstance->instanceNumber);
+        init_script_number_translation(_AutoFollow_SimulationMachineNumber_,
+          chartInstance->chartNumber,chartInstance->instanceNumber);
         if (chartAlreadyPresent==0) {
           /* this is the first instance */
           sf_debug_set_chart_disable_implicit_casting
-            (sfGlobalDebugInstanceStruct,
-             _PC_Quadcopter_SimulationPathPlannerMachineNumber_,
+            (sfGlobalDebugInstanceStruct,_AutoFollow_SimulationMachineNumber_,
              chartInstance->chartNumber,1);
           sf_debug_set_chart_event_thresholds(sfGlobalDebugInstanceStruct,
-            _PC_Quadcopter_SimulationPathPlannerMachineNumber_,
+            _AutoFollow_SimulationMachineNumber_,
             chartInstance->chartNumber,
             0,
             0,
@@ -11707,8 +11610,8 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
       }
     } else {
       sf_debug_reset_current_state_configuration(sfGlobalDebugInstanceStruct,
-        _PC_Quadcopter_SimulationPathPlannerMachineNumber_,
-        chartInstance->chartNumber,chartInstance->instanceNumber);
+        _AutoFollow_SimulationMachineNumber_,chartInstance->chartNumber,
+        chartInstance->instanceNumber);
     }
   }
 }
@@ -11718,41 +11621,36 @@ static const char* sf_get_instance_specialization(void)
   return "VXUkA6vcKhFDyZYfTRNdZG";
 }
 
-static void sf_opaque_initialize_c3_PC_Quadcopter_SimulationPathPlanner(void
-  *chartInstanceVar)
+static void sf_opaque_initialize_c3_AutoFollow_Simulation(void *chartInstanceVar)
 {
-  chart_debug_initialization
-    (((SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct*) chartInstanceVar)
-     ->S,0);
-  initialize_params_c3_PC_Quadcopter_SimulationPathPlanner
-    ((SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct*) chartInstanceVar);
-  initialize_c3_PC_Quadcopter_SimulationPathPlanner
-    ((SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct*) chartInstanceVar);
+  chart_debug_initialization(((SFc3_AutoFollow_SimulationInstanceStruct*)
+    chartInstanceVar)->S,0);
+  initialize_params_c3_AutoFollow_Simulation
+    ((SFc3_AutoFollow_SimulationInstanceStruct*) chartInstanceVar);
+  initialize_c3_AutoFollow_Simulation((SFc3_AutoFollow_SimulationInstanceStruct*)
+    chartInstanceVar);
 }
 
-static void sf_opaque_enable_c3_PC_Quadcopter_SimulationPathPlanner(void
-  *chartInstanceVar)
+static void sf_opaque_enable_c3_AutoFollow_Simulation(void *chartInstanceVar)
 {
-  enable_c3_PC_Quadcopter_SimulationPathPlanner
-    ((SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct*) chartInstanceVar);
+  enable_c3_AutoFollow_Simulation((SFc3_AutoFollow_SimulationInstanceStruct*)
+    chartInstanceVar);
 }
 
-static void sf_opaque_disable_c3_PC_Quadcopter_SimulationPathPlanner(void
-  *chartInstanceVar)
+static void sf_opaque_disable_c3_AutoFollow_Simulation(void *chartInstanceVar)
 {
-  disable_c3_PC_Quadcopter_SimulationPathPlanner
-    ((SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct*) chartInstanceVar);
+  disable_c3_AutoFollow_Simulation((SFc3_AutoFollow_SimulationInstanceStruct*)
+    chartInstanceVar);
 }
 
-static void sf_opaque_gateway_c3_PC_Quadcopter_SimulationPathPlanner(void
-  *chartInstanceVar)
+static void sf_opaque_gateway_c3_AutoFollow_Simulation(void *chartInstanceVar)
 {
-  sf_gateway_c3_PC_Quadcopter_SimulationPathPlanner
-    ((SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct*) chartInstanceVar);
+  sf_gateway_c3_AutoFollow_Simulation((SFc3_AutoFollow_SimulationInstanceStruct*)
+    chartInstanceVar);
 }
 
-extern const mxArray*
-  sf_internal_get_sim_state_c3_PC_Quadcopter_SimulationPathPlanner(SimStruct* S)
+extern const mxArray* sf_internal_get_sim_state_c3_AutoFollow_Simulation
+  (SimStruct* S)
 {
   ChartRunTimeInfo * crtInfo = (ChartRunTimeInfo *)(ssGetUserData(S));
   ChartInfoStruct * chartInfo = (ChartInfoStruct *)(crtInfo->instanceInfo);
@@ -11762,11 +11660,9 @@ extern const mxArray*
   int mxError = 0;
   prhs[0] = mxCreateString("chart_simctx_raw2high");
   prhs[1] = mxCreateDoubleScalar(ssGetSFuncBlockHandle(S));
-  prhs[2] = (mxArray*) get_sim_state_c3_PC_Quadcopter_SimulationPathPlanner
-    ((SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct*)
-     chartInfo->chartInstance);        /* raw sim ctx */
-  prhs[3] = (mxArray*)
-    sf_get_sim_state_info_c3_PC_Quadcopter_SimulationPathPlanner();/* state var info */
+  prhs[2] = (mxArray*) get_sim_state_c3_AutoFollow_Simulation
+    ((SFc3_AutoFollow_SimulationInstanceStruct*)chartInfo->chartInstance);/* raw sim ctx */
+  prhs[3] = (mxArray*) sf_get_sim_state_info_c3_AutoFollow_Simulation();/* state var info */
   mxError = sf_mex_call_matlab(1, plhs, 4, prhs, "sfprivate");
   mxDestroyArray(prhs[0]);
   mxDestroyArray(prhs[1]);
@@ -11779,8 +11675,8 @@ extern const mxArray*
   return plhs[0];
 }
 
-extern void sf_internal_set_sim_state_c3_PC_Quadcopter_SimulationPathPlanner
-  (SimStruct* S, const mxArray *st)
+extern void sf_internal_set_sim_state_c3_AutoFollow_Simulation(SimStruct* S,
+  const mxArray *st)
 {
   ChartRunTimeInfo * crtInfo = (ChartRunTimeInfo *)(ssGetUserData(S));
   ChartInfoStruct * chartInfo = (ChartInfoStruct *)(crtInfo->instanceInfo);
@@ -11790,8 +11686,7 @@ extern void sf_internal_set_sim_state_c3_PC_Quadcopter_SimulationPathPlanner
   int mxError = 0;
   prhs[0] = mxCreateString("chart_simctx_high2raw");
   prhs[1] = mxDuplicateArray(st);      /* high level simctx */
-  prhs[2] = (mxArray*)
-    sf_get_sim_state_info_c3_PC_Quadcopter_SimulationPathPlanner();/* state var info */
+  prhs[2] = (mxArray*) sf_get_sim_state_info_c3_AutoFollow_Simulation();/* state var info */
   mxError = sf_mex_call_matlab(1, plhs, 3, prhs, "sfprivate");
   mxDestroyArray(prhs[0]);
   mxDestroyArray(prhs[1]);
@@ -11800,39 +11695,37 @@ extern void sf_internal_set_sim_state_c3_PC_Quadcopter_SimulationPathPlanner
     sf_mex_error_message("Stateflow Internal Error: \nError calling 'chart_simctx_high2raw'.\n");
   }
 
-  set_sim_state_c3_PC_Quadcopter_SimulationPathPlanner
-    ((SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct*)
-     chartInfo->chartInstance, mxDuplicateArray(plhs[0]));
+  set_sim_state_c3_AutoFollow_Simulation
+    ((SFc3_AutoFollow_SimulationInstanceStruct*)chartInfo->chartInstance,
+     mxDuplicateArray(plhs[0]));
   mxDestroyArray(plhs[0]);
 }
 
-static const mxArray*
-  sf_opaque_get_sim_state_c3_PC_Quadcopter_SimulationPathPlanner(SimStruct* S)
+static const mxArray* sf_opaque_get_sim_state_c3_AutoFollow_Simulation(SimStruct*
+  S)
 {
-  return sf_internal_get_sim_state_c3_PC_Quadcopter_SimulationPathPlanner(S);
+  return sf_internal_get_sim_state_c3_AutoFollow_Simulation(S);
 }
 
-static void sf_opaque_set_sim_state_c3_PC_Quadcopter_SimulationPathPlanner
-  (SimStruct* S, const mxArray *st)
+static void sf_opaque_set_sim_state_c3_AutoFollow_Simulation(SimStruct* S, const
+  mxArray *st)
 {
-  sf_internal_set_sim_state_c3_PC_Quadcopter_SimulationPathPlanner(S, st);
+  sf_internal_set_sim_state_c3_AutoFollow_Simulation(S, st);
 }
 
-static void sf_opaque_terminate_c3_PC_Quadcopter_SimulationPathPlanner(void
-  *chartInstanceVar)
+static void sf_opaque_terminate_c3_AutoFollow_Simulation(void *chartInstanceVar)
 {
   if (chartInstanceVar!=NULL) {
-    SimStruct *S = ((SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct*)
-                    chartInstanceVar)->S;
+    SimStruct *S = ((SFc3_AutoFollow_SimulationInstanceStruct*) chartInstanceVar)
+      ->S;
     ChartRunTimeInfo * crtInfo = (ChartRunTimeInfo *)(ssGetUserData(S));
     if (sim_mode_is_rtw_gen(S) || sim_mode_is_external(S)) {
       sf_clear_rtw_identifier(S);
-      unload_PC_Quadcopter_SimulationPathPlanner_optimization_info();
+      unload_AutoFollow_Simulation_optimization_info();
     }
 
-    finalize_c3_PC_Quadcopter_SimulationPathPlanner
-      ((SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct*)
-       chartInstanceVar);
+    finalize_c3_AutoFollow_Simulation((SFc3_AutoFollow_SimulationInstanceStruct*)
+      chartInstanceVar);
     utFree((void *)chartInstanceVar);
     if (crtInfo != NULL) {
       utFree((void *)crtInfo);
@@ -11844,13 +11737,12 @@ static void sf_opaque_terminate_c3_PC_Quadcopter_SimulationPathPlanner(void
 
 static void sf_opaque_init_subchart_simstructs(void *chartInstanceVar)
 {
-  initSimStructsc3_PC_Quadcopter_SimulationPathPlanner
-    ((SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct*) chartInstanceVar);
+  initSimStructsc3_AutoFollow_Simulation
+    ((SFc3_AutoFollow_SimulationInstanceStruct*) chartInstanceVar);
 }
 
 extern unsigned int sf_machine_global_initializer_called(void);
-static void mdlProcessParameters_c3_PC_Quadcopter_SimulationPathPlanner
-  (SimStruct *S)
+static void mdlProcessParameters_c3_AutoFollow_Simulation(SimStruct *S)
 {
   int i;
   for (i=0;i<ssGetNumRunTimeParams(S);i++) {
@@ -11862,17 +11754,15 @@ static void mdlProcessParameters_c3_PC_Quadcopter_SimulationPathPlanner
   if (sf_machine_global_initializer_called()) {
     ChartRunTimeInfo * crtInfo = (ChartRunTimeInfo *)(ssGetUserData(S));
     ChartInfoStruct * chartInfo = (ChartInfoStruct *)(crtInfo->instanceInfo);
-    initialize_params_c3_PC_Quadcopter_SimulationPathPlanner
-      ((SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct*)
-       (chartInfo->chartInstance));
+    initialize_params_c3_AutoFollow_Simulation
+      ((SFc3_AutoFollow_SimulationInstanceStruct*)(chartInfo->chartInstance));
   }
 }
 
-static void mdlSetWorkWidths_c3_PC_Quadcopter_SimulationPathPlanner(SimStruct *S)
+static void mdlSetWorkWidths_c3_AutoFollow_Simulation(SimStruct *S)
 {
   if (sim_mode_is_rtw_gen(S) || sim_mode_is_external(S)) {
-    mxArray *infoStruct =
-      load_PC_Quadcopter_SimulationPathPlanner_optimization_info();
+    mxArray *infoStruct = load_AutoFollow_Simulation_optimization_info();
     int_T chartIsInlinable =
       (int_T)sf_is_chart_inlinable(sf_get_instance_specialization(),infoStruct,3);
     ssSetStateflowIsInlinable(S,chartIsInlinable);
@@ -11923,22 +11813,21 @@ static void mdlSetWorkWidths_c3_PC_Quadcopter_SimulationPathPlanner(SimStruct *S
   ssSupportsMultipleExecInstances(S,1);
 }
 
-static void mdlRTW_c3_PC_Quadcopter_SimulationPathPlanner(SimStruct *S)
+static void mdlRTW_c3_AutoFollow_Simulation(SimStruct *S)
 {
   if (sim_mode_is_rtw_gen(S)) {
     ssWriteRTWStrParam(S, "StateflowChartType", "Embedded MATLAB");
   }
 }
 
-static void mdlStart_c3_PC_Quadcopter_SimulationPathPlanner(SimStruct *S)
+static void mdlStart_c3_AutoFollow_Simulation(SimStruct *S)
 {
-  SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *chartInstance;
+  SFc3_AutoFollow_SimulationInstanceStruct *chartInstance;
   ChartRunTimeInfo * crtInfo = (ChartRunTimeInfo *)utMalloc(sizeof
     (ChartRunTimeInfo));
-  chartInstance = (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct *)
-    utMalloc(sizeof(SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct));
-  memset(chartInstance, 0, sizeof
-         (SFc3_PC_Quadcopter_SimulationPathPlannerInstanceStruct));
+  chartInstance = (SFc3_AutoFollow_SimulationInstanceStruct *)utMalloc(sizeof
+    (SFc3_AutoFollow_SimulationInstanceStruct));
+  memset(chartInstance, 0, sizeof(SFc3_AutoFollow_SimulationInstanceStruct));
   if (chartInstance==NULL) {
     sf_mex_error_message("Could not allocate memory for chart instance.");
   }
@@ -11947,30 +11836,28 @@ static void mdlStart_c3_PC_Quadcopter_SimulationPathPlanner(SimStruct *S)
   chartInstance->chartInfo.isEMLChart = 1;
   chartInstance->chartInfo.chartInitialized = 0;
   chartInstance->chartInfo.sFunctionGateway =
-    sf_opaque_gateway_c3_PC_Quadcopter_SimulationPathPlanner;
+    sf_opaque_gateway_c3_AutoFollow_Simulation;
   chartInstance->chartInfo.initializeChart =
-    sf_opaque_initialize_c3_PC_Quadcopter_SimulationPathPlanner;
+    sf_opaque_initialize_c3_AutoFollow_Simulation;
   chartInstance->chartInfo.terminateChart =
-    sf_opaque_terminate_c3_PC_Quadcopter_SimulationPathPlanner;
+    sf_opaque_terminate_c3_AutoFollow_Simulation;
   chartInstance->chartInfo.enableChart =
-    sf_opaque_enable_c3_PC_Quadcopter_SimulationPathPlanner;
+    sf_opaque_enable_c3_AutoFollow_Simulation;
   chartInstance->chartInfo.disableChart =
-    sf_opaque_disable_c3_PC_Quadcopter_SimulationPathPlanner;
+    sf_opaque_disable_c3_AutoFollow_Simulation;
   chartInstance->chartInfo.getSimState =
-    sf_opaque_get_sim_state_c3_PC_Quadcopter_SimulationPathPlanner;
+    sf_opaque_get_sim_state_c3_AutoFollow_Simulation;
   chartInstance->chartInfo.setSimState =
-    sf_opaque_set_sim_state_c3_PC_Quadcopter_SimulationPathPlanner;
+    sf_opaque_set_sim_state_c3_AutoFollow_Simulation;
   chartInstance->chartInfo.getSimStateInfo =
-    sf_get_sim_state_info_c3_PC_Quadcopter_SimulationPathPlanner;
+    sf_get_sim_state_info_c3_AutoFollow_Simulation;
   chartInstance->chartInfo.zeroCrossings = NULL;
   chartInstance->chartInfo.outputs = NULL;
   chartInstance->chartInfo.derivatives = NULL;
-  chartInstance->chartInfo.mdlRTW =
-    mdlRTW_c3_PC_Quadcopter_SimulationPathPlanner;
-  chartInstance->chartInfo.mdlStart =
-    mdlStart_c3_PC_Quadcopter_SimulationPathPlanner;
+  chartInstance->chartInfo.mdlRTW = mdlRTW_c3_AutoFollow_Simulation;
+  chartInstance->chartInfo.mdlStart = mdlStart_c3_AutoFollow_Simulation;
   chartInstance->chartInfo.mdlSetWorkWidths =
-    mdlSetWorkWidths_c3_PC_Quadcopter_SimulationPathPlanner;
+    mdlSetWorkWidths_c3_AutoFollow_Simulation;
   chartInstance->chartInfo.extModeExec = NULL;
   chartInstance->chartInfo.restoreLastMajorStepConfiguration = NULL;
   chartInstance->chartInfo.restoreBeforeLastMajorStepConfiguration = NULL;
@@ -11988,26 +11875,26 @@ static void mdlStart_c3_PC_Quadcopter_SimulationPathPlanner(SimStruct *S)
   chart_debug_initialization(S,1);
 }
 
-void c3_PC_Quadcopter_SimulationPathPlanner_method_dispatcher(SimStruct *S,
-  int_T method, void *data)
+void c3_AutoFollow_Simulation_method_dispatcher(SimStruct *S, int_T method, void
+  *data)
 {
   switch (method) {
    case SS_CALL_MDL_START:
-    mdlStart_c3_PC_Quadcopter_SimulationPathPlanner(S);
+    mdlStart_c3_AutoFollow_Simulation(S);
     break;
 
    case SS_CALL_MDL_SET_WORK_WIDTHS:
-    mdlSetWorkWidths_c3_PC_Quadcopter_SimulationPathPlanner(S);
+    mdlSetWorkWidths_c3_AutoFollow_Simulation(S);
     break;
 
    case SS_CALL_MDL_PROCESS_PARAMETERS:
-    mdlProcessParameters_c3_PC_Quadcopter_SimulationPathPlanner(S);
+    mdlProcessParameters_c3_AutoFollow_Simulation(S);
     break;
 
    default:
     /* Unhandled method */
     sf_mex_error_message("Stateflow Internal Error:\n"
-                         "Error calling c3_PC_Quadcopter_SimulationPathPlanner_method_dispatcher.\n"
+                         "Error calling c3_AutoFollow_Simulation_method_dispatcher.\n"
                          "Can't handle method %d.\n", method);
     break;
   }

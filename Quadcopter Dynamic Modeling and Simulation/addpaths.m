@@ -34,5 +34,6 @@ load('./MattStuff/ChiCircle.mat');
 load('./Simulation Files/Quadcopter Structure Files/quadModel_+.mat');
 
 % open my current simulink model
-open_system('./Simulation Files/Block Library/kalmanTest.slx');
-open_system('./Simulation Files/Simulink Models/PC_Quadcopter_SimulationPathPlanner.slx');
+% open_system('./Simulation Files/Block Library/kalmanTest.slx');
+% open_system('./Simulation Files/Simulink Models/PC_Quadcopter_SimulationPathPlanner.slx');
+open_system('./Simulation Files/Simulink Models/AutoFollow_Simulation.slx');
