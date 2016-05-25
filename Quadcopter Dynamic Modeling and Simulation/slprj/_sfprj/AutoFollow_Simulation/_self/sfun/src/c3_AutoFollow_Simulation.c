@@ -5151,7 +5151,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "resolved", "resolved", 13);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464140122U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464206045U), "fileTimeLo",
                   "fileTimeLo", 13);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 13);
@@ -11894,10 +11894,10 @@ static void mdlSetWorkWidths_c3_AutoFollow_Simulation(SimStruct *S)
   }
 
   ssSetOptions(S,ssGetOptions(S)|SS_OPTION_WORKS_WITH_CODE_REUSE);
-  ssSetChecksum0(S,(1061502279U));
-  ssSetChecksum1(S,(2544870039U));
-  ssSetChecksum2(S,(185133261U));
-  ssSetChecksum3(S,(1635266849U));
+  ssSetChecksum0(S,(992458462U));
+  ssSetChecksum1(S,(2466241458U));
+  ssSetChecksum2(S,(3274638936U));
+  ssSetChecksum3(S,(3146892667U));
   ssSetmdlDerivatives(S, NULL);
   ssSetExplicitFCSSCtrl(S,1);
   ssSupportsMultipleExecInstances(S,1);

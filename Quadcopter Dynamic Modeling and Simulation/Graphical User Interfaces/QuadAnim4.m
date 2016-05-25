@@ -766,6 +766,7 @@ if strcmp(mode,'Start')
         human.vertices(:,3) = human.vertices(:,3) + human_z(j);
         
         %% human estimate
+%         fprintf('x cam: %f | y cam: %f\n', cam_x(j), cam_y(j));
         scatter3(X - xEstimate(j), Y - yEstimate(j), Z - zEstimate(j), 'r');
 %         scatter3(X - xEstimateEKF(j), Y - yEstimateEKF(j), Z - zEstimateEKF(j), 'k');
 
