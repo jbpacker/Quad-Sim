@@ -108,6 +108,8 @@ movegui('center')
 % This sets up the initial plot - only do when we are invisible
 % so window can get raised using QuadAnim4.
 A = evalin('base', 'yout');
+obsLoc = evalin('base', 'obsLoc');
+obsRad = evalin('base', 'obsRad');
 % Generate the geometry used to draw the quadcopter
 r = .5; d = 1.25; h = .25; %inches: rotor dia., quad motor distance from 
 % center of mass, and rotor height above arms (entirely cosmetic)
@@ -282,6 +284,12 @@ hold on
 fill3([minX-1 maxX+1 maxX+1 minX-1],...
     [minY-1 minY-1 maxY+1 maxY+1],...
     [0 0 0 0],'g');
+[unitCylinderX, unitCylinderY, unitCylinderZ] = cylinder(obsRad);
+unitCylinderZ = unitCylinderZ.*15;
+for o = 1:size(obsLoc,1)
+    surf(unitCylinderX+obsLoc(o,1), unitCylinderY+obsLoc(o,2), unitCylinderZ);
+    colormap([1  1  0; 0  1  1])
+end
 %alpha(0.7);
 xlabel('X (ft)')
 ylabel('Y (ft)')
@@ -498,6 +506,10 @@ if strcmp(mode,'Start')
 %     vxEstimateEKF = A(:,43);
 %     vyEstimateEKF = A(:,44);
 %     vzEstimateEKF = A(:,45);
+
+    %% LIDAR data
+    lidarRadius = A(:,46:46+360);
+    lidarTheta = A(:,46+360:46+720);
     
     %% original plotting functions
     r = .5; d = 1.25; h = .25; %inches: rotor dia., quad motor distance from 
@@ -741,7 +753,12 @@ if strcmp(mode,'Start')
         
         %% human estimate
         scatter3(X - xEstimate(j), Y - yEstimate(j), Z - zEstimate(j), 'r');
-        scatter3(X - xEstimateEKF(j), Y - yEstimateEKF(j), Z - zEstimateEKF(j), 'k');
+%         scatter3(X - xEstimateEKF(j), Y - yEstimateEKF(j), Z - zEstimateEKF(j), 'k');
+
+        %% LIDAR Data
+        lidarX = lidarRadius(j,:).*cos(lidarTheta(j,:));
+        lidarY = lidarRadius(j,:).*sin(lidarTheta(j,:));
+        scatter3(X - lidarX, Y - lidarY, Z*ones(1,length(lidarX)), 'k');
         
         %% back to other stuff
         if exist('hu', 'var')

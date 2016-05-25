@@ -54,6 +54,9 @@ static const char * c3_i_debug_family_names[34] = { "N", "R", "C", "i", "P1",
   "Pxel", "Io", "Jo", "xTarget", "yTarget", "r", "angleSpan", "angleStep",
   "rangeMax", "Xmax", "Ymax", "nargin", "nargout", "Tl", "map", "p" };
 
+static const char * c3_j_debug_family_names[4] = { "nargin", "nargout", "deg",
+  "rad" };
+
 /* Function Declarations */
 static void initialize_c3_AutoFollow_Simulation
   (SFc3_AutoFollow_SimulationInstanceStruct *chartInstance);
@@ -91,6 +94,8 @@ static void c3_intersectLines(SFc3_AutoFollow_SimulationInstanceStruct
 static void c3_laserRange(SFc3_AutoFollow_SimulationInstanceStruct
   *chartInstance, real_T c3_p1[2], real_T c3_p2[2], real_T c3_map[10000], real_T
   c3_p_data[], int32_T c3_p_sizes[2]);
+static real_T c3_deg2rad(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_deg);
 static void init_script_number_translation(uint32_T c3_machineNumber, uint32_T
   c3_chartNumber, uint32_T c3_instanceNumber);
 static void c3_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
@@ -586,6 +591,7 @@ static void c3_chartstep_c3_AutoFollow_Simulation
   real_T c3_dv5[722];
   int32_T c3_i14;
   int32_T c3_i15;
+  real_T c3_d0;
   int32_T c3_i16;
   int32_T c3_i17;
   int32_T c3_i18;
@@ -736,8 +742,9 @@ static void c3_chartstep_c3_AutoFollow_Simulation
     }
 
     _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 32);
+    c3_d0 = c3_deg2rad(chartInstance, 180.0);
     for (c3_i16 = 0; c3_i16 < 361; c3_i16++) {
-      c3_theta[c3_i16] = c3_p[c3_i16];
+      c3_theta[c3_i16] = c3_p[c3_i16] + c3_d0;
     }
 
     _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 33);
@@ -2896,6 +2903,31 @@ static void c3_laserRange(SFc3_AutoFollow_SimulationInstanceStruct
   _SFD_SYMBOL_SCOPE_POP();
 }
 
+static real_T c3_deg2rad(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
+  real_T c3_deg)
+{
+  real_T c3_rad;
+  uint32_T c3_debug_family_var_map[4];
+  real_T c3_nargin = 1.0;
+  real_T c3_nargout = 1.0;
+  _SFD_SYMBOL_SCOPE_PUSH_EML(0U, 4U, 4U, c3_j_debug_family_names,
+    c3_debug_family_var_map);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargin, 0U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_nargout, 1U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_deg, 2U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  _SFD_SYMBOL_SCOPE_ADD_EML_IMPORTABLE(&c3_rad, 3U, c3_e_sf_marshallOut,
+    c3_e_sf_marshallIn);
+  CV_SCRIPT_FCN(8, 0);
+  _SFD_SCRIPT_CALL(8U, chartInstance->c3_sfEvent, 25);
+  c3_rad = 3.1415926535897931;
+  _SFD_SCRIPT_CALL(8U, chartInstance->c3_sfEvent, -25);
+  _SFD_SYMBOL_SCOPE_POP();
+  return c3_rad;
+}
+
 static void init_script_number_translation(uint32_T c3_machineNumber, uint32_T
   c3_chartNumber, uint32_T c3_instanceNumber)
 {
@@ -2924,6 +2956,9 @@ static void init_script_number_translation(uint32_T c3_machineNumber, uint32_T
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 7U,
     sf_debug_get_script_id(
     "C:\\Users\\jpacker\\stash\\Quad-Sim\\Quadcopter Dynamic Modeling and Simulation\\Lidar\\assignment6\\IJtoXY.m"));
+  _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 8U,
+    sf_debug_get_script_id(
+    "C:\\Users\\jpacker\\stash\\Quad-Sim\\Quadcopter Dynamic Modeling and Simulation\\Lidar\\geom2d\\geom2d\\geom2d\\deg2rad.m"));
 }
 
 static void c3_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
@@ -3177,13 +3212,13 @@ static real_T c3_i_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
   *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId)
 {
   real_T c3_y;
-  real_T c3_d0;
+  real_T c3_d1;
   if (mxIsEmpty(c3_u)) {
     chartInstance->c3_prev_t_not_empty = false;
   } else {
     chartInstance->c3_prev_t_not_empty = true;
-    sf_mex_import(c3_parentId, sf_mex_dup(c3_u), &c3_d0, 1, 0, 0U, 0, 0U, 0);
-    c3_y = c3_d0;
+    sf_mex_import(c3_parentId, sf_mex_dup(c3_u), &c3_d1, 1, 0, 0U, 0, 0U, 0);
+    c3_y = c3_d1;
   }
 
   sf_mex_destroy(&c3_u);
@@ -3305,10 +3340,10 @@ static real_T c3_l_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
   *chartInstance, const mxArray *c3_u, const emlrtMsgIdentifier *c3_parentId)
 {
   real_T c3_y;
-  real_T c3_d1;
+  real_T c3_d2;
   (void)chartInstance;
-  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), &c3_d1, 1, 0, 0U, 0, 0U, 0);
-  c3_y = c3_d1;
+  sf_mex_import(c3_parentId, sf_mex_dup(c3_u), &c3_d2, 1, 0, 0U, 0, 0U, 0);
+  c3_y = c3_d2;
   sf_mex_destroy(&c3_u);
   return c3_y;
 }
@@ -4688,7 +4723,7 @@ const mxArray *sf_c3_AutoFollow_Simulation_get_eml_resolved_functions_info(void)
 {
   const mxArray *c3_nameCaptureInfo = NULL;
   c3_nameCaptureInfo = NULL;
-  sf_mex_assign(&c3_nameCaptureInfo, sf_mex_createstruct("structure", 2, 180, 1),
+  sf_mex_assign(&c3_nameCaptureInfo, sf_mex_createstruct("structure", 2, 182, 1),
                 false);
   c3_info_helper(&c3_nameCaptureInfo);
   c3_b_info_helper(&c3_nameCaptureInfo);
@@ -8346,6 +8381,10 @@ static void c3_c_info_helper(const mxArray **c3_info)
   const mxArray *c3_lhs178 = NULL;
   const mxArray *c3_rhs179 = NULL;
   const mxArray *c3_lhs179 = NULL;
+  const mxArray *c3_rhs180 = NULL;
+  const mxArray *c3_lhs180 = NULL;
+  const mxArray *c3_rhs181 = NULL;
+  const mxArray *c3_lhs181 = NULL;
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_times.m"),
                   "context", "context", 128);
@@ -9581,6 +9620,51 @@ static void c3_c_info_helper(const mxArray **c3_info)
                   179);
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs179), "lhs", "lhs",
                   179);
+  sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(""), "context", "context", 180);
+  sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("deg2rad"), "name", "name", 180);
+  sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
+                  "dominantType", 180);
+  sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/deg2rad.m"),
+                  "resolved", "resolved", 180);
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464140123U), "fileTimeLo",
+                  "fileTimeLo", 180);
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
+                  "fileTimeHi", 180);
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "mFileTimeLo",
+                  "mFileTimeLo", 180);
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "mFileTimeHi",
+                  "mFileTimeHi", 180);
+  sf_mex_assign(&c3_rhs180, sf_mex_createcellmatrix(0, 1), false);
+  sf_mex_assign(&c3_lhs180, sf_mex_createcellmatrix(0, 1), false);
+  sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_rhs180), "rhs", "rhs",
+                  180);
+  sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs180), "lhs", "lhs",
+                  180);
+  sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
+    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/deg2rad.m"),
+                  "context", "context", 181);
+  sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mrdivide"), "name", "name",
+                  181);
+  sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
+                  "dominantType", 181);
+  sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
+    "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/mrdivide.p"), "resolved",
+                  "resolved", 181);
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388463696U), "fileTimeLo",
+                  "fileTimeLo", 181);
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
+                  "fileTimeHi", 181);
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370017086U), "mFileTimeLo",
+                  "mFileTimeLo", 181);
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "mFileTimeHi",
+                  "mFileTimeHi", 181);
+  sf_mex_assign(&c3_rhs181, sf_mex_createcellmatrix(0, 1), false);
+  sf_mex_assign(&c3_lhs181, sf_mex_createcellmatrix(0, 1), false);
+  sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_rhs181), "rhs", "rhs",
+                  181);
+  sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs181), "lhs", "lhs",
+                  181);
   sf_mex_destroy(&c3_rhs128);
   sf_mex_destroy(&c3_lhs128);
   sf_mex_destroy(&c3_rhs129);
@@ -9685,6 +9769,10 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_destroy(&c3_lhs178);
   sf_mex_destroy(&c3_rhs179);
   sf_mex_destroy(&c3_lhs179);
+  sf_mex_destroy(&c3_rhs180);
+  sf_mex_destroy(&c3_lhs180);
+  sf_mex_destroy(&c3_rhs181);
+  sf_mex_destroy(&c3_lhs181);
 }
 
 static void c3_eml_scalar_eg(SFc3_AutoFollow_SimulationInstanceStruct
@@ -10333,7 +10421,7 @@ static void c3_eml_sort(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
   char_T c3_u[53];
   const mxArray *c3_y = NULL;
   int32_T c3_i271;
-  real_T c3_d2;
+  real_T c3_d3;
   real_T c3_vlen;
   real_T c3_dv45[2];
   int32_T c3_tmp_sizes;
@@ -10353,7 +10441,7 @@ static void c3_eml_sort(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
   int32_T c3_b_b;
   boolean_T c3_overflow;
   int32_T c3_k;
-  real_T c3_d3;
+  real_T c3_d4;
   real_T c3_a;
   real_T c3_b_a;
   int32_T c3_c;
@@ -10431,12 +10519,12 @@ static void c3_eml_sort(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
   c3_eml_switch_helper(chartInstance);
   c3_i271 = c3_dim;
   if (c3_i271 <= 1) {
-    c3_d2 = (real_T)c3_x_sizes;
+    c3_d3 = (real_T)c3_x_sizes;
   } else {
-    c3_d2 = 1.0;
+    c3_d3 = 1.0;
   }
 
-  c3_vlen = c3_d2;
+  c3_vlen = c3_d3;
   c3_dv45[0] = c3_vlen;
   c3_dv45[1] = 1.0;
   c3_tmp_sizes = (int32_T)c3_dv45[0];
@@ -10475,8 +10563,8 @@ static void c3_eml_sort(SFc3_AutoFollow_SimulationInstanceStruct *chartInstance,
 
   c3_k = 1;
   while (c3_k <= c3_i274) {
-    c3_d3 = (real_T)c3_x_sizes;
-    c3_vstride *= (int32_T)c3_d3;
+    c3_d4 = (real_T)c3_x_sizes;
+    c3_vstride *= (int32_T)c3_d4;
     c3_k = 2;
   }
 
@@ -11165,10 +11253,10 @@ extern void utFree(void*);
 
 void sf_c3_AutoFollow_Simulation_get_check_sum(mxArray *plhs[])
 {
-  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(4029390308U);
-  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(2579763474U);
-  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(592107315U);
-  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(3913247837U);
+  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(546288080U);
+  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(3514727163U);
+  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(852077457U);
+  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(1245203886U);
 }
 
 mxArray *sf_c3_AutoFollow_Simulation_get_autoinheritance_info(void)
@@ -11180,7 +11268,7 @@ mxArray *sf_c3_AutoFollow_Simulation_get_autoinheritance_info(void)
     autoinheritanceFields);
 
   {
-    mxArray *mxChecksum = mxCreateString("u67pBcag2DP2kgykYX4eRG");
+    mxArray *mxChecksum = mxCreateString("zltgsPxL3VMm4MEZZDwSsC");
     mxSetField(mxAutoinheritanceInfo,0,"checksum",mxChecksum);
   }
 
@@ -11359,7 +11447,7 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
            0,
            0,
            0,
-           8,
+           9,
            &(chartInstance->chartNumber),
            &(chartInstance->instanceNumber),
            (void *)S);
@@ -11398,9 +11486,9 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
 
         /* Initialization of MATLAB Function Model Coverage */
         _SFD_CV_INIT_EML(0,1,1,2,0,0,0,0,0,2,1);
-        _SFD_CV_INIT_EML_FCN(0,0,"eML_blk_kernel",0,-1,1344);
+        _SFD_CV_INIT_EML_FCN(0,0,"eML_blk_kernel",0,-1,1359);
         _SFD_CV_INIT_EML_IF(0,1,0,114,132,-1,160);
-        _SFD_CV_INIT_EML_IF(0,1,1,257,311,1280,1340);
+        _SFD_CV_INIT_EML_IF(0,1,1,257,311,1295,1355);
 
         {
           static int condStart[] = { 261, 280 };
@@ -11565,6 +11653,8 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
 
         _SFD_CV_INIT_SCRIPT(7,1,0,0,0,0,0,0,0,0);
         _SFD_CV_INIT_SCRIPT_FCN(7,0,"IJtoXY",0,-1,175);
+        _SFD_CV_INIT_SCRIPT(8,1,0,0,0,0,0,0,0,0);
+        _SFD_CV_INIT_SCRIPT_FCN(8,0,"deg2rad",0,-1,459);
         _SFD_SET_DATA_COMPILED_PROPS(0,SF_DOUBLE,0,NULL,0,0,0,0.0,1.0,0,0,
           (MexFcnForType)c3_e_sf_marshallOut,(MexInFcnForType)NULL);
 
@@ -11618,7 +11708,7 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
 
 static const char* sf_get_instance_specialization(void)
 {
-  return "VXUkA6vcKhFDyZYfTRNdZG";
+  return "HgAUMvZ6UCFUSUDixzxUOE";
 }
 
 static void sf_opaque_initialize_c3_AutoFollow_Simulation(void *chartInstanceVar)
@@ -11804,10 +11894,10 @@ static void mdlSetWorkWidths_c3_AutoFollow_Simulation(SimStruct *S)
   }
 
   ssSetOptions(S,ssGetOptions(S)|SS_OPTION_WORKS_WITH_CODE_REUSE);
-  ssSetChecksum0(S,(2841112238U));
-  ssSetChecksum1(S,(1027083490U));
-  ssSetChecksum2(S,(625915600U));
-  ssSetChecksum3(S,(2587841982U));
+  ssSetChecksum0(S,(1061502279U));
+  ssSetChecksum1(S,(2544870039U));
+  ssSetChecksum2(S,(185133261U));
+  ssSetChecksum3(S,(1635266849U));
   ssSetmdlDerivatives(S, NULL);
   ssSetExplicitFCSSCtrl(S,1);
   ssSupportsMultipleExecInstances(S,1);
