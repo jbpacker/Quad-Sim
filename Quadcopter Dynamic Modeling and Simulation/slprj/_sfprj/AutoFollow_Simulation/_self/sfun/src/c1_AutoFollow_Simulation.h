@@ -8,6 +8,23 @@
 #include "multiword_types.h"
 
 /* Type Definitions */
+#ifndef struct_s2aqkGCuE38RBomNVWBcX1B
+#define struct_s2aqkGCuE38RBomNVWBcX1B
+
+struct s2aqkGCuE38RBomNVWBcX1B
+{
+  real_T map[10000];
+};
+
+#endif                                 /*struct_s2aqkGCuE38RBomNVWBcX1B*/
+
+#ifndef typedef_c1_s2aqkGCuE38RBomNVWBcX1B
+#define typedef_c1_s2aqkGCuE38RBomNVWBcX1B
+
+typedef struct s2aqkGCuE38RBomNVWBcX1B c1_s2aqkGCuE38RBomNVWBcX1B;
+
+#endif                                 /*typedef_c1_s2aqkGCuE38RBomNVWBcX1B*/
+
 #ifndef typedef_SFc1_AutoFollow_SimulationInstanceStruct
 #define typedef_SFc1_AutoFollow_SimulationInstanceStruct
 
@@ -20,6 +37,12 @@ typedef struct {
   boolean_T c1_isStable;
   boolean_T c1_doneDoubleBufferReInit;
   uint8_T c1_is_active_c1_AutoFollow_Simulation;
+  real_T c1_r_prev;
+  boolean_T c1_r_prev_not_empty;
+  real_T c1_theta_prev;
+  boolean_T c1_theta_prev_not_empty;
+  real_T c1_psi_prev;
+  boolean_T c1_psi_prev_not_empty;
 } SFc1_AutoFollow_SimulationInstanceStruct;
 
 #endif                                 /*typedef_SFc1_AutoFollow_SimulationInstanceStruct*/
