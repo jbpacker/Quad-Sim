@@ -9,7 +9,6 @@ obsLoc = [x,y];
 obsRad = 1;
 
 R = 100; C = 100;
-
 map = zeros(R,C);
 
 for i = 1:R

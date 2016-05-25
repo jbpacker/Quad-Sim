@@ -509,7 +509,13 @@ if strcmp(mode,'Start')
 
     %% LIDAR data
     lidarRadius = A(:,46:46+360);
-    lidarTheta = A(:,46+360:46+720);
+    lidarTheta = A(:,46+361:46+721);
+    
+    %% path command
+    xCommand = A(:,46+722);
+    yCommand = A(:,46+722+1);
+    zCommand = A(:,46+722+2);
+    psiCommand = A(:,46+722+3);
     
     %% original plotting functions
     r = .5; d = 1.25; h = .25; %inches: rotor dia., quad motor distance from 
@@ -704,16 +710,24 @@ if strcmp(mode,'Start')
         qp1 = quiver3(0,0,0,omi(j,1),omi(j,2),omi(j,3),'r');
         qp2 = quiver3(0,0,0,Vi(j,1),Vi(j,2),Vi(j,3),'k');
         
-        %plot human ground truth as an arrow on attitude plot
-        human_gt = [human_x(j)-A(j,10)*3.28; human_y(j)-A(j,11)*3.28; human_z(j)-A(j,12)*3.28];
-        human_gt = 2.5.*human_gt./norm(human_gt);
-        qp3 = quiver3(0,0,0,human_gt(1),human_gt(2),human_gt(3),'b','LineWidth',2);
+%         %plot human ground truth as an arrow on attitude plot
+%         human_gt = [human_x(j)-A(j,10)*3.28; human_y(j)-A(j,11)*3.28; human_z(j)-A(j,12)*3.28];
+%         human_gt = 2.5.*human_gt./norm(human_gt);
+%         qp3 = quiver3(0,0,0,human_gt(1),human_gt(2),human_gt(3),'b','LineWidth',2);
         
         %measurements that the camera is reporting
         cam = [cam_x(j); cam_y(j); cam_z(j)];
         human_cam = R{j,1}*cam;
         human_cam = -2.5.*human_cam./norm(human_cam);
         qp4 = quiver3(0,0,0,human_cam(1), human_cam(2), human_cam(3),'k','LineWidth',2);
+        
+        %commanded position
+        lengthScalar = 10;
+        desiredAlt = 10/3.28;
+        qp5 = quiver3(0,0,0,xCommand(j)*lengthScalar,...
+                            yCommand(j)*lengthScalar,...
+                            lengthScalar*(desiredAlt-zCommand(j)),...
+                            'b','LineWidth',3);
         
         %% plot params
         axis square
@@ -756,6 +770,14 @@ if strcmp(mode,'Start')
 %         scatter3(X - xEstimateEKF(j), Y - yEstimateEKF(j), Z - zEstimateEKF(j), 'k');
 
         %% LIDAR Data
+        %SLOW VERSION WITHOUT EXTRA POINTS
+%         shortR = lidarRadius(j,lidarRadius(j,:) < 30);
+%         shortT = lidarTheta(j,lidarRadius(j,:) < 30);
+%         lidarX = shortR.*cos(shortT);
+%         lidarY = shortR.*sin(shortT);
+%         scatter3(X - lidarX, Y - lidarY, Z*ones(1,length(lidarX)), 'k');
+        
+        %FAST VERSION, EXTRA POINTS
         lidarX = lidarRadius(j,:).*cos(lidarTheta(j,:));
         lidarY = lidarRadius(j,:).*sin(lidarTheta(j,:));
         scatter3(X - lidarX, Y - lidarY, Z*ones(1,length(lidarX)), 'k');

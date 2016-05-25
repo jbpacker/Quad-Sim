@@ -30,7 +30,6 @@ load('./MattStuff/ICMatt.mat');
 load('./MattStuff/ChiCircle.mat');
 % load('./MattStuff/ChiFollowing.mat');
 
-
 % load QC structure
 load('./Simulation Files/Quadcopter Structure Files/quadModel_+.mat');
 
