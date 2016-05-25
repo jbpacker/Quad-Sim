@@ -446,6 +446,8 @@ if strcmp(mode,'Start')
     set(hObject,'String','Stop')
     guidata(hObject,handles)
     A = evalin('base', 'yout');
+    obsLoc = evalin('base', 'obsLoc');
+    obsRad = evalin('base', 'obsRad');
     tout = evalin('base', 'tout');
     frameSkipVal = str2double(get(handles.frameSkips,'String'))+1; % Size of steps to take for plotting animation (1 plots 
     % every frame, 2 about every other, etc.
@@ -754,6 +756,12 @@ if strcmp(mode,'Start')
                   [minY-1 minY-1 maxY+1 maxY+1],...
                   [0 0 0 0],'g'); % make a plane to represent the ground (Z = 0)
             alpha(0.7); % Makes the ground "see-through"
+            [unitCylinderX, unitCylinderY, unitCylinderZ] = cylinder(obsRad);
+            unitCylinderZ = unitCylinderZ.*15;
+            for o = 1:size(obsLoc,1)
+                surf(unitCylinderX+obsLoc(o,1), unitCylinderY+obsLoc(o,2), unitCylinderZ);
+                colormap([1  1  0; 0  1  1])
+            end
             handles.skipFlag = 0;
             guidata(hObject,handles)
         end

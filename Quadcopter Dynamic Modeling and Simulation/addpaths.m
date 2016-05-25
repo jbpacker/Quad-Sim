@@ -13,6 +13,7 @@ addpath(genpath('./Lidar'));
 
 % or load a map from file
 load('./Lidar/ObstacleMap/map.mat');
+load('./Lidar/ObstacleMap/GroundTruth.mat');
 
 % load current human path command
 % load('./Simulation Files/Human Path Command/humanPath.mat');
