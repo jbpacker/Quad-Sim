@@ -1,0 +1,3 @@
+LIBRARY PC_Quadcopter_SimulationPathPlanner_sfun.mexw64
+EXPORTS
+mexFunction
