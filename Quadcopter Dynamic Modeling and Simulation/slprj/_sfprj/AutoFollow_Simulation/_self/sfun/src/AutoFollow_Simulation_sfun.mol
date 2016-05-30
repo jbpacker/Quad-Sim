@@ -1,8 +1,14 @@
-AutoFollow_Simulation_sfun.obj
-c1_AutoFollow_Simulation.obj
-c2_AutoFollow_Simulation.obj
-c3_AutoFollow_Simulation.obj
-c4_AutoFollow_Simulation.obj
-c5_AutoFollow_Simulation.obj
-c6_AutoFollow_Simulation.obj
-AutoFollow_Simulation_sfun_registry.obj
+AutoFollow_Simulation_sfun.o
+c1_AutoFollow_Simulation.o
+c3_AutoFollow_Simulation.o
+AutoFollow_Simulation_sfun_registry.o
+
+"-L/Applications/MATLAB_R2016a.app/bin/maci64" "-lmwsf_runtime"
+"-L/Applications/MATLAB_R2016a.app/bin/maci64" "-lfixedpoint"
+"-L/Applications/MATLAB_R2016a.app/bin/maci64" "-lut"
+"-L/Applications/MATLAB_R2016a.app/bin/maci64" "-lemlrt"
+"-L/Applications/MATLAB_R2016a.app/bin/maci64" "-lmwmathutil"
+"-L/Applications/MATLAB_R2016a.app/bin/maci64" "-lmwsl_log_load_blocks"
+"-L/Applications/MATLAB_R2016a.app/bin/maci64" "-lmwsimulink"
+"-L/Applications/MATLAB_R2016a.app/bin/maci64" "-lmwsl_sfcn_cov_bridge"
+"-L/Applications/MATLAB_R2016a.app/bin/maci64" "-lmwipp"

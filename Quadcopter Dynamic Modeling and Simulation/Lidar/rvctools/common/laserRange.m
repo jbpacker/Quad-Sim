@@ -54,7 +54,7 @@ function p = laserRange(p1, p2, map)
 
       while 1
           % test if x and y are inside map
-          if (x < 0 || y < 0 || x > R || y > C)
+          if (x <= 0 || y <= 0 || x > R || y > C)
               p = [inf inf];
               break
           end
@@ -81,7 +81,7 @@ function p = laserRange(p1, p2, map)
 
       while 1
           % test if x and y are inside map
-          if (x < 0 || y < 0 || x > C || y > R)
+          if (x <= 0 || y <= 0 || x > C || y > R)
               p = [inf inf];
               break
           end

@@ -1,5 +1,5 @@
 %make desired chi angle for path
-omega    = 2*pi/60; % rad/s of course angle chi
+omega    = 2*pi/60; % rad/s of course angle chi (1 rev around human / min)
 DT       = 1;       % s, step size in path planner
 t = 0:DT:50;
 % negative rotation = cw from -x axis

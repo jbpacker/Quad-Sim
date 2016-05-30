@@ -3,9 +3,11 @@ addpath(genpath('./../assignment6'));
 
 Xmax = 25; Ymax = 25;
 numObs = 6;
-x = Xmax.*rand(numObs,1);
-y = Ymax.*rand(numObs,1);
-obsLoc = [x,y];
+% x = Xmax.*rand(numObs,1);
+% y = Ymax.*rand(numObs,1);
+xobs = [8, 9, 14, 16]';
+yobs = [12,19,20, 10]';
+obsLoc = [xobs,yobs];
 obsRad = 1;
 
 R = 100; C = 100;
@@ -24,7 +26,7 @@ for i = 1:R
     end
 end
 
-save ./Lidar/ObstacleMap/map.mat map
-save ./Lidar/ObstacleMap/GroundTruth.mat obsLoc obsRad
+save ./map.mat map
+save ./GroundTruth.mat obsLoc obsRad
 
 

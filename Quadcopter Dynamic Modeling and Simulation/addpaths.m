@@ -16,9 +16,9 @@ load('./Lidar/ObstacleMap/map.mat');
 load('./Lidar/ObstacleMap/GroundTruth.mat');
 
 % load current human path command
-% load('./Simulation Files/Human Path Command/humanPath.mat');
+load('./Simulation Files/Human Path Command/humanPath.mat');
 % load('./humanPath.mat');
-load('./Simulation Files/Human Path Command/humanPathStraight.mat');
+% load('./Simulation Files/Human Path Command/humanPathStraight.mat');
 
 % load camera noise files
 load('./Simulation Files/Sensor Noise/noise.mat');
