@@ -673,12 +673,12 @@ static void c3_chartstep_c3_AutoFollow_Simulation
   } else {
     CV_EML_MCDC(0, 1, 0, false);
     CV_EML_IF(0, 1, 1, false);
-    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 37);
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 38);
     for (c3_i19 = 0; c3_i19 < 361; c3_i19++) {
       c3_r[c3_i19] = chartInstance->c3_prev_r[c3_i19];
     }
 
-    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 38);
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 39);
     for (c3_i20 = 0; c3_i20 < 361; c3_i20++) {
       c3_theta[c3_i20] = chartInstance->c3_prev_theta[c3_i20];
     }
@@ -691,29 +691,29 @@ static void c3_chartstep_c3_AutoFollow_Simulation
     c3_Xmax = 25.0;
     _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 14);
     c3_Ymax = 25.0;
-    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 15);
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 16);
     _SFD_SYMBOL_SWITCH(3U, 3U);
     c3_y = NULL;
-    sf_mex_assign(&c3_y, sf_mex_create("y", "./Lidar/ObstacleMap/map.mat", 15,
-      0U, 0U, 0U, 2, 1, strlen("./Lidar/ObstacleMap/map.mat")), false);
+    sf_mex_assign(&c3_y, sf_mex_create("y", "./Lidar/ObstacleMap/clearmap.mat",
+      15, 0U, 0U, 0U, 2, 1, strlen("./Lidar/ObstacleMap/clearmap.mat")), false);
     c3_emlrt_marshallIn(chartInstance, sf_mex_call_debug
                         (sfGlobalDebugInstanceStruct, "load", 1U, 1U, 14, c3_y),
                         "load", &c3_r0);
     c3_map = c3_r0;
     _SFD_SYMBOL_SWITCH(3U, 3U);
-    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 16);
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 17);
     for (c3_i10 = 0; c3_i10 < 10000; c3_i10++) {
       c3_b_map[c3_i10] = c3_map.map[c3_i10];
     }
 
     _SFD_SYMBOL_SWITCH(3U, 9U);
-    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 18);
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 19);
     c3_angleSpan = 6.2831853071795862;
-    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 18);
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 19);
     c3_angleStep = 0.017453292519943295;
-    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 20);
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 21);
     c3_rangeMax = 50.0;
-    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 23);
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 24);
     c3_b_xq[0] = c3_xq * 3.28;
     c3_b_xq[1] = c3_yq * 3.28;
     c3_b_xq[2] = 0.0;
@@ -722,7 +722,7 @@ static void c3_chartstep_c3_AutoFollow_Simulation
       c3_Tl[c3_i11] = c3_dv4[c3_i11];
     }
 
-    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 27);
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 28);
     for (c3_i12 = 0; c3_i12 < 9; c3_i12++) {
       c3_b_Tl[c3_i12] = c3_Tl[c3_i12];
     }
@@ -736,34 +736,34 @@ static void c3_chartstep_c3_AutoFollow_Simulation
       c3_p[c3_i14] = c3_dv5[c3_i14];
     }
 
-    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 32);
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 33);
     for (c3_i15 = 0; c3_i15 < 361; c3_i15++) {
       c3_r[c3_i15] = c3_p[c3_i15 + 361];
     }
 
-    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 32);
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 33);
     c3_d0 = c3_deg2rad(chartInstance, 180.0);
     for (c3_i16 = 0; c3_i16 < 361; c3_i16++) {
       c3_theta[c3_i16] = c3_p[c3_i16] + c3_d0;
     }
 
-    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 33);
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 34);
     for (c3_i17 = 0; c3_i17 < 361; c3_i17++) {
       chartInstance->c3_prev_r[c3_i17] = c3_r[c3_i17];
     }
 
     chartInstance->c3_prev_r_not_empty = true;
-    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 34);
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 35);
     for (c3_i18 = 0; c3_i18 < 361; c3_i18++) {
       chartInstance->c3_prev_theta[c3_i18] = c3_theta[c3_i18];
     }
 
     chartInstance->c3_prev_theta_not_empty = true;
-    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 35);
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 36);
     chartInstance->c3_prev_t = c3_t;
   }
 
-  _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, -38);
+  _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, -39);
   _SFD_SYMBOL_SCOPE_POP();
   for (c3_i21 = 0; c3_i21 < 361; c3_i21++) {
     (*c3_b_r)[c3_i21] = c3_r[c3_i21];
@@ -2680,10 +2680,10 @@ static void c3_laserRange(SFc3_AutoFollow_SimulationInstanceStruct
       exitg2 = 0;
       CV_SCRIPT_WHILE(6, 0, true);
       _SFD_SCRIPT_CALL(6U, chartInstance->c3_sfEvent, 57);
-      if (CV_SCRIPT_COND(6, 0, c3_x < 0.0)) {
+      if (CV_SCRIPT_COND(6, 0, c3_x <= 0.0)) {
         guard6 = true;
         exitg2 = 1;
-      } else if (CV_SCRIPT_COND(6, 1, c3_y < 0.0)) {
+      } else if (CV_SCRIPT_COND(6, 1, c3_y <= 0.0)) {
         guard6 = true;
         exitg2 = 1;
       } else if (CV_SCRIPT_COND(6, 2, c3_x > 100.0)) {
@@ -2796,10 +2796,10 @@ static void c3_laserRange(SFc3_AutoFollow_SimulationInstanceStruct
       exitg1 = 0;
       CV_SCRIPT_WHILE(6, 1, true);
       _SFD_SCRIPT_CALL(6U, chartInstance->c3_sfEvent, 84);
-      if (CV_SCRIPT_COND(6, 4, c3_x < 0.0)) {
+      if (CV_SCRIPT_COND(6, 4, c3_x <= 0.0)) {
         guard3 = true;
         exitg1 = 1;
-      } else if (CV_SCRIPT_COND(6, 5, c3_y < 0.0)) {
+      } else if (CV_SCRIPT_COND(6, 5, c3_y <= 0.0)) {
         guard3 = true;
         exitg1 = 1;
       } else if (CV_SCRIPT_COND(6, 6, c3_x > 100.0)) {
@@ -9229,7 +9229,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"),
                   "resolved", "resolved", 163);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1424807781U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464672842U), "fileTimeLo",
                   "fileTimeLo", 163);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 163);
@@ -11253,10 +11253,10 @@ extern void utFree(void*);
 
 void sf_c3_AutoFollow_Simulation_get_check_sum(mxArray *plhs[])
 {
-  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(546288080U);
-  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(3514727163U);
-  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(852077457U);
-  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(1245203886U);
+  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(1072542448U);
+  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(3808290715U);
+  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(2888606779U);
+  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(4277399583U);
 }
 
 mxArray *sf_c3_AutoFollow_Simulation_get_autoinheritance_info(void)
@@ -11268,7 +11268,7 @@ mxArray *sf_c3_AutoFollow_Simulation_get_autoinheritance_info(void)
     autoinheritanceFields);
 
   {
-    mxArray *mxChecksum = mxCreateString("zltgsPxL3VMm4MEZZDwSsC");
+    mxArray *mxChecksum = mxCreateString("MUTgSGXVgQRTz47ojo4BRG");
     mxSetField(mxAutoinheritanceInfo,0,"checksum",mxChecksum);
   }
 
@@ -11486,9 +11486,9 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
 
         /* Initialization of MATLAB Function Model Coverage */
         _SFD_CV_INIT_EML(0,1,1,2,0,0,0,0,0,2,1);
-        _SFD_CV_INIT_EML_FCN(0,0,"eML_blk_kernel",0,-1,1359);
+        _SFD_CV_INIT_EML_FCN(0,0,"eML_blk_kernel",0,-1,1454);
         _SFD_CV_INIT_EML_IF(0,1,0,114,132,-1,160);
-        _SFD_CV_INIT_EML_IF(0,1,1,257,311,1295,1355);
+        _SFD_CV_INIT_EML_IF(0,1,1,257,311,1390,1450);
 
         {
           static int condStart[] = { 261, 280 };
@@ -11614,40 +11614,40 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
         }
 
         _SFD_CV_INIT_SCRIPT(6,1,11,0,0,0,0,2,8,2);
-        _SFD_CV_INIT_SCRIPT_FCN(6,0,"laserRange",1033,-1,2550);
+        _SFD_CV_INIT_SCRIPT_FCN(6,0,"laserRange",1033,-1,2554);
         _SFD_CV_INIT_SCRIPT_IF(6,0,1175,1185,1226,1275);
         _SFD_CV_INIT_SCRIPT_IF(6,1,1293,1303,1344,1393);
-        _SFD_CV_INIT_SCRIPT_IF(6,2,1412,1422,1965,2546);
-        _SFD_CV_INIT_SCRIPT_IF(6,3,1543,1580,1652,1721);
-        _SFD_CV_INIT_SCRIPT_IF(6,4,1652,1669,1730,1811);
-        _SFD_CV_INIT_SCRIPT_IF(6,5,1730,1754,1820,1950);
-        _SFD_CV_INIT_SCRIPT_IF(6,6,1820,1829,1881,1950);
-        _SFD_CV_INIT_SCRIPT_IF(6,7,2090,2127,2199,2268);
-        _SFD_CV_INIT_SCRIPT_IF(6,8,2199,2216,2277,2389);
-        _SFD_CV_INIT_SCRIPT_IF(6,9,2277,2301,2398,2528);
-        _SFD_CV_INIT_SCRIPT_IF(6,10,2398,2407,2459,2528);
-        _SFD_CV_INIT_SCRIPT_WHILE(6,0,1482,1490,1960);
-        _SFD_CV_INIT_SCRIPT_WHILE(6,1,2029,2037,2538);
+        _SFD_CV_INIT_SCRIPT_IF(6,2,1412,1422,1967,2550);
+        _SFD_CV_INIT_SCRIPT_IF(6,3,1543,1582,1654,1723);
+        _SFD_CV_INIT_SCRIPT_IF(6,4,1654,1671,1732,1813);
+        _SFD_CV_INIT_SCRIPT_IF(6,5,1732,1756,1822,1952);
+        _SFD_CV_INIT_SCRIPT_IF(6,6,1822,1831,1883,1952);
+        _SFD_CV_INIT_SCRIPT_IF(6,7,2092,2131,2203,2272);
+        _SFD_CV_INIT_SCRIPT_IF(6,8,2203,2220,2281,2393);
+        _SFD_CV_INIT_SCRIPT_IF(6,9,2281,2305,2402,2532);
+        _SFD_CV_INIT_SCRIPT_IF(6,10,2402,2411,2463,2532);
+        _SFD_CV_INIT_SCRIPT_WHILE(6,0,1482,1490,1962);
+        _SFD_CV_INIT_SCRIPT_WHILE(6,1,2031,2039,2542);
 
         {
-          static int condStart[] = { 1547, 1556, 1565, 1574 };
+          static int condStart[] = { 1547, 1557, 1567, 1576 };
 
-          static int condEnd[] = { 1552, 1561, 1570, 1579 };
+          static int condEnd[] = { 1553, 1563, 1572, 1581 };
 
           static int pfixExpr[] = { 0, 1, -2, 2, -2, 3, -2 };
 
-          _SFD_CV_INIT_SCRIPT_MCDC(6,0,1547,1579,4,0,&(condStart[0]),&(condEnd[0]),
+          _SFD_CV_INIT_SCRIPT_MCDC(6,0,1547,1581,4,0,&(condStart[0]),&(condEnd[0]),
             7,&(pfixExpr[0]));
         }
 
         {
-          static int condStart[] = { 2094, 2103, 2112, 2121 };
+          static int condStart[] = { 2096, 2106, 2116, 2125 };
 
-          static int condEnd[] = { 2099, 2108, 2117, 2126 };
+          static int condEnd[] = { 2102, 2112, 2121, 2130 };
 
           static int pfixExpr[] = { 0, 1, -2, 2, -2, 3, -2 };
 
-          _SFD_CV_INIT_SCRIPT_MCDC(6,1,2094,2126,4,4,&(condStart[0]),&(condEnd[0]),
+          _SFD_CV_INIT_SCRIPT_MCDC(6,1,2096,2130,4,4,&(condStart[0]),&(condEnd[0]),
             7,&(pfixExpr[0]));
         }
 
@@ -11708,7 +11708,7 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
 
 static const char* sf_get_instance_specialization(void)
 {
-  return "HgAUMvZ6UCFUSUDixzxUOE";
+  return "bTXtGSNog6ZcIqZotHDAPE";
 }
 
 static void sf_opaque_initialize_c3_AutoFollow_Simulation(void *chartInstanceVar)
@@ -11894,10 +11894,10 @@ static void mdlSetWorkWidths_c3_AutoFollow_Simulation(SimStruct *S)
   }
 
   ssSetOptions(S,ssGetOptions(S)|SS_OPTION_WORKS_WITH_CODE_REUSE);
-  ssSetChecksum0(S,(3793634098U));
-  ssSetChecksum1(S,(3889525464U));
-  ssSetChecksum2(S,(1321982074U));
-  ssSetChecksum3(S,(3261953387U));
+  ssSetChecksum0(S,(838319695U));
+  ssSetChecksum1(S,(3566636456U));
+  ssSetChecksum2(S,(1623545899U));
+  ssSetChecksum3(S,(1230690111U));
   ssSetmdlDerivatives(S, NULL);
   ssSetExplicitFCSSCtrl(S,1);
   ssSupportsMultipleExecInstances(S,1);

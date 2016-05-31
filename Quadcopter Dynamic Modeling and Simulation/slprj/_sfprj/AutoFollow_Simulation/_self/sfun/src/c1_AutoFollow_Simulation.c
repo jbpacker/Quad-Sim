@@ -481,6 +481,8 @@ static void c1_chartstep_c1_AutoFollow_Simulation
   real_T c1_psi;
   const mxArray *c1_y = NULL;
   static c1_s2aqkGCuE38RBomNVWBcX1B c1_r0;
+  const mxArray *c1_b_y = NULL;
+  static c1_s2aqkGCuE38RBomNVWBcX1B c1_r1;
   int32_T c1_i0;
   real_T c1_b_Jq;
   real_T c1_b_Iq;
@@ -578,12 +580,12 @@ static void c1_chartstep_c1_AutoFollow_Simulation
   real_T c1_A;
   real_T c1_B;
   real_T c1_ic_x;
-  real_T c1_b_y;
-  real_T c1_jc_x;
   real_T c1_c_y;
-  real_T c1_kc_x;
+  real_T c1_jc_x;
   real_T c1_d_y;
+  real_T c1_kc_x;
   real_T c1_e_y;
+  real_T c1_f_y;
   real_T *c1_b_psi;
   real_T *c1_b_theta;
   real_T *c1_b_r;
@@ -699,34 +701,44 @@ static void c1_chartstep_c1_AutoFollow_Simulation
   _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 8);
   _SFD_SYMBOL_SWITCH(2U, 2U);
   c1_y = NULL;
-  sf_mex_assign(&c1_y, sf_mex_create("y", "./Lidar/ObstacleMap/map.mat", 15, 0U,
-    0U, 0U, 2, 1, strlen("./Lidar/ObstacleMap/map.mat")), false);
+  sf_mex_assign(&c1_y, sf_mex_create("y", "./Lidar/ObstacleMap/obstaclemap.mat",
+    15, 0U, 0U, 0U, 2, 1, strlen("./Lidar/ObstacleMap/obstaclemap.mat")), false);
   c1_n_emlrt_marshallIn(chartInstance, sf_mex_call_debug
                         (sfGlobalDebugInstanceStruct, "load", 1U, 1U, 14, c1_y),
                         "load", &c1_r0);
   c1_map = c1_r0;
   _SFD_SYMBOL_SWITCH(2U, 2U);
   _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 9);
+  _SFD_SYMBOL_SWITCH(2U, 2U);
+  c1_b_y = NULL;
+  sf_mex_assign(&c1_b_y, sf_mex_create("y", "./Lidar/ObstacleMap/clearmap.mat",
+    15, 0U, 0U, 0U, 2, 1, strlen("./Lidar/ObstacleMap/clearmap.mat")), false);
+  c1_n_emlrt_marshallIn(chartInstance, sf_mex_call_debug
+                        (sfGlobalDebugInstanceStruct, "load", 1U, 1U, 14, c1_b_y),
+                        "load", &c1_r1);
+  c1_map = c1_r1;
+  _SFD_SYMBOL_SWITCH(2U, 2U);
+  _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 10);
   for (c1_i0 = 0; c1_i0 < 10000; c1_i0++) {
     c1_b_map[c1_i0] = c1_map.map[c1_i0];
   }
 
   _SFD_SYMBOL_SWITCH(2U, 16U);
-  _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 10);
+  _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 11);
   c1_R = 100.0;
   _SFD_SYMBOL_SWITCH(3U, 3U);
   c1_C = 100.0;
-  _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 11);
+  _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 12);
   c1_XYtoIJ(chartInstance, c1_xq * 3.28, c1_yq * 3.28, 25.0, 25.0, 100.0, 100.0,
             &c1_b_Iq, &c1_b_Jq);
   c1_Iq = c1_b_Iq;
   c1_Jq = c1_b_Jq;
-  _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 12);
+  _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 13);
   c1_XYtoIJ(chartInstance, c1_hx, c1_hy, 25.0, 25.0, 100.0, 100.0, &c1_b_Ih,
             &c1_b_Jh);
   c1_Ih = c1_b_Ih;
   c1_Jh = c1_b_Jh;
-  _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 13);
+  _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 14);
   c1_c_Iq[0] = c1_Iq;
   c1_c_Iq[1] = c1_Jq;
   c1_c_Ih[0] = c1_Ih;
@@ -746,20 +758,20 @@ static void c1_chartstep_c1_AutoFollow_Simulation
     c1_Pxel_data[c1_i2] = c1_tmp_data[c1_i2];
   }
 
-  _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 14);
+  _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 15);
   c1_IJtoXY(chartInstance, c1_Pxel_data[0], c1_Pxel_data[1], 25.0, 25.0, 100.0,
             100.0, &c1_b_xCheck, &c1_b_yCheck);
   c1_xCheck = c1_b_xCheck;
   c1_yCheck = c1_b_yCheck;
-  _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 15);
+  _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 16);
   c1_distCheck = c1_mpower(chartInstance, c1_xq * 3.28 - c1_xCheck) + c1_mpower
     (chartInstance, c1_yq * 3.28 - c1_yCheck);
   c1_b_sqrt(chartInstance, &c1_distCheck);
-  _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 16);
+  _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 17);
   c1_distHuman = c1_mpower(chartInstance, c1_xq * 3.28 - c1_hx) + c1_mpower
     (chartInstance, c1_yq * 3.28 - c1_hy);
   c1_b_sqrt(chartInstance, &c1_distHuman);
-  _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 19);
+  _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 20);
   guard1 = false;
   if (CV_EML_COND(0, 1, 0, !chartInstance->c1_r_prev_not_empty)) {
     guard1 = true;
@@ -768,22 +780,22 @@ static void c1_chartstep_c1_AutoFollow_Simulation
   } else {
     CV_EML_MCDC(0, 1, 0, false);
     CV_EML_IF(0, 1, 0, false);
-    _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 61);
-    c1_r = chartInstance->c1_r_prev;
     _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 62);
-    c1_theta = chartInstance->c1_theta_prev;
+    c1_r = chartInstance->c1_r_prev;
     _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 63);
+    c1_theta = chartInstance->c1_theta_prev;
+    _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 64);
     c1_psi = chartInstance->c1_psi_prev;
   }
 
   if (guard1 == true) {
     CV_EML_MCDC(0, 1, 0, true);
     CV_EML_IF(0, 1, 0, true);
-    _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 21);
+    _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 22);
     c1_p_not_rot[0] = c1_xq * 3.28 - c1_hx;
     c1_p_not_rot[1] = c1_yq * 3.28 - c1_hy;
     c1_p_not_rot[2] = c1_zq * 3.28 - c1_hz;
-    _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 24);
+    _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 25);
     c1_x = c1_psiq;
     c1_b_x = c1_x;
     c1_b_x = muDoubleScalarCos(c1_b_x);
@@ -881,7 +893,7 @@ static void c1_chartstep_c1_AutoFollow_Simulation
     c1_b_R[5] = c1_bc_x * c1_dc_x;
     c1_b_R[8] = c1_fc_x * c1_hc_x;
     _SFD_SYMBOL_SWITCH(3U, 17U);
-    _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 28);
+    _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 29);
     for (c1_i3 = 0; c1_i3 < 9; c1_i3++) {
       c1_c_R[c1_i3] = c1_b_R[c1_i3];
     }
@@ -918,7 +930,7 @@ static void c1_chartstep_c1_AutoFollow_Simulation
     }
 
     c1_b_eml_xgemm(chartInstance, c1_dv2, c1_dv3, c1_p);
-    _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 38);
+    _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 39);
     for (c1_i11 = 0; c1_i11 < 3; c1_i11++) {
       c1_b_p[c1_i11] = c1_p[c1_i11];
     }
@@ -930,32 +942,32 @@ static void c1_chartstep_c1_AutoFollow_Simulation
 
     c1_r = c1_sum(chartInstance, c1_b_b);
     c1_b_sqrt(chartInstance, &c1_r);
-    _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 39);
-    c1_theta = c1_atan2(chartInstance, c1_p[1], c1_p[0]);
     _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 40);
+    c1_theta = c1_atan2(chartInstance, c1_p[1], c1_p[0]);
+    _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 41);
     c1_A = c1_p[2];
     c1_B = c1_r;
     c1_ic_x = c1_A;
-    c1_b_y = c1_B;
+    c1_c_y = c1_B;
     c1_jc_x = c1_ic_x;
-    c1_c_y = c1_b_y;
-    c1_kc_x = c1_jc_x;
     c1_d_y = c1_c_y;
-    c1_e_y = c1_kc_x / c1_d_y;
-    c1_psi = c1_e_y;
+    c1_kc_x = c1_jc_x;
+    c1_e_y = c1_d_y;
+    c1_f_y = c1_kc_x / c1_e_y;
+    c1_psi = c1_f_y;
     c1_b_acos(chartInstance, &c1_psi);
-    _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 42);
+    _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 43);
     chartInstance->c1_r_prev = c1_r;
     chartInstance->c1_r_prev_not_empty = true;
-    _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 43);
+    _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 44);
     chartInstance->c1_theta_prev = c1_theta;
     chartInstance->c1_theta_prev_not_empty = true;
-    _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 44);
+    _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 45);
     chartInstance->c1_psi_prev = c1_psi;
     chartInstance->c1_psi_prev_not_empty = true;
   }
 
-  _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, -63);
+  _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, -64);
   _SFD_SYMBOL_SCOPE_POP();
   *c1_b_r = c1_r;
   *c1_b_theta = c1_theta;
@@ -1202,10 +1214,10 @@ static void c1_laserRange(SFc1_AutoFollow_SimulationInstanceStruct
       exitg2 = 0;
       CV_SCRIPT_WHILE(1, 0, true);
       _SFD_SCRIPT_CALL(1U, chartInstance->c1_sfEvent, 57);
-      if (CV_SCRIPT_COND(1, 0, c1_x < 0.0)) {
+      if (CV_SCRIPT_COND(1, 0, c1_x <= 0.0)) {
         guard6 = true;
         exitg2 = 1;
-      } else if (CV_SCRIPT_COND(1, 1, c1_y < 0.0)) {
+      } else if (CV_SCRIPT_COND(1, 1, c1_y <= 0.0)) {
         guard6 = true;
         exitg2 = 1;
       } else if (CV_SCRIPT_COND(1, 2, c1_x > 100.0)) {
@@ -1318,10 +1330,10 @@ static void c1_laserRange(SFc1_AutoFollow_SimulationInstanceStruct
       exitg1 = 0;
       CV_SCRIPT_WHILE(1, 1, true);
       _SFD_SCRIPT_CALL(1U, chartInstance->c1_sfEvent, 84);
-      if (CV_SCRIPT_COND(1, 4, c1_x < 0.0)) {
+      if (CV_SCRIPT_COND(1, 4, c1_x <= 0.0)) {
         guard3 = true;
         exitg1 = 1;
-      } else if (CV_SCRIPT_COND(1, 5, c1_y < 0.0)) {
+      } else if (CV_SCRIPT_COND(1, 5, c1_y <= 0.0)) {
         guard3 = true;
         exitg1 = 1;
       } else if (CV_SCRIPT_COND(1, 6, c1_x > 100.0)) {
@@ -2706,7 +2718,7 @@ static void c1_info_helper(const mxArray **c1_info)
   sf_mex_addfield(*c1_info, c1_emlrt_marshallOut(
     "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"),
                   "resolved", "resolved", 11);
-  sf_mex_addfield(*c1_info, c1_b_emlrt_marshallOut(1424807781U), "fileTimeLo",
+  sf_mex_addfield(*c1_info, c1_b_emlrt_marshallOut(1464672842U), "fileTimeLo",
                   "fileTimeLo", 11);
   sf_mex_addfield(*c1_info, c1_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 11);
@@ -5937,10 +5949,10 @@ extern void utFree(void*);
 
 void sf_c1_AutoFollow_Simulation_get_check_sum(mxArray *plhs[])
 {
-  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(470455769U);
-  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(1287003871U);
-  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(2302126046U);
-  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(1615298007U);
+  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(751994490U);
+  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(2245957273U);
+  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(4219250871U);
+  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(4078226813U);
 }
 
 mxArray *sf_c1_AutoFollow_Simulation_get_autoinheritance_info(void)
@@ -5952,7 +5964,7 @@ mxArray *sf_c1_AutoFollow_Simulation_get_autoinheritance_info(void)
     autoinheritanceFields);
 
   {
-    mxArray *mxChecksum = mxCreateString("jh2yiRBS1zPCVix2AwRNu");
+    mxArray *mxChecksum = mxCreateString("boxXMWj1nd84qMyDj1YNZ");
     mxSetField(mxAutoinheritanceInfo,0,"checksum",mxChecksum);
   }
 
@@ -6310,57 +6322,57 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
 
         /* Initialization of MATLAB Function Model Coverage */
         _SFD_CV_INIT_EML(0,1,1,1,0,0,0,0,0,2,1);
-        _SFD_CV_INIT_EML_FCN(0,0,"eML_blk_kernel",0,-1,2866);
-        _SFD_CV_INIT_EML_IF(0,1,0,769,814,2756,2862);
+        _SFD_CV_INIT_EML_FCN(0,0,"eML_blk_kernel",0,-1,2955);
+        _SFD_CV_INIT_EML_IF(0,1,0,858,903,2845,2951);
 
         {
-          static int condStart[] = { 772, 792 };
+          static int condStart[] = { 861, 881 };
 
-          static int condEnd[] = { 787, 813 };
+          static int condEnd[] = { 876, 902 };
 
           static int pfixExpr[] = { 0, 1, -2 };
 
-          _SFD_CV_INIT_EML_MCDC(0,1,0,772,814,2,0,&(condStart[0]),&(condEnd[0]),
+          _SFD_CV_INIT_EML_MCDC(0,1,0,861,903,2,0,&(condStart[0]),&(condEnd[0]),
                                 3,&(pfixExpr[0]));
         }
 
         _SFD_CV_INIT_SCRIPT(0,1,0,0,0,0,0,0,0,0);
         _SFD_CV_INIT_SCRIPT_FCN(0,0,"XYtoIJ",0,-1,222);
         _SFD_CV_INIT_SCRIPT(1,1,11,0,0,0,0,2,8,2);
-        _SFD_CV_INIT_SCRIPT_FCN(1,0,"laserRange",1033,-1,2550);
+        _SFD_CV_INIT_SCRIPT_FCN(1,0,"laserRange",1033,-1,2554);
         _SFD_CV_INIT_SCRIPT_IF(1,0,1175,1185,1226,1275);
         _SFD_CV_INIT_SCRIPT_IF(1,1,1293,1303,1344,1393);
-        _SFD_CV_INIT_SCRIPT_IF(1,2,1412,1422,1965,2546);
-        _SFD_CV_INIT_SCRIPT_IF(1,3,1543,1580,1652,1721);
-        _SFD_CV_INIT_SCRIPT_IF(1,4,1652,1669,1730,1811);
-        _SFD_CV_INIT_SCRIPT_IF(1,5,1730,1754,1820,1950);
-        _SFD_CV_INIT_SCRIPT_IF(1,6,1820,1829,1881,1950);
-        _SFD_CV_INIT_SCRIPT_IF(1,7,2090,2127,2199,2268);
-        _SFD_CV_INIT_SCRIPT_IF(1,8,2199,2216,2277,2389);
-        _SFD_CV_INIT_SCRIPT_IF(1,9,2277,2301,2398,2528);
-        _SFD_CV_INIT_SCRIPT_IF(1,10,2398,2407,2459,2528);
-        _SFD_CV_INIT_SCRIPT_WHILE(1,0,1482,1490,1960);
-        _SFD_CV_INIT_SCRIPT_WHILE(1,1,2029,2037,2538);
+        _SFD_CV_INIT_SCRIPT_IF(1,2,1412,1422,1967,2550);
+        _SFD_CV_INIT_SCRIPT_IF(1,3,1543,1582,1654,1723);
+        _SFD_CV_INIT_SCRIPT_IF(1,4,1654,1671,1732,1813);
+        _SFD_CV_INIT_SCRIPT_IF(1,5,1732,1756,1822,1952);
+        _SFD_CV_INIT_SCRIPT_IF(1,6,1822,1831,1883,1952);
+        _SFD_CV_INIT_SCRIPT_IF(1,7,2092,2131,2203,2272);
+        _SFD_CV_INIT_SCRIPT_IF(1,8,2203,2220,2281,2393);
+        _SFD_CV_INIT_SCRIPT_IF(1,9,2281,2305,2402,2532);
+        _SFD_CV_INIT_SCRIPT_IF(1,10,2402,2411,2463,2532);
+        _SFD_CV_INIT_SCRIPT_WHILE(1,0,1482,1490,1962);
+        _SFD_CV_INIT_SCRIPT_WHILE(1,1,2031,2039,2542);
 
         {
-          static int condStart[] = { 1547, 1556, 1565, 1574 };
+          static int condStart[] = { 1547, 1557, 1567, 1576 };
 
-          static int condEnd[] = { 1552, 1561, 1570, 1579 };
+          static int condEnd[] = { 1553, 1563, 1572, 1581 };
 
           static int pfixExpr[] = { 0, 1, -2, 2, -2, 3, -2 };
 
-          _SFD_CV_INIT_SCRIPT_MCDC(1,0,1547,1579,4,0,&(condStart[0]),&(condEnd[0]),
+          _SFD_CV_INIT_SCRIPT_MCDC(1,0,1547,1581,4,0,&(condStart[0]),&(condEnd[0]),
             7,&(pfixExpr[0]));
         }
 
         {
-          static int condStart[] = { 2094, 2103, 2112, 2121 };
+          static int condStart[] = { 2096, 2106, 2116, 2125 };
 
-          static int condEnd[] = { 2099, 2108, 2117, 2126 };
+          static int condEnd[] = { 2102, 2112, 2121, 2130 };
 
           static int pfixExpr[] = { 0, 1, -2, 2, -2, 3, -2 };
 
-          _SFD_CV_INIT_SCRIPT_MCDC(1,1,2094,2126,4,4,&(condStart[0]),&(condEnd[0]),
+          _SFD_CV_INIT_SCRIPT_MCDC(1,1,2096,2130,4,4,&(condStart[0]),&(condEnd[0]),
             7,&(pfixExpr[0]));
         }
 
@@ -6440,7 +6452,7 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
 
 static const char* sf_get_instance_specialization(void)
 {
-  return "75MkcIZxtK1oomZZvvpLTB";
+  return "XfeqXlR09XU765x7fCuYS";
 }
 
 static void sf_opaque_initialize_c1_AutoFollow_Simulation(void *chartInstanceVar)
@@ -6632,10 +6644,10 @@ static void mdlSetWorkWidths_c1_AutoFollow_Simulation(SimStruct *S)
   }
 
   ssSetOptions(S,ssGetOptions(S)|SS_OPTION_WORKS_WITH_CODE_REUSE);
-  ssSetChecksum0(S,(2597844685U));
-  ssSetChecksum1(S,(458217449U));
-  ssSetChecksum2(S,(164490035U));
-  ssSetChecksum3(S,(3884262142U));
+  ssSetChecksum0(S,(1363662366U));
+  ssSetChecksum1(S,(3924093266U));
+  ssSetChecksum2(S,(918035180U));
+  ssSetChecksum3(S,(3448784397U));
   ssSetmdlDerivatives(S, NULL);
   ssSetExplicitFCSSCtrl(S,1);
   ssSupportsMultipleExecInstances(S,1);

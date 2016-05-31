@@ -13,10 +13,10 @@ addpath(genpath('./Lidar'));
 
 % or load a map from file - update map in Lidar/MATLAB Function and
 % Camera/relativePosition simulink matlab functions
-% load('./Lidar/ObstacleMap/obstaclemap.mat'); % obstacle map
-% load('./Lidar/ObstacleMap/obstacleGroundTruth.mat');
-load('./Lidar/ObstacleMap/clearmap.mat');   % Clear map
-load('./Lidar/ObstacleMap/clearGroundTruth.mat');
+load('./Lidar/ObstacleMap/obstaclemap.mat'); % obstacle map
+load('./Lidar/ObstacleMap/obstacleGroundTruth.mat');
+% load('./Lidar/ObstacleMap/clearmap.map');   % Clear map
+% load('./Lidar/ObstacleMap/clearGroundTruth.mat');
 
 
 % load current human path command
