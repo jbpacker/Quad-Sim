@@ -2935,31 +2935,31 @@ static void init_script_number_translation(uint32_T c3_machineNumber, uint32_T
   (void)c3_machineNumber;
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 0U,
     sf_debug_get_script_id(
-    "C:\\Users\\jpacker\\stash\\Quad-Sim\\Quadcopter Dynamic Modeling and Simulation\\Lidar\\rvctools\\robot\\se2.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 1U,
     sf_debug_get_script_id(
-    "C:\\Users\\jpacker\\stash\\Quad-Sim\\Quadcopter Dynamic Modeling and Simulation\\Lidar\\assignment6\\laserScanner.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 2U,
     sf_debug_get_script_id(
-    "C:\\Users\\jpacker\\stash\\Quad-Sim\\Quadcopter Dynamic Modeling and Simulation\\Lidar\\assignment6\\XYtoIJ.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 3U,
     sf_debug_get_script_id(
-    "C:\\Users\\jpacker\\stash\\Quad-Sim\\Quadcopter Dynamic Modeling and Simulation\\Lidar\\geom2d\\geom2d\\geom2d\\clipLine.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 4U,
     sf_debug_get_script_id(
-    "C:\\Users\\jpacker\\stash\\Quad-Sim\\Quadcopter Dynamic Modeling and Simulation\\Lidar\\geom2d\\geom2d\\geom2d\\intersectLines.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 5U,
     sf_debug_get_script_id(
-    "C:\\Users\\jpacker\\stash\\Quad-Sim\\Quadcopter Dynamic Modeling and Simulation\\Lidar\\geom2d\\geom2d\\geom2d\\linePosition.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 6U,
     sf_debug_get_script_id(
-    "C:\\Users\\jpacker\\stash\\Quad-Sim\\Quadcopter Dynamic Modeling and Simulation\\Lidar\\rvctools\\common\\laserRange.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 7U,
     sf_debug_get_script_id(
-    "C:\\Users\\jpacker\\stash\\Quad-Sim\\Quadcopter Dynamic Modeling and Simulation\\Lidar\\assignment6\\IJtoXY.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 8U,
     sf_debug_get_script_id(
-    "C:\\Users\\jpacker\\stash\\Quad-Sim\\Quadcopter Dynamic Modeling and Simulation\\Lidar\\geom2d\\geom2d\\geom2d\\deg2rad.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/deg2rad.m"));
 }
 
 static void c3_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
@@ -4870,11 +4870,11 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/mrdivide.p"), "resolved",
                   "resolved", 0);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388463696U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388492496U), "fileTimeLo",
                   "fileTimeLo", 0);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 0);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370017086U), "mFileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370042286U), "mFileTimeLo",
                   "mFileTimeLo", 0);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "mFileTimeHi",
                   "mFileTimeHi", 0);
@@ -4892,7 +4892,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/assert.m"),
                   "resolved", "resolved", 1);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 1);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 1);
@@ -4913,7 +4913,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/rdivide.m"), "resolved",
                   "resolved", 2);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717480U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742680U), "fileTimeLo",
                   "fileTimeLo", 2);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 2);
@@ -4935,7 +4935,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 3);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 3);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 3);
@@ -4957,7 +4957,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalexp_compatible.m"),
                   "resolved", "resolved", 4);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825996U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851196U), "fileTimeLo",
                   "fileTimeLo", 4);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 4);
@@ -4978,7 +4978,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_div.m"), "resolved",
                   "resolved", 5);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
                   "fileTimeLo", 5);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 5);
@@ -5000,7 +5000,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/coder/coder/+coder/+internal/div.p"), "resolved",
                   "resolved", 6);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389311520U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389340320U), "fileTimeLo",
                   "fileTimeLo", 6);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 6);
@@ -5017,9 +5017,9 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 7);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
                   "resolved", "resolved", 7);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464140128U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464659355U), "fileTimeLo",
                   "fileTimeLo", 7);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 7);
@@ -5032,7 +5032,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_rhs7), "rhs", "rhs", 7);
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs7), "lhs", "lhs", 7);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
                   "context", "context", 8);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("length"), "name", "name", 8);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5040,7 +5040,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/length.m"), "resolved",
                   "resolved", 8);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1303153406U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1303178606U), "fileTimeLo",
                   "fileTimeLo", 8);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 8);
@@ -5053,7 +5053,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_rhs8), "rhs", "rhs", 8);
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs8), "lhs", "lhs", 8);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
                   "context", "context", 9);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("cos"), "name", "name", 9);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5061,7 +5061,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/cos.m"), "resolved",
                   "resolved", 9);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343837572U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343862772U), "fileTimeLo",
                   "fileTimeLo", 9);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 9);
@@ -5083,7 +5083,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/eml_scalar_cos.m"),
                   "resolved", "resolved", 10);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825922U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851122U), "fileTimeLo",
                   "fileTimeLo", 10);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 10);
@@ -5098,7 +5098,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs10), "lhs", "lhs",
                   10);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
                   "context", "context", 11);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("sin"), "name", "name", 11);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5106,7 +5106,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/sin.m"), "resolved",
                   "resolved", 11);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343837586U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343862786U), "fileTimeLo",
                   "fileTimeLo", 11);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 11);
@@ -5130,7 +5130,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/eml_scalar_sin.m"),
                   "resolved", "resolved", 12);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825936U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851136U), "fileTimeLo",
                   "fileTimeLo", 12);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 12);
@@ -5150,9 +5150,9 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 13);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "resolved", "resolved", 13);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464206045U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464659354U), "fileTimeLo",
                   "fileTimeLo", 13);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 13);
@@ -5167,7 +5167,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs13), "lhs", "lhs",
                   13);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 14);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mrdivide"), "name", "name", 14);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5175,11 +5175,11 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/mrdivide.p"), "resolved",
                   "resolved", 14);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388463696U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388492496U), "fileTimeLo",
                   "fileTimeLo", 14);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 14);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370017086U), "mFileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370042286U), "mFileTimeLo",
                   "mFileTimeLo", 14);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "mFileTimeHi",
                   "mFileTimeHi", 14);
@@ -5190,7 +5190,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs14), "lhs", "lhs",
                   14);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 15);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("round"), "name", "name", 15);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5198,7 +5198,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/round.m"), "resolved",
                   "resolved", 15);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717454U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742654U), "fileTimeLo",
                   "fileTimeLo", 15);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 15);
@@ -5222,7 +5222,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 16);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 16);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 16);
@@ -5246,7 +5246,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/eml_scalar_round.m"),
                   "resolved", "resolved", 17);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1307658438U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1307683638U), "fileTimeLo",
                   "fileTimeLo", 17);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 17);
@@ -5261,7 +5261,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs17), "lhs", "lhs",
                   17);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 18);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("eml_mtimes_helper"), "name",
                   "name", 18);
@@ -5270,7 +5270,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/eml_mtimes_helper.m"),
                   "resolved", "resolved", 18);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1383880894U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1383909694U), "fileTimeLo",
                   "fileTimeLo", 18);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 18);
@@ -5294,7 +5294,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 19);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 19);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 19);
@@ -5318,7 +5318,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_class.m"),
                   "resolved", "resolved", 20);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323174178U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323202978U), "fileTimeLo",
                   "fileTimeLo", 20);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 20);
@@ -5342,7 +5342,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalar_eg.m"), "resolved",
                   "resolved", 21);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
                   "fileTimeLo", 21);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 21);
@@ -5366,7 +5366,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/coder/coder/+coder/+internal/scalarEg.p"),
                   "resolved", "resolved", 22);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389311520U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389340320U), "fileTimeLo",
                   "fileTimeLo", 22);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 22);
@@ -5390,7 +5390,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/blas/eml_xgemm.m"),
                   "resolved", "resolved", 23);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987890U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013090U), "fileTimeLo",
                   "fileTimeLo", 23);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 23);
@@ -5414,7 +5414,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/coder/coder/+coder/+internal/+blas/inline.p"),
                   "resolved", "resolved", 24);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389311522U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389340322U), "fileTimeLo",
                   "fileTimeLo", 24);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 24);
@@ -5438,7 +5438,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/coder/coder/+coder/+internal/+blas/xgemm.p"),
                   "resolved", "resolved", 25);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389311522U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389340322U), "fileTimeLo",
                   "fileTimeLo", 25);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 25);
@@ -5462,7 +5462,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/coder/coder/+coder/+internal/+blas/use_refblas.p"),
                   "resolved", "resolved", 26);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389311522U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389340322U), "fileTimeLo",
                   "fileTimeLo", 26);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 26);
@@ -5486,7 +5486,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/coder/coder/+coder/+internal/+blas/threshold.p"),
                   "resolved", "resolved", 27);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389311522U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389340322U), "fileTimeLo",
                   "fileTimeLo", 27);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 27);
@@ -5510,7 +5510,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_switch_helper.m"),
                   "resolved", "resolved", 28);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1381857500U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1381882700U), "fileTimeLo",
                   "fileTimeLo", 28);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 28);
@@ -5534,7 +5534,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/coder/coder/+coder/+internal/scalarEg.p"),
                   "resolved", "resolved", 29);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389311520U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389340320U), "fileTimeLo",
                   "fileTimeLo", 29);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 29);
@@ -5558,7 +5558,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/coder/coder/+coder/+internal/+refblas/xgemm.p"),
                   "resolved", "resolved", 30);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389311522U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389340322U), "fileTimeLo",
                   "fileTimeLo", 30);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 30);
@@ -5573,15 +5573,15 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs30), "lhs", "lhs",
                   30);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 31);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("XYtoIJ"), "name", "name", 31);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 31);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
                   "resolved", "resolved", 31);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464140122U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464659354U), "fileTimeLo",
                   "fileTimeLo", 31);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 31);
@@ -5596,7 +5596,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs31), "lhs", "lhs",
                   31);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
                   "context", "context", 32);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mrdivide"), "name", "name", 32);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5604,11 +5604,11 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/mrdivide.p"), "resolved",
                   "resolved", 32);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388463696U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388492496U), "fileTimeLo",
                   "fileTimeLo", 32);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 32);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370017086U), "mFileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370042286U), "mFileTimeLo",
                   "mFileTimeLo", 32);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "mFileTimeHi",
                   "mFileTimeHi", 32);
@@ -5619,7 +5619,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs32), "lhs", "lhs",
                   32);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
                   "context", "context", 33);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("round"), "name", "name", 33);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5627,7 +5627,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/round.m"), "resolved",
                   "resolved", 33);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717454U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742654U), "fileTimeLo",
                   "fileTimeLo", 33);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 33);
@@ -5642,7 +5642,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs33), "lhs", "lhs",
                   33);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 34);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("cos"), "name", "name", 34);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5650,7 +5650,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/cos.m"), "resolved",
                   "resolved", 34);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343837572U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343862772U), "fileTimeLo",
                   "fileTimeLo", 34);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 34);
@@ -5665,7 +5665,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs34), "lhs", "lhs",
                   34);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 35);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("sin"), "name", "name", 35);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5673,7 +5673,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/sin.m"), "resolved",
                   "resolved", 35);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343837586U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343862786U), "fileTimeLo",
                   "fileTimeLo", 35);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 35);
@@ -5688,15 +5688,15 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs35), "lhs", "lhs",
                   35);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 36);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("clipLine"), "name", "name", 36);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 36);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "resolved", "resolved", 36);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464140123U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464659354U), "fileTimeLo",
                   "fileTimeLo", 36);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 36);
@@ -5711,7 +5711,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs36), "lhs", "lhs",
                   36);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 37);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("hypot"), "name", "name", 37);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5719,7 +5719,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/hypot.m"), "resolved",
                   "resolved", 37);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343837580U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343862780U), "fileTimeLo",
                   "fileTimeLo", 37);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 37);
@@ -5743,7 +5743,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalar_eg.m"), "resolved",
                   "resolved", 38);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
                   "fileTimeLo", 38);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 38);
@@ -5767,7 +5767,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalexp_alloc.m"),
                   "resolved", "resolved", 39);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
                   "fileTimeLo", 39);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 39);
@@ -5791,7 +5791,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/coder/coder/+coder/+internal/scalexpAlloc.p"),
                   "resolved", "resolved", 40);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389311520U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1389340320U), "fileTimeLo",
                   "fileTimeLo", 40);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 40);
@@ -5815,7 +5815,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/eml_scalar_hypot.m"),
                   "resolved", "resolved", 41);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825926U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851126U), "fileTimeLo",
                   "fileTimeLo", 41);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 41);
@@ -5839,7 +5839,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalar_eg.m"), "resolved",
                   "resolved", 42);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
                   "fileTimeLo", 42);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 42);
@@ -5863,7 +5863,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_dlapy2.m"), "resolved",
                   "resolved", 43);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1350417854U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1350443054U), "fileTimeLo",
                   "fileTimeLo", 43);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 43);
@@ -5878,16 +5878,16 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs43), "lhs", "lhs",
                   43);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 44);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("intersectLines"), "name",
                   "name", 44);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 44);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
                   "resolved", "resolved", 44);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464140123U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464659354U), "fileTimeLo",
                   "fileTimeLo", 44);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 44);
@@ -5902,7 +5902,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs44), "lhs", "lhs",
                   44);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
                   "context", "context", 45);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("max"), "name", "name", 45);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5910,7 +5910,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/datafun/max.m"), "resolved",
                   "resolved", 45);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1311262516U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1311287716U), "fileTimeLo",
                   "fileTimeLo", 45);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 45);
@@ -5934,7 +5934,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_min_or_max.m"),
                   "resolved", "resolved", 46);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1378303184U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1378328384U), "fileTimeLo",
                   "fileTimeLo", 46);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 46);
@@ -5958,7 +5958,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalar_eg.m"), "resolved",
                   "resolved", 47);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
                   "fileTimeLo", 47);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 47);
@@ -5982,7 +5982,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalexp_alloc.m"),
                   "resolved", "resolved", 48);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
                   "fileTimeLo", 48);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 48);
@@ -6006,7 +6006,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_class.m"),
                   "resolved", "resolved", 49);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323174178U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323202978U), "fileTimeLo",
                   "fileTimeLo", 49);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 49);
@@ -6030,7 +6030,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalar_eg.m"), "resolved",
                   "resolved", 50);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
                   "fileTimeLo", 50);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 50);
@@ -6054,7 +6054,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 51);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 51);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 51);
@@ -6069,7 +6069,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs51), "lhs", "lhs",
                   51);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
                   "context", "context", 52);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("bsxfun"), "name", "name", 52);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("function_handle"),
@@ -6077,7 +6077,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/bsxfun.m"), "resolved",
                   "resolved", 52);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1356545094U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1356573894U), "fileTimeLo",
                   "fileTimeLo", 52);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 52);
@@ -6101,7 +6101,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_class.m"),
                   "resolved", "resolved", 53);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323174178U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323202978U), "fileTimeLo",
                   "fileTimeLo", 53);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 53);
@@ -6124,7 +6124,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/datafun/min.m"), "resolved",
                   "resolved", 54);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1311262518U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1311287718U), "fileTimeLo",
                   "fileTimeLo", 54);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 54);
@@ -6148,7 +6148,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_min_or_max.m"),
                   "resolved", "resolved", 55);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1378303184U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1378328384U), "fileTimeLo",
                   "fileTimeLo", 55);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 55);
@@ -6171,7 +6171,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/datafun/max.m"), "resolved",
                   "resolved", 56);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1311262516U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1311287716U), "fileTimeLo",
                   "fileTimeLo", 56);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 56);
@@ -6195,7 +6195,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_minus.m"),
                   "resolved", "resolved", 57);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
                   "fileTimeLo", 57);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 57);
@@ -6219,7 +6219,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/indexMinus.m"),
                   "resolved", "resolved", 58);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590360U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615560U), "fileTimeLo",
                   "fileTimeLo", 58);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 58);
@@ -6243,7 +6243,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalar_eg.m"), "resolved",
                   "resolved", 59);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
                   "fileTimeLo", 59);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 59);
@@ -6267,7 +6267,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_class.m"),
                   "resolved", "resolved", 60);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323174178U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323202978U), "fileTimeLo",
                   "fileTimeLo", 60);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 60);
@@ -6291,7 +6291,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_plus.m"),
                   "resolved", "resolved", 61);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
                   "fileTimeLo", 61);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 61);
@@ -6315,7 +6315,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/indexPlus.m"),
                   "resolved", "resolved", 62);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590360U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615560U), "fileTimeLo",
                   "fileTimeLo", 62);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 62);
@@ -6339,7 +6339,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_plus.m"),
                   "resolved", "resolved", 63);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
                   "fileTimeLo", 63);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 63);
@@ -6640,7 +6640,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/indexPlus.m"),
                   "resolved", "resolved", 64);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590360U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615560U), "fileTimeLo",
                   "fileTimeLo", 64);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 64);
@@ -6655,7 +6655,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs64), "lhs", "lhs",
                   64);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
                   "context", "context", 65);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("abs"), "name", "name", 65);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -6663,7 +6663,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/abs.m"), "resolved",
                   "resolved", 65);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717452U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742652U), "fileTimeLo",
                   "fileTimeLo", 65);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 65);
@@ -6687,7 +6687,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 66);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 66);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 66);
@@ -6711,7 +6711,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/eml_scalar_abs.m"),
                   "resolved", "resolved", 67);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825912U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851112U), "fileTimeLo",
                   "fileTimeLo", 67);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 67);
@@ -6726,7 +6726,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs67), "lhs", "lhs",
                   67);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
                   "context", "context", 68);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("all"), "name", "name", 68);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("logical"), "dominantType",
@@ -6734,7 +6734,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/all.m"), "resolved",
                   "resolved", 68);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589614U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614814U), "fileTimeLo",
                   "fileTimeLo", 68);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 68);
@@ -6758,7 +6758,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/assert.m"),
                   "resolved", "resolved", 69);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 69);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 69);
@@ -6782,7 +6782,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 70);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 70);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 70);
@@ -6806,7 +6806,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/allOrAny.m"),
                   "resolved", "resolved", 71);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590358U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615558U), "fileTimeLo",
                   "fileTimeLo", 71);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 71);
@@ -6830,7 +6830,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/assert.m"),
                   "resolved", "resolved", 72);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 72);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 72);
@@ -6853,7 +6853,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/isequal.m"), "resolved",
                   "resolved", 73);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825958U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851158U), "fileTimeLo",
                   "fileTimeLo", 73);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 73);
@@ -6877,7 +6877,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_isequal_core.m"),
                   "resolved", "resolved", 74);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825986U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851186U), "fileTimeLo",
                   "fileTimeLo", 74);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 74);
@@ -6901,7 +6901,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/constNonSingletonDim.m"),
                   "resolved", "resolved", 75);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590360U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615560U), "fileTimeLo",
                   "fileTimeLo", 75);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 75);
@@ -6916,7 +6916,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs75), "lhs", "lhs",
                   75);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
                   "context", "context", 76);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("eml_li_find"), "name", "name",
                   76);
@@ -6925,7 +6925,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_li_find.m"), "resolved",
                   "resolved", 76);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825986U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851186U), "fileTimeLo",
                   "fileTimeLo", 76);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 76);
@@ -6949,7 +6949,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_class.m"),
                   "resolved", "resolved", 77);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323174178U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323202978U), "fileTimeLo",
                   "fileTimeLo", 77);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 77);
@@ -6973,7 +6973,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_class.m"),
                   "resolved", "resolved", 78);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323174178U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323202978U), "fileTimeLo",
                   "fileTimeLo", 78);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 78);
@@ -6997,7 +6997,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_plus.m"),
                   "resolved", "resolved", 79);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
                   "fileTimeLo", 79);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 79);
@@ -7021,7 +7021,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_plus.m"),
                   "resolved", "resolved", 80);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
                   "fileTimeLo", 80);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 80);
@@ -7036,7 +7036,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs80), "lhs", "lhs",
                   80);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
                   "context", "context", 81);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("rdivide"), "name", "name", 81);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -7044,7 +7044,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/rdivide.m"), "resolved",
                   "resolved", 81);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717480U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742680U), "fileTimeLo",
                   "fileTimeLo", 81);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 81);
@@ -7059,7 +7059,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs81), "lhs", "lhs",
                   81);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 82);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("isfinite"), "name", "name", 82);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -7067,7 +7067,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/isfinite.m"), "resolved",
                   "resolved", 82);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717456U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742656U), "fileTimeLo",
                   "fileTimeLo", 82);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 82);
@@ -7091,7 +7091,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 83);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 83);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 83);
@@ -7114,7 +7114,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/isinf.m"), "resolved",
                   "resolved", 84);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717456U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742656U), "fileTimeLo",
                   "fileTimeLo", 84);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 84);
@@ -7138,7 +7138,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 85);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 85);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 85);
@@ -7161,7 +7161,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/isnan.m"), "resolved",
                   "resolved", 86);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717458U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742658U), "fileTimeLo",
                   "fileTimeLo", 86);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 86);
@@ -7185,7 +7185,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 87);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 87);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 87);
@@ -7200,7 +7200,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs87), "lhs", "lhs",
                   87);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 88);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("eml_li_find"), "name", "name",
                   88);
@@ -7209,7 +7209,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_li_find.m"), "resolved",
                   "resolved", 88);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825986U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851186U), "fileTimeLo",
                   "fileTimeLo", 88);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 88);
@@ -7233,7 +7233,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_int_forloop_overflow_check.m"),
                   "resolved", "resolved", 89);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
                   "fileTimeLo", 89);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 89);
@@ -7256,7 +7256,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/intmax.m"), "resolved",
                   "resolved", 90);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1362265482U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1362294282U), "fileTimeLo",
                   "fileTimeLo", 90);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 90);
@@ -7280,7 +7280,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_switch_helper.m"),
                   "resolved", "resolved", 91);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1381857500U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1381882700U), "fileTimeLo",
                   "fileTimeLo", 91);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 91);
@@ -7304,7 +7304,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_int_forloop_overflow_check.m"),
                   "resolved", "resolved", 92);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
                   "fileTimeLo", 92);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 92);
@@ -7319,16 +7319,16 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs92), "lhs", "lhs",
                   92);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 93);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("linePosition"), "name", "name",
                   93);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 93);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
                   "resolved", "resolved", 93);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464140123U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464659354U), "fileTimeLo",
                   "fileTimeLo", 93);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 93);
@@ -7343,7 +7343,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs93), "lhs", "lhs",
                   93);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
                   "context", "context", 94);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("bsxfun"), "name", "name", 94);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("function_handle"),
@@ -7351,7 +7351,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/bsxfun.m"), "resolved",
                   "resolved", 94);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1356545094U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1356573894U), "fileTimeLo",
                   "fileTimeLo", 94);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 94);
@@ -7374,7 +7374,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/datafun/min.m"), "resolved",
                   "resolved", 95);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1311262518U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1311287718U), "fileTimeLo",
                   "fileTimeLo", 95);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 95);
@@ -7398,7 +7398,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_int_forloop_overflow_check.m"),
                   "resolved", "resolved", 96);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
                   "fileTimeLo", 96);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 96);
@@ -7421,7 +7421,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/intmin.m"), "resolved",
                   "resolved", 97);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1362265482U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1362294282U), "fileTimeLo",
                   "fileTimeLo", 97);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 97);
@@ -7445,7 +7445,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_switch_helper.m"),
                   "resolved", "resolved", 98);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1381857500U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1381882700U), "fileTimeLo",
                   "fileTimeLo", 98);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 98);
@@ -7469,7 +7469,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_minus.m"),
                   "resolved", "resolved", 99);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
                   "fileTimeLo", 99);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 99);
@@ -7493,7 +7493,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/indexMinus.m"),
                   "resolved", "resolved", 100);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590360U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615560U), "fileTimeLo",
                   "fileTimeLo", 100);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 100);
@@ -7508,7 +7508,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs100), "lhs", "lhs",
                   100);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
                   "context", "context", 101);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("eps"), "name", "name", 101);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(""), "dominantType",
@@ -7516,7 +7516,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/eps.m"), "resolved",
                   "resolved", 101);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1326731596U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1326760396U), "fileTimeLo",
                   "fileTimeLo", 101);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 101);
@@ -7539,7 +7539,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_eps.m"), "resolved",
                   "resolved", 102);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1326731596U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1326760396U), "fileTimeLo",
                   "fileTimeLo", 102);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 102);
@@ -7563,7 +7563,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_float_model.m"),
                   "resolved", "resolved", 103);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1326731596U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1326760396U), "fileTimeLo",
                   "fileTimeLo", 103);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 103);
@@ -7578,7 +7578,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs103), "lhs", "lhs",
                   103);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
                   "context", "context", 104);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("eml_li_find"), "name", "name",
                   104);
@@ -7587,7 +7587,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_li_find.m"), "resolved",
                   "resolved", 104);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825986U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851186U), "fileTimeLo",
                   "fileTimeLo", 104);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 104);
@@ -7602,7 +7602,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs104), "lhs", "lhs",
                   104);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
                   "context", "context", 105);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("rdivide"), "name", "name", 105);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(""), "dominantType",
@@ -7610,7 +7610,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/rdivide.m"), "resolved",
                   "resolved", 105);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717480U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742680U), "fileTimeLo",
                   "fileTimeLo", 105);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 105);
@@ -7633,7 +7633,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/rdivide.m"), "resolved",
                   "resolved", 106);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717480U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742680U), "fileTimeLo",
                   "fileTimeLo", 106);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 106);
@@ -7656,7 +7656,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/isequal.m"), "resolved",
                   "resolved", 107);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825958U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851158U), "fileTimeLo",
                   "fileTimeLo", 107);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 107);
@@ -7679,7 +7679,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/isnan.m"), "resolved",
                   "resolved", 108);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717458U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742658U), "fileTimeLo",
                   "fileTimeLo", 108);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 108);
@@ -7694,7 +7694,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs108), "lhs", "lhs",
                   108);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 109);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("sort"), "name", "name", 109);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -7702,7 +7702,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/datafun/sort.m"), "resolved",
                   "resolved", 109);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717456U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742656U), "fileTimeLo",
                   "fileTimeLo", 109);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 109);
@@ -7726,7 +7726,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 110);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 110);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 110);
@@ -7750,7 +7750,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_sort.m"), "resolved",
                   "resolved", 111);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1314743812U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1314769012U), "fileTimeLo",
                   "fileTimeLo", 111);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 111);
@@ -7774,7 +7774,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_nonsingleton_dim.m"),
                   "resolved", "resolved", 112);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1307658442U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1307683642U), "fileTimeLo",
                   "fileTimeLo", 112);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 112);
@@ -7798,7 +7798,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_class.m"),
                   "resolved", "resolved", 113);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323174178U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323202978U), "fileTimeLo",
                   "fileTimeLo", 113);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 113);
@@ -7822,7 +7822,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_assert_valid_dim.m"),
                   "resolved", "resolved", 114);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
                   "fileTimeLo", 114);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 114);
@@ -7846,7 +7846,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/assertValidDim.m"),
                   "resolved", "resolved", 115);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590360U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615560U), "fileTimeLo",
                   "fileTimeLo", 115);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 115);
@@ -7870,7 +7870,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 116);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 116);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 116);
@@ -7893,7 +7893,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/floor.m"), "resolved",
                   "resolved", 117);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717454U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742654U), "fileTimeLo",
                   "fileTimeLo", 117);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 117);
@@ -7917,7 +7917,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 118);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 118);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 118);
@@ -7941,7 +7941,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/eml_scalar_floor.m"),
                   "resolved", "resolved", 119);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825926U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851126U), "fileTimeLo",
                   "fileTimeLo", 119);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 119);
@@ -7964,7 +7964,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/intmax.m"), "resolved",
                   "resolved", 120);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1362265482U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1362294282U), "fileTimeLo",
                   "fileTimeLo", 120);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 120);
@@ -7988,7 +7988,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalar_eg.m"), "resolved",
                   "resolved", 121);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
                   "fileTimeLo", 121);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 121);
@@ -8012,7 +8012,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_class.m"),
                   "resolved", "resolved", 122);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323174178U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323202978U), "fileTimeLo",
                   "fileTimeLo", 122);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 122);
@@ -8036,7 +8036,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_matrix_vstride.m"),
                   "resolved", "resolved", 123);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1360285950U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1360314750U), "fileTimeLo",
                   "fileTimeLo", 123);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 123);
@@ -8060,7 +8060,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/prodsize.m"),
                   "resolved", "resolved", 124);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1360286188U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1360314988U), "fileTimeLo",
                   "fileTimeLo", 124);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 124);
@@ -8084,7 +8084,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_int_forloop_overflow_check.m"),
                   "resolved", "resolved", 125);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
                   "fileTimeLo", 125);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 125);
@@ -8108,7 +8108,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_minus.m"),
                   "resolved", "resolved", 126);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
                   "fileTimeLo", 126);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 126);
@@ -8132,7 +8132,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_times.m"),
                   "resolved", "resolved", 127);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
                   "fileTimeLo", 127);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 127);
@@ -8396,7 +8396,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/indexTimes.m"),
                   "resolved", "resolved", 128);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590360U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615560U), "fileTimeLo",
                   "fileTimeLo", 128);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 128);
@@ -8420,7 +8420,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_matrix_npages.m"),
                   "resolved", "resolved", 129);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1360285950U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1360314750U), "fileTimeLo",
                   "fileTimeLo", 129);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 129);
@@ -8444,7 +8444,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/prodsize.m"),
                   "resolved", "resolved", 130);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1360286188U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1360314988U), "fileTimeLo",
                   "fileTimeLo", 130);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 130);
@@ -8468,7 +8468,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_int_forloop_overflow_check.m"),
                   "resolved", "resolved", 131);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
                   "fileTimeLo", 131);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 131);
@@ -8492,7 +8492,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_plus.m"),
                   "resolved", "resolved", 132);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
                   "fileTimeLo", 132);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 132);
@@ -8516,7 +8516,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_plus.m"),
                   "resolved", "resolved", 133);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
                   "fileTimeLo", 133);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 133);
@@ -8540,7 +8540,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_sort_idx.m"), "resolved",
                   "resolved", 134);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1305325204U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1305350404U), "fileTimeLo",
                   "fileTimeLo", 134);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 134);
@@ -8564,7 +8564,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_class.m"),
                   "resolved", "resolved", 135);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323174178U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323202978U), "fileTimeLo",
                   "fileTimeLo", 135);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 135);
@@ -8588,7 +8588,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_plus.m"),
                   "resolved", "resolved", 136);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
                   "fileTimeLo", 136);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 136);
@@ -8612,7 +8612,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_int_forloop_overflow_check.m"),
                   "resolved", "resolved", 137);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
                   "fileTimeLo", 137);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 137);
@@ -8636,7 +8636,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_minus.m"),
                   "resolved", "resolved", 138);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
                   "fileTimeLo", 138);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 138);
@@ -8660,7 +8660,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_plus.m"),
                   "resolved", "resolved", 139);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
                   "fileTimeLo", 139);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 139);
@@ -8684,7 +8684,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_sort_le.m"), "resolved",
                   "resolved", 140);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1292194110U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1292222910U), "fileTimeLo",
                   "fileTimeLo", 140);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 140);
@@ -8708,7 +8708,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_relop.m"), "resolved",
                   "resolved", 141);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1342458382U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1342483582U), "fileTimeLo",
                   "fileTimeLo", 141);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 141);
@@ -8731,7 +8731,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/isnan.m"), "resolved",
                   "resolved", 142);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717458U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742658U), "fileTimeLo",
                   "fileTimeLo", 142);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 142);
@@ -8755,7 +8755,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_times.m"),
                   "resolved", "resolved", 143);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
                   "fileTimeLo", 143);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 143);
@@ -8779,7 +8779,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/indexTimes.m"),
                   "resolved", "resolved", 144);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590360U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615560U), "fileTimeLo",
                   "fileTimeLo", 144);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 144);
@@ -8803,7 +8803,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_minus.m"),
                   "resolved", "resolved", 145);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
                   "fileTimeLo", 145);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 145);
@@ -8818,7 +8818,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs145), "lhs", "lhs",
                   145);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 146);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mrdivide"), "name", "name",
                   146);
@@ -8827,11 +8827,11 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/mrdivide.p"), "resolved",
                   "resolved", 146);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388463696U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388492496U), "fileTimeLo",
                   "fileTimeLo", 146);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 146);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370017086U), "mFileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370042286U), "mFileTimeLo",
                   "mFileTimeLo", 146);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "mFileTimeHi",
                   "mFileTimeHi", 146);
@@ -8842,7 +8842,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs146), "lhs", "lhs",
                   146);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 147);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mean"), "name", "name", 147);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -8850,7 +8850,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/datafun/mean.m"), "resolved",
                   "resolved", 147);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1383880884U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1383909684U), "fileTimeLo",
                   "fileTimeLo", 147);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 147);
@@ -8874,7 +8874,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/assert.m"),
                   "resolved", "resolved", 148);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 148);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 148);
@@ -8898,7 +8898,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 149);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 149);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 149);
@@ -8921,7 +8921,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/isequal.m"), "resolved",
                   "resolved", 150);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825958U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851158U), "fileTimeLo",
                   "fileTimeLo", 150);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 150);
@@ -8945,7 +8945,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/constNonSingletonDim.m"),
                   "resolved", "resolved", 151);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590360U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615560U), "fileTimeLo",
                   "fileTimeLo", 151);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 151);
@@ -8968,7 +8968,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/datafun/sum.m"), "resolved",
                   "resolved", 152);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717458U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742658U), "fileTimeLo",
                   "fileTimeLo", 152);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 152);
@@ -8992,7 +8992,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 153);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 153);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 153);
@@ -9016,7 +9016,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_assert_valid_dim.m"),
                   "resolved", "resolved", 154);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589616U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614816U), "fileTimeLo",
                   "fileTimeLo", 154);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 154);
@@ -9040,7 +9040,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/assertValidDim.m"),
                   "resolved", "resolved", 155);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372590360U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372615560U), "fileTimeLo",
                   "fileTimeLo", 155);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 155);
@@ -9064,7 +9064,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 156);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 156);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 156);
@@ -9087,7 +9087,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/floor.m"), "resolved",
                   "resolved", 157);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717454U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742654U), "fileTimeLo",
                   "fileTimeLo", 157);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 157);
@@ -9111,7 +9111,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 158);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 158);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 158);
@@ -9135,7 +9135,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/eml_scalar_floor.m"),
                   "resolved", "resolved", 159);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825926U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851126U), "fileTimeLo",
                   "fileTimeLo", 159);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 159);
@@ -9159,7 +9159,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_index_class.m"),
                   "resolved", "resolved", 160);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323174178U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1323202978U), "fileTimeLo",
                   "fileTimeLo", 160);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 160);
@@ -9183,7 +9183,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalar_eg.m"), "resolved",
                   "resolved", 161);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
                   "fileTimeLo", 161);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 161);
@@ -9206,7 +9206,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/rdivide.m"), "resolved",
                   "resolved", 162);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717480U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742680U), "fileTimeLo",
                   "fileTimeLo", 162);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 162);
@@ -9221,16 +9221,16 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs162), "lhs", "lhs",
                   162);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 163);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("laserRange"), "name", "name",
                   163);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 163);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"),
                   "resolved", "resolved", 163);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464754922U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464661458U), "fileTimeLo",
                   "fileTimeLo", 163);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 163);
@@ -9245,7 +9245,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs163), "lhs", "lhs",
                   163);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"),
                   "context", "context", 164);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("all"), "name", "name", 164);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("logical"), "dominantType",
@@ -9253,7 +9253,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/all.m"), "resolved",
                   "resolved", 164);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372589614U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1372614814U), "fileTimeLo",
                   "fileTimeLo", 164);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 164);
@@ -9268,7 +9268,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs164), "lhs", "lhs",
                   164);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 165);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("isinf"), "name", "name", 165);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -9276,7 +9276,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/isinf.m"), "resolved",
                   "resolved", 165);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717456U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742656U), "fileTimeLo",
                   "fileTimeLo", 165);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 165);
@@ -9291,15 +9291,15 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs165), "lhs", "lhs",
                   165);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 166);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("IJtoXY"), "name", "name", 166);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 166);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"),
                   "resolved", "resolved", 166);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464140122U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464659354U), "fileTimeLo",
                   "fileTimeLo", 166);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 166);
@@ -9314,7 +9314,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs166), "lhs", "lhs",
                   166);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"),
                   "context", "context", 167);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mrdivide"), "name", "name",
                   167);
@@ -9323,11 +9323,11 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/mrdivide.p"), "resolved",
                   "resolved", 167);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388463696U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388492496U), "fileTimeLo",
                   "fileTimeLo", 167);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 167);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370017086U), "mFileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370042286U), "mFileTimeLo",
                   "mFileTimeLo", 167);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "mFileTimeHi",
                   "mFileTimeHi", 167);
@@ -9338,7 +9338,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs167), "lhs", "lhs",
                   167);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 168);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mpower"), "name", "name", 168);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -9346,7 +9346,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/mpower.m"), "resolved",
                   "resolved", 168);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717478U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742678U), "fileTimeLo",
                   "fileTimeLo", 168);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 168);
@@ -9370,7 +9370,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 169);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 169);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 169);
@@ -9394,7 +9394,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elmat/ismatrix.m"), "resolved",
                   "resolved", 170);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1331308458U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1331337258U), "fileTimeLo",
                   "fileTimeLo", 170);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 170);
@@ -9417,7 +9417,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/power.m"), "resolved",
                   "resolved", 171);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717480U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742680U), "fileTimeLo",
                   "fileTimeLo", 171);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 171);
@@ -9441,7 +9441,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[IXE]$matlabroot$/toolbox/shared/coder/coder/+coder/+internal/isBuiltInNumeric.m"),
                   "resolved", "resolved", 172);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363718156U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363743356U), "fileTimeLo",
                   "fileTimeLo", 172);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 172);
@@ -9465,7 +9465,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalar_eg.m"), "resolved",
                   "resolved", 173);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
                   "fileTimeLo", 173);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 173);
@@ -9489,7 +9489,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalexp_alloc.m"),
                   "resolved", "resolved", 174);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
                   "fileTimeLo", 174);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 174);
@@ -9512,7 +9512,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/floor.m"), "resolved",
                   "resolved", 175);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363717454U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1363742654U), "fileTimeLo",
                   "fileTimeLo", 175);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 175);
@@ -9536,7 +9536,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_scalar_eg.m"), "resolved",
                   "resolved", 176);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1375987888U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1376013088U), "fileTimeLo",
                   "fileTimeLo", 176);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 176);
@@ -9551,7 +9551,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs176), "lhs", "lhs",
                   176);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 177);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("sqrt"), "name", "name", 177);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -9559,7 +9559,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/sqrt.m"), "resolved",
                   "resolved", 177);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343837586U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343862786U), "fileTimeLo",
                   "fileTimeLo", 177);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 177);
@@ -9583,7 +9583,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/eml/eml_error.m"), "resolved",
                   "resolved", 178);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343837558U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1343862758U), "fileTimeLo",
                   "fileTimeLo", 178);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 178);
@@ -9607,7 +9607,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/elfun/eml_scalar_sqrt.m"),
                   "resolved", "resolved", 179);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286825938U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1286851138U), "fileTimeLo",
                   "fileTimeLo", 179);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 179);
@@ -9626,9 +9626,9 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 180);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/deg2rad.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/deg2rad.m"),
                   "resolved", "resolved", 180);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464140123U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464659354U), "fileTimeLo",
                   "fileTimeLo", 180);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 180);
@@ -9643,7 +9643,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs180), "lhs", "lhs",
                   180);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]C:/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/deg2rad.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/deg2rad.m"),
                   "context", "context", 181);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mrdivide"), "name", "name",
                   181);
@@ -9652,11 +9652,11 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
     "[ILXE]$matlabroot$/toolbox/eml/lib/matlab/ops/mrdivide.p"), "resolved",
                   "resolved", 181);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388463696U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1388492496U), "fileTimeLo",
                   "fileTimeLo", 181);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 181);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370017086U), "mFileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1370042286U), "mFileTimeLo",
                   "mFileTimeLo", 181);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "mFileTimeHi",
                   "mFileTimeHi", 181);
@@ -11895,10 +11895,10 @@ static void mdlSetWorkWidths_c3_AutoFollow_Simulation(SimStruct *S)
   }
 
   ssSetOptions(S,ssGetOptions(S)|SS_OPTION_WORKS_WITH_CODE_REUSE);
-  ssSetChecksum0(S,(3377440334U));
-  ssSetChecksum1(S,(2764503494U));
-  ssSetChecksum2(S,(683322060U));
-  ssSetChecksum3(S,(3731489878U));
+  ssSetChecksum0(S,(1091354165U));
+  ssSetChecksum1(S,(3703371815U));
+  ssSetChecksum2(S,(3081604681U));
+  ssSetChecksum3(S,(2819875028U));
   ssSetmdlDerivatives(S, NULL);
   ssSetExplicitFCSSCtrl(S,1);
   ssSupportsMultipleExecInstances(S,1);
