@@ -728,7 +728,7 @@ static void c2_chartstep_c2_AutoFollow_Simulation
   _SFD_EML_CALL(0U, chartInstance->c2_sfEvent, 80);
   c2_Z = 3.0487804878048781;
   _SFD_EML_CALL(0U, chartInstance->c2_sfEvent, 81);
-  c2_Psi = c2_Chi;
+  c2_Psi = 1.5707963267948966;
   _SFD_EML_CALL(0U, chartInstance->c2_sfEvent, -81);
   _SFD_SYMBOL_SCOPE_POP();
   *c2_b_X = c2_X;
@@ -2241,10 +2241,10 @@ extern void utFree(void*);
 
 void sf_c2_AutoFollow_Simulation_get_check_sum(mxArray *plhs[])
 {
-  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(2828453615U);
-  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(2464242674U);
-  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(4229331138U);
-  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(441967332U);
+  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(2668571522U);
+  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(1534842549U);
+  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(3919260431U);
+  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(2760712708U);
 }
 
 mxArray *sf_c2_AutoFollow_Simulation_get_autoinheritance_info(void)
@@ -2256,7 +2256,7 @@ mxArray *sf_c2_AutoFollow_Simulation_get_autoinheritance_info(void)
     autoinheritanceFields);
 
   {
-    mxArray *mxChecksum = mxCreateString("sfm7xB1DclXufWrOSjKMZD");
+    mxArray *mxChecksum = mxCreateString("gDu2lb4Pwa9FamRjWg9iYH");
     mxSetField(mxAutoinheritanceInfo,0,"checksum",mxChecksum);
   }
 
@@ -2594,7 +2594,7 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
 
         /* Initialization of MATLAB Function Model Coverage */
         _SFD_CV_INIT_EML(0,1,1,2,0,0,0,1,0,0,0);
-        _SFD_CV_INIT_EML_FCN(0,0,"eML_blk_kernel",0,-1,2516);
+        _SFD_CV_INIT_EML_FCN(0,0,"eML_blk_kernel",0,-1,2522);
         _SFD_CV_INIT_EML_IF(0,1,0,1966,1984,-1,2233);
         _SFD_CV_INIT_EML_IF(0,1,1,2418,2427,-1,2444);
         _SFD_CV_INIT_EML_FOR(0,1,0,1940,1962,2237);
@@ -2678,7 +2678,7 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
 
 static const char* sf_get_instance_specialization(void)
 {
-  return "YjyGK2g4frignzJ2s5J4XB";
+  return "PrOzj2qoNre80HrH1n1d3D";
 }
 
 static void sf_opaque_initialize_c2_AutoFollow_Simulation(void *chartInstanceVar)
@@ -2868,10 +2868,10 @@ static void mdlSetWorkWidths_c2_AutoFollow_Simulation(SimStruct *S)
   }
 
   ssSetOptions(S,ssGetOptions(S)|SS_OPTION_WORKS_WITH_CODE_REUSE);
-  ssSetChecksum0(S,(813555687U));
-  ssSetChecksum1(S,(4038843272U));
-  ssSetChecksum2(S,(2755022126U));
-  ssSetChecksum3(S,(2461781112U));
+  ssSetChecksum0(S,(1289710821U));
+  ssSetChecksum1(S,(2196778669U));
+  ssSetChecksum2(S,(421948344U));
+  ssSetChecksum3(S,(2682800697U));
   ssSetmdlDerivatives(S, NULL);
   ssSetExplicitFCSSCtrl(S,1);
   ssSupportsMultipleExecInstances(S,1);

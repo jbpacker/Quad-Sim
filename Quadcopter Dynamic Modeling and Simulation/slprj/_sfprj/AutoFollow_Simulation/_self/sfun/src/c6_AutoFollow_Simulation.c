@@ -5543,10 +5543,10 @@ extern void utFree(void*);
 
 void sf_c6_AutoFollow_Simulation_get_check_sum(mxArray *plhs[])
 {
-  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(2358405197U);
-  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(3634011401U);
-  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(1044684090U);
-  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(553701235U);
+  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(191353763U);
+  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(1189327731U);
+  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(3662920376U);
+  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(3603631735U);
 }
 
 mxArray *sf_c6_AutoFollow_Simulation_get_autoinheritance_info(void)
@@ -5912,7 +5912,7 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
 
 static const char* sf_get_instance_specialization(void)
 {
-  return "6qQ1mOSRx4m5QZJvQwNJg";
+  return "XdKwcB9kmXRzJlMnfX6zrG";
 }
 
 static void sf_opaque_initialize_c6_AutoFollow_Simulation(void *chartInstanceVar)
@@ -6102,10 +6102,10 @@ static void mdlSetWorkWidths_c6_AutoFollow_Simulation(SimStruct *S)
   }
 
   ssSetOptions(S,ssGetOptions(S)|SS_OPTION_WORKS_WITH_CODE_REUSE);
-  ssSetChecksum0(S,(3739002868U));
-  ssSetChecksum1(S,(3038348833U));
-  ssSetChecksum2(S,(199734950U));
-  ssSetChecksum3(S,(721158143U));
+  ssSetChecksum0(S,(4224929447U));
+  ssSetChecksum1(S,(2649680680U));
+  ssSetChecksum2(S,(3766885326U));
+  ssSetChecksum3(S,(1614515400U));
   ssSetmdlDerivatives(S, NULL);
   ssSetExplicitFCSSCtrl(S,1);
   ssSupportsMultipleExecInstances(S,1);

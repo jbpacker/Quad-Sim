@@ -17,6 +17,9 @@
 struct SfDebugInstanceStruct;
 extern struct SfDebugInstanceStruct* sfGlobalDebugInstanceStruct;
 
+/* Auxiliary Header Files */
+#include <stdio.h>
+
 /* Type Definitions */
 
 /* Named Constants */

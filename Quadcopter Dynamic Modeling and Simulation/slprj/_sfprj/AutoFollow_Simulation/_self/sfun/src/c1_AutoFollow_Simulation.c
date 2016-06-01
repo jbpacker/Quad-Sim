@@ -481,8 +481,6 @@ static void c1_chartstep_c1_AutoFollow_Simulation
   real_T c1_psi;
   const mxArray *c1_y = NULL;
   static c1_s2aqkGCuE38RBomNVWBcX1B c1_r0;
-  const mxArray *c1_b_y = NULL;
-  static c1_s2aqkGCuE38RBomNVWBcX1B c1_r1;
   int32_T c1_i0;
   real_T c1_b_Jq;
   real_T c1_b_Iq;
@@ -580,12 +578,12 @@ static void c1_chartstep_c1_AutoFollow_Simulation
   real_T c1_A;
   real_T c1_B;
   real_T c1_ic_x;
-  real_T c1_c_y;
+  real_T c1_b_y;
   real_T c1_jc_x;
-  real_T c1_d_y;
+  real_T c1_c_y;
   real_T c1_kc_x;
+  real_T c1_d_y;
   real_T c1_e_y;
-  real_T c1_f_y;
   real_T *c1_b_psi;
   real_T *c1_b_theta;
   real_T *c1_b_r;
@@ -707,16 +705,6 @@ static void c1_chartstep_c1_AutoFollow_Simulation
                         (sfGlobalDebugInstanceStruct, "load", 1U, 1U, 14, c1_y),
                         "load", &c1_r0);
   c1_map = c1_r0;
-  _SFD_SYMBOL_SWITCH(2U, 2U);
-  _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 9);
-  _SFD_SYMBOL_SWITCH(2U, 2U);
-  c1_b_y = NULL;
-  sf_mex_assign(&c1_b_y, sf_mex_create("y", "./Lidar/ObstacleMap/clearmap.mat",
-    15, 0U, 0U, 0U, 2, 1, strlen("./Lidar/ObstacleMap/clearmap.mat")), false);
-  c1_n_emlrt_marshallIn(chartInstance, sf_mex_call_debug
-                        (sfGlobalDebugInstanceStruct, "load", 1U, 1U, 14, c1_b_y),
-                        "load", &c1_r1);
-  c1_map = c1_r1;
   _SFD_SYMBOL_SWITCH(2U, 2U);
   _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 10);
   for (c1_i0 = 0; c1_i0 < 10000; c1_i0++) {
@@ -948,13 +936,13 @@ static void c1_chartstep_c1_AutoFollow_Simulation
     c1_A = c1_p[2];
     c1_B = c1_r;
     c1_ic_x = c1_A;
-    c1_c_y = c1_B;
+    c1_b_y = c1_B;
     c1_jc_x = c1_ic_x;
-    c1_d_y = c1_c_y;
+    c1_c_y = c1_b_y;
     c1_kc_x = c1_jc_x;
-    c1_e_y = c1_d_y;
-    c1_f_y = c1_kc_x / c1_e_y;
-    c1_psi = c1_f_y;
+    c1_d_y = c1_c_y;
+    c1_e_y = c1_kc_x / c1_d_y;
+    c1_psi = c1_e_y;
     c1_b_acos(chartInstance, &c1_psi);
     _SFD_EML_CALL(0U, chartInstance->c1_sfEvent, 43);
     chartInstance->c1_r_prev = c1_r;
@@ -1499,13 +1487,13 @@ static void init_script_number_translation(uint32_T c1_machineNumber, uint32_T
   (void)c1_machineNumber;
   _SFD_SCRIPT_TRANSLATION(c1_chartNumber, c1_instanceNumber, 0U,
     sf_debug_get_script_id(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"));
   _SFD_SCRIPT_TRANSLATION(c1_chartNumber, c1_instanceNumber, 1U,
     sf_debug_get_script_id(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"));
   _SFD_SCRIPT_TRANSLATION(c1_chartNumber, c1_instanceNumber, 2U,
     sf_debug_get_script_id(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"));
 }
 
 static const mxArray *c1_sf_marshallOut(void *chartInstanceVoid, void *c1_inData)
@@ -2478,9 +2466,9 @@ static void c1_info_helper(const mxArray **c1_info)
   sf_mex_addfield(*c1_info, c1_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 0);
   sf_mex_addfield(*c1_info, c1_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
                   "resolved", "resolved", 0);
-  sf_mex_addfield(*c1_info, c1_b_emlrt_marshallOut(1463947193U), "fileTimeLo",
+  sf_mex_addfield(*c1_info, c1_b_emlrt_marshallOut(1464659354U), "fileTimeLo",
                   "fileTimeLo", 0);
   sf_mex_addfield(*c1_info, c1_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 0);
@@ -2493,7 +2481,7 @@ static void c1_info_helper(const mxArray **c1_info)
   sf_mex_addfield(*c1_info, sf_mex_duplicatearraysafe(&c1_rhs0), "rhs", "rhs", 0);
   sf_mex_addfield(*c1_info, sf_mex_duplicatearraysafe(&c1_lhs0), "lhs", "lhs", 0);
   sf_mex_addfield(*c1_info, c1_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
                   "context", "context", 1);
   sf_mex_addfield(*c1_info, c1_emlrt_marshallOut("mrdivide"), "name", "name", 1);
   sf_mex_addfield(*c1_info, c1_emlrt_marshallOut("double"), "dominantType",
@@ -2644,7 +2632,7 @@ static void c1_info_helper(const mxArray **c1_info)
   sf_mex_addfield(*c1_info, sf_mex_duplicatearraysafe(&c1_rhs7), "rhs", "rhs", 7);
   sf_mex_addfield(*c1_info, sf_mex_duplicatearraysafe(&c1_lhs7), "lhs", "lhs", 7);
   sf_mex_addfield(*c1_info, c1_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
                   "context", "context", 8);
   sf_mex_addfield(*c1_info, c1_emlrt_marshallOut("round"), "name", "name", 8);
   sf_mex_addfield(*c1_info, c1_emlrt_marshallOut("double"), "dominantType",
@@ -2716,9 +2704,9 @@ static void c1_info_helper(const mxArray **c1_info)
   sf_mex_addfield(*c1_info, c1_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 11);
   sf_mex_addfield(*c1_info, c1_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"),
                   "resolved", "resolved", 11);
-  sf_mex_addfield(*c1_info, c1_b_emlrt_marshallOut(1464672842U), "fileTimeLo",
+  sf_mex_addfield(*c1_info, c1_b_emlrt_marshallOut(1464661458U), "fileTimeLo",
                   "fileTimeLo", 11);
   sf_mex_addfield(*c1_info, c1_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 11);
@@ -2733,7 +2721,7 @@ static void c1_info_helper(const mxArray **c1_info)
   sf_mex_addfield(*c1_info, sf_mex_duplicatearraysafe(&c1_lhs11), "lhs", "lhs",
                   11);
   sf_mex_addfield(*c1_info, c1_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"),
                   "context", "context", 12);
   sf_mex_addfield(*c1_info, c1_emlrt_marshallOut("all"), "name", "name", 12);
   sf_mex_addfield(*c1_info, c1_emlrt_marshallOut("logical"), "dominantType",
@@ -2927,9 +2915,9 @@ static void c1_info_helper(const mxArray **c1_info)
   sf_mex_addfield(*c1_info, c1_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 20);
   sf_mex_addfield(*c1_info, c1_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"),
                   "resolved", "resolved", 20);
-  sf_mex_addfield(*c1_info, c1_b_emlrt_marshallOut(1463947193U), "fileTimeLo",
+  sf_mex_addfield(*c1_info, c1_b_emlrt_marshallOut(1464659354U), "fileTimeLo",
                   "fileTimeLo", 20);
   sf_mex_addfield(*c1_info, c1_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 20);
@@ -2944,7 +2932,7 @@ static void c1_info_helper(const mxArray **c1_info)
   sf_mex_addfield(*c1_info, sf_mex_duplicatearraysafe(&c1_lhs20), "lhs", "lhs",
                   20);
   sf_mex_addfield(*c1_info, c1_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"),
                   "context", "context", 21);
   sf_mex_addfield(*c1_info, c1_emlrt_marshallOut("mrdivide"), "name", "name", 21);
   sf_mex_addfield(*c1_info, c1_emlrt_marshallOut("double"), "dominantType",
@@ -5949,10 +5937,10 @@ extern void utFree(void*);
 
 void sf_c1_AutoFollow_Simulation_get_check_sum(mxArray *plhs[])
 {
-  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(751994490U);
-  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(2245957273U);
-  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(4219250871U);
-  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(4078226813U);
+  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(3494172037U);
+  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(3830929822U);
+  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(492461443U);
+  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(2448651505U);
 }
 
 mxArray *sf_c1_AutoFollow_Simulation_get_autoinheritance_info(void)
@@ -5964,7 +5952,7 @@ mxArray *sf_c1_AutoFollow_Simulation_get_autoinheritance_info(void)
     autoinheritanceFields);
 
   {
-    mxArray *mxChecksum = mxCreateString("boxXMWj1nd84qMyDj1YNZ");
+    mxArray *mxChecksum = mxCreateString("fjp74HN0PeFm18HE7ISF1");
     mxSetField(mxAutoinheritanceInfo,0,"checksum",mxChecksum);
   }
 
@@ -6322,17 +6310,17 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
 
         /* Initialization of MATLAB Function Model Coverage */
         _SFD_CV_INIT_EML(0,1,1,1,0,0,0,0,0,2,1);
-        _SFD_CV_INIT_EML_FCN(0,0,"eML_blk_kernel",0,-1,2955);
-        _SFD_CV_INIT_EML_IF(0,1,0,858,903,2845,2951);
+        _SFD_CV_INIT_EML_FCN(0,0,"eML_blk_kernel",0,-1,2957);
+        _SFD_CV_INIT_EML_IF(0,1,0,860,905,2847,2953);
 
         {
-          static int condStart[] = { 861, 881 };
+          static int condStart[] = { 863, 883 };
 
-          static int condEnd[] = { 876, 902 };
+          static int condEnd[] = { 878, 904 };
 
           static int pfixExpr[] = { 0, 1, -2 };
 
-          _SFD_CV_INIT_EML_MCDC(0,1,0,861,903,2,0,&(condStart[0]),&(condEnd[0]),
+          _SFD_CV_INIT_EML_MCDC(0,1,0,863,905,2,0,&(condStart[0]),&(condEnd[0]),
                                 3,&(pfixExpr[0]));
         }
 
@@ -6452,7 +6440,7 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
 
 static const char* sf_get_instance_specialization(void)
 {
-  return "XfeqXlR09XU765x7fCuYS";
+  return "7JMcsrNbpFBNZAY6J4ZKYC";
 }
 
 static void sf_opaque_initialize_c1_AutoFollow_Simulation(void *chartInstanceVar)
@@ -6644,10 +6632,10 @@ static void mdlSetWorkWidths_c1_AutoFollow_Simulation(SimStruct *S)
   }
 
   ssSetOptions(S,ssGetOptions(S)|SS_OPTION_WORKS_WITH_CODE_REUSE);
-  ssSetChecksum0(S,(1363662366U));
-  ssSetChecksum1(S,(3924093266U));
-  ssSetChecksum2(S,(918035180U));
-  ssSetChecksum3(S,(3448784397U));
+  ssSetChecksum0(S,(3054427564U));
+  ssSetChecksum1(S,(3326074209U));
+  ssSetChecksum2(S,(1657516498U));
+  ssSetChecksum3(S,(505521195U));
   ssSetmdlDerivatives(S, NULL);
   ssSetExplicitFCSSCtrl(S,1);
   ssSupportsMultipleExecInstances(S,1);

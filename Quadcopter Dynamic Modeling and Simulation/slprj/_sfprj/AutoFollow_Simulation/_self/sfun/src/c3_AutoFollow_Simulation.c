@@ -691,11 +691,12 @@ static void c3_chartstep_c3_AutoFollow_Simulation
     c3_Xmax = 25.0;
     _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 14);
     c3_Ymax = 25.0;
-    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 16);
+    _SFD_EML_CALL(0U, chartInstance->c3_sfEvent, 15);
     _SFD_SYMBOL_SWITCH(3U, 3U);
     c3_y = NULL;
-    sf_mex_assign(&c3_y, sf_mex_create("y", "./Lidar/ObstacleMap/clearmap.mat",
-      15, 0U, 0U, 0U, 2, 1, strlen("./Lidar/ObstacleMap/clearmap.mat")), false);
+    sf_mex_assign(&c3_y, sf_mex_create("y",
+      "./Lidar/ObstacleMap/obstaclemap.mat", 15, 0U, 0U, 0U, 2, 1, strlen(
+      "./Lidar/ObstacleMap/obstaclemap.mat")), false);
     c3_emlrt_marshallIn(chartInstance, sf_mex_call_debug
                         (sfGlobalDebugInstanceStruct, "load", 1U, 1U, 14, c3_y),
                         "load", &c3_r0);
@@ -2934,31 +2935,31 @@ static void init_script_number_translation(uint32_T c3_machineNumber, uint32_T
   (void)c3_machineNumber;
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 0U,
     sf_debug_get_script_id(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 1U,
     sf_debug_get_script_id(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 2U,
     sf_debug_get_script_id(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 3U,
     sf_debug_get_script_id(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 4U,
     sf_debug_get_script_id(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 5U,
     sf_debug_get_script_id(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 6U,
     sf_debug_get_script_id(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 7U,
     sf_debug_get_script_id(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"));
   _SFD_SCRIPT_TRANSLATION(c3_chartNumber, c3_instanceNumber, 8U,
     sf_debug_get_script_id(
-    "/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/deg2rad.m"));
+    "/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/deg2rad.m"));
 }
 
 static void c3_emlrt_marshallIn(SFc3_AutoFollow_SimulationInstanceStruct
@@ -5016,9 +5017,9 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 7);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
                   "resolved", "resolved", 7);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1420734410U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464659355U), "fileTimeLo",
                   "fileTimeLo", 7);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 7);
@@ -5031,7 +5032,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_rhs7), "rhs", "rhs", 7);
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs7), "lhs", "lhs", 7);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
                   "context", "context", 8);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("length"), "name", "name", 8);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5052,7 +5053,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_rhs8), "rhs", "rhs", 8);
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs8), "lhs", "lhs", 8);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
                   "context", "context", 9);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("cos"), "name", "name", 9);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5097,7 +5098,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs10), "lhs", "lhs",
                   10);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/robot/se2.m"),
                   "context", "context", 11);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("sin"), "name", "name", 11);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5149,9 +5150,9 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 13);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "resolved", "resolved", 13);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1463973006U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464659354U), "fileTimeLo",
                   "fileTimeLo", 13);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 13);
@@ -5166,7 +5167,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs13), "lhs", "lhs",
                   13);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 14);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mrdivide"), "name", "name", 14);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5189,7 +5190,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs14), "lhs", "lhs",
                   14);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 15);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("round"), "name", "name", 15);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5260,7 +5261,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs17), "lhs", "lhs",
                   17);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 18);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("eml_mtimes_helper"), "name",
                   "name", 18);
@@ -5572,15 +5573,15 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs30), "lhs", "lhs",
                   30);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 31);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("XYtoIJ"), "name", "name", 31);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 31);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
                   "resolved", "resolved", 31);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1463947193U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464659354U), "fileTimeLo",
                   "fileTimeLo", 31);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 31);
@@ -5595,7 +5596,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs31), "lhs", "lhs",
                   31);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
                   "context", "context", 32);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mrdivide"), "name", "name", 32);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5618,7 +5619,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs32), "lhs", "lhs",
                   32);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/XYtoIJ.m"),
                   "context", "context", 33);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("round"), "name", "name", 33);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5641,7 +5642,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs33), "lhs", "lhs",
                   33);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 34);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("cos"), "name", "name", 34);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5664,7 +5665,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs34), "lhs", "lhs",
                   34);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 35);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("sin"), "name", "name", 35);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5687,15 +5688,15 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs35), "lhs", "lhs",
                   35);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 36);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("clipLine"), "name", "name", 36);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 36);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "resolved", "resolved", 36);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1423855490U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464659354U), "fileTimeLo",
                   "fileTimeLo", 36);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 36);
@@ -5710,7 +5711,7 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs36), "lhs", "lhs",
                   36);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 37);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("hypot"), "name", "name", 37);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -5877,16 +5878,16 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs43), "lhs", "lhs",
                   43);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 44);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("intersectLines"), "name",
                   "name", 44);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 44);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines."
-    "m"), "resolved", "resolved", 44);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1423855492U), "fileTimeLo",
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+                  "resolved", "resolved", 44);
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464659354U), "fileTimeLo",
                   "fileTimeLo", 44);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 44);
@@ -5901,8 +5902,8 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs44), "lhs", "lhs",
                   44);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines."
-    "m"), "context", "context", 45);
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+                  "context", "context", 45);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("max"), "name", "name", 45);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 45);
@@ -6068,8 +6069,8 @@ static void c3_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs51), "lhs", "lhs",
                   51);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines."
-    "m"), "context", "context", 52);
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+                  "context", "context", 52);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("bsxfun"), "name", "name", 52);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("function_handle"),
                   "dominantType", "dominantType", 52);
@@ -6654,8 +6655,8 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs64), "lhs", "lhs",
                   64);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines."
-    "m"), "context", "context", 65);
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+                  "context", "context", 65);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("abs"), "name", "name", 65);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 65);
@@ -6725,8 +6726,8 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs67), "lhs", "lhs",
                   67);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines."
-    "m"), "context", "context", 68);
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+                  "context", "context", 68);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("all"), "name", "name", 68);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("logical"), "dominantType",
                   "dominantType", 68);
@@ -6915,8 +6916,8 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs75), "lhs", "lhs",
                   75);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines."
-    "m"), "context", "context", 76);
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+                  "context", "context", 76);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("eml_li_find"), "name", "name",
                   76);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(""), "dominantType",
@@ -7035,8 +7036,8 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs80), "lhs", "lhs",
                   80);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines."
-    "m"), "context", "context", 81);
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/intersectLines.m"),
+                  "context", "context", 81);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("rdivide"), "name", "name", 81);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 81);
@@ -7058,7 +7059,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs81), "lhs", "lhs",
                   81);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 82);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("isfinite"), "name", "name", 82);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -7199,7 +7200,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs87), "lhs", "lhs",
                   87);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 88);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("eml_li_find"), "name", "name",
                   88);
@@ -7318,16 +7319,16 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs92), "lhs", "lhs",
                   92);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 93);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("linePosition"), "name", "name",
                   93);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 93);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
                   "resolved", "resolved", 93);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1423855492U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464659354U), "fileTimeLo",
                   "fileTimeLo", 93);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 93);
@@ -7342,7 +7343,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs93), "lhs", "lhs",
                   93);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
                   "context", "context", 94);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("bsxfun"), "name", "name", 94);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("function_handle"),
@@ -7507,7 +7508,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs100), "lhs", "lhs",
                   100);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
                   "context", "context", 101);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("eps"), "name", "name", 101);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(""), "dominantType",
@@ -7577,7 +7578,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs103), "lhs", "lhs",
                   103);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
                   "context", "context", 104);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("eml_li_find"), "name", "name",
                   104);
@@ -7601,7 +7602,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs104), "lhs", "lhs",
                   104);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/linePosition.m"),
                   "context", "context", 105);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("rdivide"), "name", "name", 105);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(""), "dominantType",
@@ -7693,7 +7694,7 @@ static void c3_b_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs108), "lhs", "lhs",
                   108);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 109);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("sort"), "name", "name", 109);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -8817,7 +8818,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs145), "lhs", "lhs",
                   145);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 146);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mrdivide"), "name", "name",
                   146);
@@ -8841,7 +8842,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs146), "lhs", "lhs",
                   146);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/clipLine.m"),
                   "context", "context", 147);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mean"), "name", "name", 147);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -9220,16 +9221,16 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs162), "lhs", "lhs",
                   162);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 163);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("laserRange"), "name", "name",
                   163);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 163);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"),
                   "resolved", "resolved", 163);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464672842U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464661458U), "fileTimeLo",
                   "fileTimeLo", 163);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 163);
@@ -9244,7 +9245,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs163), "lhs", "lhs",
                   163);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/rvctools/common/laserRange.m"),
                   "context", "context", 164);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("all"), "name", "name", 164);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("logical"), "dominantType",
@@ -9267,7 +9268,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs164), "lhs", "lhs",
                   164);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 165);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("isinf"), "name", "name", 165);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -9290,15 +9291,15 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs165), "lhs", "lhs",
                   165);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 166);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("IJtoXY"), "name", "name", 166);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 166);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"),
                   "resolved", "resolved", 166);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1463947193U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464659354U), "fileTimeLo",
                   "fileTimeLo", 166);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 166);
@@ -9313,7 +9314,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs166), "lhs", "lhs",
                   166);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/IJtoXY.m"),
                   "context", "context", 167);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mrdivide"), "name", "name",
                   167);
@@ -9337,7 +9338,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs167), "lhs", "lhs",
                   167);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 168);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mpower"), "name", "name", 168);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -9550,7 +9551,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs176), "lhs", "lhs",
                   176);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/assignment6/laserScanner.m"),
                   "context", "context", 177);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("sqrt"), "name", "name", 177);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
@@ -9625,9 +9626,9 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("double"), "dominantType",
                   "dominantType", 180);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/deg2rad.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/deg2rad.m"),
                   "resolved", "resolved", 180);
-  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1423855490U), "fileTimeLo",
+  sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(1464659354U), "fileTimeLo",
                   "fileTimeLo", 180);
   sf_mex_addfield(*c3_info, c3_b_emlrt_marshallOut(0U), "fileTimeHi",
                   "fileTimeHi", 180);
@@ -9642,7 +9643,7 @@ static void c3_c_info_helper(const mxArray **c3_info)
   sf_mex_addfield(*c3_info, sf_mex_duplicatearraysafe(&c3_lhs180), "lhs", "lhs",
                   180);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut(
-    "[E]/home/matthew/Documents/gitHub/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/deg2rad.m"),
+    "[E]/Users/jpacker/stash/Quad-Sim/Quadcopter Dynamic Modeling and Simulation/Lidar/geom2d/geom2d/geom2d/deg2rad.m"),
                   "context", "context", 181);
   sf_mex_addfield(*c3_info, c3_emlrt_marshallOut("mrdivide"), "name", "name",
                   181);
@@ -11253,10 +11254,10 @@ extern void utFree(void*);
 
 void sf_c3_AutoFollow_Simulation_get_check_sum(mxArray *plhs[])
 {
-  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(1072542448U);
-  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(3808290715U);
-  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(2888606779U);
-  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(4277399583U);
+  ((real_T *)mxGetPr((plhs[0])))[0] = (real_T)(1739989737U);
+  ((real_T *)mxGetPr((plhs[0])))[1] = (real_T)(2819398364U);
+  ((real_T *)mxGetPr((plhs[0])))[2] = (real_T)(2644371976U);
+  ((real_T *)mxGetPr((plhs[0])))[3] = (real_T)(1520124913U);
 }
 
 mxArray *sf_c3_AutoFollow_Simulation_get_autoinheritance_info(void)
@@ -11268,7 +11269,7 @@ mxArray *sf_c3_AutoFollow_Simulation_get_autoinheritance_info(void)
     autoinheritanceFields);
 
   {
-    mxArray *mxChecksum = mxCreateString("MUTgSGXVgQRTz47ojo4BRG");
+    mxArray *mxChecksum = mxCreateString("7Kd8oesrK2las0RepS9I3F");
     mxSetField(mxAutoinheritanceInfo,0,"checksum",mxChecksum);
   }
 
@@ -11708,7 +11709,7 @@ static void chart_debug_initialization(SimStruct *S, unsigned int
 
 static const char* sf_get_instance_specialization(void)
 {
-  return "bTXtGSNog6ZcIqZotHDAPE";
+  return "4tWW0FSDERlGOv8ZXwIAwB";
 }
 
 static void sf_opaque_initialize_c3_AutoFollow_Simulation(void *chartInstanceVar)
@@ -11894,10 +11895,10 @@ static void mdlSetWorkWidths_c3_AutoFollow_Simulation(SimStruct *S)
   }
 
   ssSetOptions(S,ssGetOptions(S)|SS_OPTION_WORKS_WITH_CODE_REUSE);
-  ssSetChecksum0(S,(838319695U));
-  ssSetChecksum1(S,(3566636456U));
-  ssSetChecksum2(S,(1623545899U));
-  ssSetChecksum3(S,(1230690111U));
+  ssSetChecksum0(S,(1091354165U));
+  ssSetChecksum1(S,(3703371815U));
+  ssSetChecksum2(S,(3081604681U));
+  ssSetChecksum3(S,(2819875028U));
   ssSetmdlDerivatives(S, NULL);
   ssSetExplicitFCSSCtrl(S,1);
   ssSupportsMultipleExecInstances(S,1);

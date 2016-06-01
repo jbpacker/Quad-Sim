@@ -8,6 +8,23 @@
 #include "multiword_types.h"
 
 /* Type Definitions */
+#ifndef struct_sL6LJlPlxhdTxZzXh5NTaQC
+#define struct_sL6LJlPlxhdTxZzXh5NTaQC
+
+struct sL6LJlPlxhdTxZzXh5NTaQC
+{
+  int32_T intNumBits;
+};
+
+#endif                                 /*struct_sL6LJlPlxhdTxZzXh5NTaQC*/
+
+#ifndef typedef_c4_sL6LJlPlxhdTxZzXh5NTaQC
+#define typedef_c4_sL6LJlPlxhdTxZzXh5NTaQC
+
+typedef struct sL6LJlPlxhdTxZzXh5NTaQC c4_sL6LJlPlxhdTxZzXh5NTaQC;
+
+#endif                                 /*typedef_c4_sL6LJlPlxhdTxZzXh5NTaQC*/
+
 #ifndef typedef_SFc4_AutoFollow_SimulationInstanceStruct
 #define typedef_SFc4_AutoFollow_SimulationInstanceStruct
 
