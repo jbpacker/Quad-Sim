@@ -779,9 +779,9 @@ if strcmp(mode,'Start')
 %         scatter3(X - lidarX, Y - lidarY, Z*ones(1,length(lidarX)), 'k');
         
         %FAST VERSION, EXTRA POINTS
-        lidarX = lidarRadius(j,:).*cos(lidarTheta(j,:));
-        lidarY = lidarRadius(j,:).*sin(lidarTheta(j,:));
-        scatter3(X - lidarX, Y - lidarY, Z*ones(1,length(lidarX)), 'k');
+%         lidarX = lidarRadius(j,:).*cos(lidarTheta(j,:));
+%         lidarY = lidarRadius(j,:).*sin(lidarTheta(j,:));
+%         scatter3(X - lidarX, Y - lidarY, Z*ones(1,length(lidarX)), 'k');
         
         %% back to other stuff
         if exist('hu', 'var')
